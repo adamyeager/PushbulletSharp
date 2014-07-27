@@ -39,6 +39,12 @@
         }
 
 
+        public class PushFileErrorMessages
+        {
+            public const string ErrorMakingFileUploadRequest = "There was an error while making a request to upload the file to pushbullet.";
+        }
+
+
         public class HeadersConstants
         {
             public const string AuthorizationKey = "Authorization";
@@ -71,6 +77,13 @@
         public class PushesUrls
         {
             public const string Push = "pushes";
+        }
+
+
+        public class FileUrls
+        {
+            public const string UploadRequest = "upload-request";
+            public const string AmazonAWS = "https://s3.amazonaws.com/pushbullet-uploads";
         }
     }
 }

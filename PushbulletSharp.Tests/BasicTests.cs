@@ -10,14 +10,14 @@ namespace PushbulletSharp.Tests
     [TestClass]
     public class BasicTests
     {
-        public PushbulletManager Manager { get; set; }
+        public PushbulletClient Client { get; set; }
         public string ApiKey { get; set; }
 
         [TestInitialize]
         public void TestInit()
         {
-            ApiKey = "<Your Key Goes Here>";
-            Manager = new PushbulletManager(ApiKey);
+            ApiKey = "v1D9wn0PPHEEKxiPp3e4PHutgAPF4mopQeujxqK4gPgSO";
+            Client = new PushbulletClient(ApiKey);
         }
 
 
@@ -26,30 +26,30 @@ namespace PushbulletSharp.Tests
         [TestMethod]
         public void CurrentUserInfoTest()
         {
-            var response = Manager.CurrentUsersInformation();
+            var response = Client.CurrentUsersInformation();
         }
 
 
         [TestMethod]
         public void DevicesTest()
         {
-            var devices = Manager.CurrentUsersDevices();
+            var devices = Client.CurrentUsersDevices();
         }
 
 
         [TestMethod]
         public void ActiveDevicesTest()
         {
-            var devices = Manager.CurrentUsersActiveDevices();
+            var devices = Client.CurrentUsersActiveDevices();
         }
 
 
         [TestMethod]
         public void PushbulletPushNoteTest()
         {
-            var devices = Manager.CurrentUsersDevices();
+            var devices = Client.CurrentUsersDevices();
 
-            var device = devices.Devices.Where(o => o.manufacturer == "Apple" && o.active).FirstOrDefault();
+            var device = devices.Devices.Where(o => o.manufacturer == "Apple").FirstOrDefault();
 
             if (device != null)
             {
@@ -60,16 +60,16 @@ namespace PushbulletSharp.Tests
                     body = "This is a test from my C# wrapper."
                 };
 
-                var response = Manager.PushNote(reqeust);
+                var response = Client.PushNote(reqeust);
             }
         }
 
         [TestMethod]
         public void PushbulletPushListTest()
         {
-            var devices = Manager.CurrentUsersActiveDevices();
+            var devices = Client.CurrentUsersActiveDevices();
 
-            var device = devices.Devices.Where(o => o.manufacturer == "Apple" && o.active).FirstOrDefault();
+            var device = devices.Devices.Where(o => o.manufacturer == "Apple").FirstOrDefault();
 
             if (device != null)
             {
@@ -83,7 +83,7 @@ namespace PushbulletSharp.Tests
                 reqeust.items.Add("Bread");
                 reqeust.items.Add("Chicken");
 
-                var response = Manager.PushList(reqeust);
+                var response = Client.PushList(reqeust);
             }
         }
 
@@ -91,9 +91,9 @@ namespace PushbulletSharp.Tests
         [TestMethod]
         public void PushbulletPushAddressTest()
         {
-            var devices = Manager.CurrentUsersActiveDevices();
+            var devices = Client.CurrentUsersActiveDevices();
 
-            var device = devices.Devices.Where(o => o.manufacturer == "Apple" && o.active).FirstOrDefault();
+            var device = devices.Devices.Where(o => o.manufacturer == "Apple").FirstOrDefault();
 
             if (device != null)
             {
@@ -104,7 +104,7 @@ namespace PushbulletSharp.Tests
                     address = "1 Infinite Loop, Cupertino, CA 95014"
                 };
 
-                var response = Manager.PushAddress(reqeust);
+                var response = Client.PushAddress(reqeust);
             }
         }
 
@@ -112,9 +112,9 @@ namespace PushbulletSharp.Tests
         [TestMethod]
         public void PushbulletPushLinkTest()
         {
-            var devices = Manager.CurrentUsersActiveDevices();
+            var devices = Client.CurrentUsersActiveDevices();
 
-            var device = devices.Devices.Where(o => o.manufacturer == "Apple" && o.active).FirstOrDefault();
+            var device = devices.Devices.Where(o => o.manufacturer == "Apple").FirstOrDefault();
 
             if (device != null)
             {
@@ -126,7 +126,29 @@ namespace PushbulletSharp.Tests
                     body = "Search the internet."
                 };
 
-                var response = Manager.PushLink(reqeust);
+                var response = Client.PushLink(reqeust);
+            }
+        }
+
+
+        [TestMethod]
+        public void PushbulletPushFileTest()
+        {
+            var devices = Client.CurrentUsersActiveDevices();
+
+            var device = devices.Devices.Where(o => o.manufacturer == "Apple").FirstOrDefault();
+
+            if (device != null)
+            {
+                PushFileRequest request = new PushFileRequest()
+                {
+                    device_iden = device.iden,
+                    file_name = "pblogo.png",
+                    file_type = "iamge/png",
+                    file_path = @"C:\pblogo.png"
+                };
+
+                var response = Client.PushFile(request);
             }
         }
     }

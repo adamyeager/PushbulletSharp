@@ -27,19 +27,11 @@
         public string file_type { get; set; }
 
         /// <summary>
-        /// Gets or sets the file URL.
+        /// Gets or sets the file_path.
         /// </summary>
         /// <value>
-        /// The file URL.
+        /// The file_path.
         /// </value>
-        public string file_url { get; set; }
-
-        /// <summary>
-        /// Gets or sets the body.
-        /// </summary>
-        /// <value>
-        /// The body.
-        /// </value>
-        public string body { get; set; }
+        public string file_path { get; set; }
     }
 }
