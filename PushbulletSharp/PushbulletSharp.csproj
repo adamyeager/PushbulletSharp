@@ -48,11 +48,13 @@
     <Compile Include="Models\Requests\PushListRequest.cs" />
     <Compile Include="Models\Requests\PushNoteRequest.cs" />
     <Compile Include="Models\Requests\PushRequestBase.cs" />
+    <Compile Include="Models\Responses\Contact.cs" />
     <Compile Include="Models\Responses\Device.cs" />
     <Compile Include="Models\Responses\FileUploadResponse.cs" />
     <Compile Include="Models\Responses\GoogleUserInfo.cs" />
     <Compile Include="Models\Responses\PushResponse.cs" />
     <Compile Include="Models\Responses\User.cs" />
+    <Compile Include="Models\Responses\UserContacts.cs" />
     <Compile Include="Models\Responses\UserDevices.cs" />
     <Compile Include="PushbulletClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

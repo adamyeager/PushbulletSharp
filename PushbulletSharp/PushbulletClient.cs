@@ -371,7 +371,7 @@ namespace PushbulletSharp
             var request = (HttpWebRequest)HttpWebRequest.Create(url);
 
             request.Method = "POST";
-            request.ContentType = "application/json";
+            request.ContentType = PushbulletConstants.MimeTypes.Json;
             request.Headers.Add(PushbulletConstants.HeadersConstants.AuthorizationKey, string.Format(PushbulletConstants.HeadersConstants.AuthorizationValue, this.AccessToken));
 
             var encoding = new System.Text.UTF8Encoding();
@@ -446,8 +446,8 @@ namespace PushbulletSharp
                     keyContent = CreateStringContentFromNameValue(FileUploadResponseData.Properties.key, fileUploadResponse.data.key);
                     signatureContent = CreateStringContentFromNameValue(FileUploadResponseData.Properties.signature, fileUploadResponse.data.signature);
                     policyContent = CreateStringContentFromNameValue(FileUploadResponseData.Properties.policy, fileUploadResponse.data.policy);
-                    contentTypeContent = CreateStringContentFromNameValue("Content-Type", fileUploadResponse.file_type);
-                    cacheControlContent = CreateStringContentFromNameValue("Cache-Control", "max-age=31556926");
+                    contentTypeContent = CreateStringContentFromNameValue(PushbulletConstants.AmazonHeaders.ContentType, fileUploadResponse.file_type);
+                    cacheControlContent = CreateStringContentFromNameValue(PushbulletConstants.AmazonHeaders.CacheControl, PushbulletConstants.AmazonHeaders.CacheControlDefaultValue);
 
                     multiPartCont.Add(awsaccesskeyidContent);
                     multiPartCont.Add(aclContent);
@@ -459,7 +459,7 @@ namespace PushbulletSharp
 
                     byte[] fileContents = File.ReadAllBytes(request.file_path);
                     fileContent = new ByteArrayContent(fileContents);
-                    fileContent.Headers.Add("Content-Type", "application/octet-stream");
+                    fileContent.Headers.Add(PushbulletConstants.AmazonHeaders.ContentType, PushbulletConstants.MimeTypes.OctetStream);
                     fileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
                     {
                         Name = string.Format("\"{0}\"", "file"),

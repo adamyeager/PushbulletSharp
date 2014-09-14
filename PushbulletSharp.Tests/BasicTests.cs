@@ -5,7 +5,7 @@ using System.Web.Script.Serialization;
 using PushbulletSharp.Models.Requests;
 using PushbulletSharp.Models.Responses;
 
-namespace PushbulletSharp.Tests
+namespace PushbulletSharp.PrivateTests
 {
     [TestClass]
     public class BasicTests

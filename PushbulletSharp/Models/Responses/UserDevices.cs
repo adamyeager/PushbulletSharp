@@ -4,6 +4,9 @@ namespace PushbulletSharp.Models.Responses
 {
     public class UserDevices
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserDevices"/> class.
+        /// </summary>
         public UserDevices()
         {
             Devices = new List<Device>();
