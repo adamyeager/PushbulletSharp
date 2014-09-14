@@ -76,6 +76,8 @@ namespace PushbulletSharp
 
         #region public methods
 
+        #region User Information Methods
+
         /// <summary>
         /// Currents the users information.
         /// </summary>
@@ -117,6 +119,51 @@ namespace PushbulletSharp
             return result;
         }
 
+        #endregion User Information Methods
+
+
+        #region Contacts Methods
+
+        /// <summary>
+        /// Currents the users contacts.
+        /// </summary>
+        /// <returns></returns>
+        public UserContacts CurrentUsersContacts()
+        {
+            UserContacts result = new UserContacts();
+
+            string jsonResult = GetRequest(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.ContactsUrls.Contacts));
+            result = JsonSerializer.Deserialize<UserContacts>(jsonResult);
+
+            return result;
+        }
+
+
+        public Contact CreateNewContact(CreateContactRequest request)
+        {
+            #region pre-processing
+
+            if (request == null)
+            {
+                throw new ArgumentException("create contact request");
+            }
+
+            #endregion pre-processing
+
+            #region processing
+
+            string requestJson = JsonSerializer.Serialize(request);
+            string responseJson = PostRequest(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.ContactsUrls.Contacts), requestJson);
+            Contact response = JsonSerializer.Deserialize<Contact>(responseJson);
+            return response;
+
+            #endregion processing
+        }
+
+        #endregion Contacts Methods
+
+
+        #region Push Methods
 
         /// <summary>
         /// Pushes the note.
@@ -305,7 +352,8 @@ namespace PushbulletSharp
                 throw;
             }
         }
-          
+
+        #endregion Push Methods
 
         #endregion public methods
 

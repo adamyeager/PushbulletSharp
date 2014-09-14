@@ -57,5 +57,21 @@
         ///   <c>true</c> if active; otherwise, <c>false</c>.
         /// </value>
         public bool active { get; set; }
+
+        /// <summary>
+        /// Gets or sets the image_url.
+        /// </summary>
+        /// <value>
+        /// The image_url.
+        /// </value>
+        public string image_url { get; set; }
+
+        /// <summary>
+        /// Gets or sets the status.
+        /// </summary>
+        /// <value>
+        /// The status.
+        /// </value>
+        public string status { get; set; }
     }
 }

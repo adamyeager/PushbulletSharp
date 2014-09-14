@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\PushbulletConstants.cs" />
+    <Compile Include="Models\Requests\CreateContactRequest.cs" />
     <Compile Include="Models\Requests\PushAddressRequest.cs" />
     <Compile Include="Models\Requests\PushFileRequest.cs" />
     <Compile Include="Models\Requests\PushLinkRequest.cs" />
