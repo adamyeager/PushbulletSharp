@@ -151,34 +151,146 @@ namespace PushbulletSharp
         /// <returns></returns>
         public UserContacts CurrentUsersContacts()
         {
-            UserContacts result = new UserContacts();
+            try
+            {
+                UserContacts result = new UserContacts();
 
-            string jsonResult = GetRequest(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.ContactsUrls.Contacts));
-            result = JsonSerializer.Deserialize<UserContacts>(jsonResult);
+                string jsonResult = GetRequest(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.ContactsUrls.Contacts));
+                result = JsonSerializer.Deserialize<UserContacts>(jsonResult);
 
-            return result;
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
 
+        /// <summary>
+        /// Creates the new contact.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentException">create contact request</exception>
+        /// <exception cref="System.Exception">
+        /// </exception>
         public Contact CreateNewContact(CreateContactRequest request)
         {
-            #region pre-processing
-
-            if (request == null)
+            try
             {
-                throw new ArgumentException("create contact request");
+                #region pre-processing
+
+                if (request == null)
+                {
+                    throw new ArgumentException("create contact request");
+                }
+
+                if (string.IsNullOrWhiteSpace(request.name))
+                {
+                    throw new Exception(PushbulletConstants.CreateContactErrorMessages.ErrorNameProperty);
+                }
+
+                if (string.IsNullOrWhiteSpace(request.email))
+                {
+                    throw new Exception(PushbulletConstants.CreateContactErrorMessages.ErrorEmailProperty);
+                }
+
+                #endregion pre-processing
+
+                #region processing
+
+                string requestJson = JsonSerializer.Serialize(request);
+                string responseJson = PostRequest(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.ContactsUrls.Contacts), requestJson);
+                Contact response = JsonSerializer.Deserialize<Contact>(responseJson);
+                return response;
+
+                #endregion processing
             }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
-            #endregion pre-processing
 
-            #region processing
+        /// <summary>
+        /// Updates the contact.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentException">update contact request</exception>
+        /// <exception cref="System.Exception">
+        /// </exception>
+        public Contact UpdateContact(UpdateContactRequest request)
+        {
+            try
+            {
+                #region pre-processing
 
-            string requestJson = JsonSerializer.Serialize(request);
-            string responseJson = PostRequest(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.ContactsUrls.Contacts), requestJson);
-            Contact response = JsonSerializer.Deserialize<Contact>(responseJson);
-            return response;
+                if(request == null)
+                {
+                    throw new ArgumentException("update contact request");
+                }
 
-            #endregion processing
+                if(string.IsNullOrWhiteSpace(request.contact_iden))
+                {
+                    throw new Exception(PushbulletConstants.UpdateContactErrorMessages.ErrorContactIdenProperty);
+                }
+
+                if(string.IsNullOrWhiteSpace(request.name))
+                {
+                    throw new Exception(PushbulletConstants.UpdateContactErrorMessages.ErrorNameProperty);
+                }
+
+                #endregion pre-processing
+
+
+                #region processing
+
+                string requestJson = JsonSerializer.Serialize(new { name = request.name });
+                string responseJson = PostRequest(string.Format("{0}{1}/{2}", PushbulletConstants.BaseUrl, PushbulletConstants.ContactsUrls.Contacts, request.contact_iden), requestJson);
+                Contact response = JsonSerializer.Deserialize<Contact>(responseJson);
+                return response;
+
+                #endregion processing
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+        public void DeleteContact(DeleteContactRequest request)
+        {
+            try
+            {
+                #region pre-processing
+
+                if(request == null)
+                {
+                    throw new ArgumentException("delete contact request");
+                }
+
+                if (string.IsNullOrWhiteSpace(request.contact_iden))
+                {
+                    throw new Exception(PushbulletConstants.DeleteContactErrorMessages.ErrorContactIdenProperty);
+                }
+
+                #endregion pre-processing
+
+
+                #region processing
+
+                string jsonResult = DeleteRequest(string.Format("{0}{1}/{2}", PushbulletConstants.BaseUrl, PushbulletConstants.ContactsUrls.Contacts, request.contact_iden));
+
+                #endregion processing
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         #endregion Contacts Methods
@@ -442,6 +554,26 @@ namespace PushbulletSharp
             using (var response = request.GetResponse())
             {
                 using (var reader = new StreamReader(response.GetResponseStream()))
+                {
+                    return reader.ReadToEnd();
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Deletes the request.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <returns></returns>
+        private string DeleteRequest(string url)
+        {
+            var request = GetWebRequest(url);
+            request.Method = "DELETE";
+
+            using(var response = request.GetResponse())
+            {
+                using(var reader = new StreamReader(response.GetResponseStream()))
                 {
                     return reader.ReadToEnd();
                 }

@@ -43,12 +43,14 @@
   <ItemGroup>
     <Compile Include="Constants\PushbulletConstants.cs" />
     <Compile Include="Models\Requests\CreateContactRequest.cs" />
+    <Compile Include="Models\Requests\DeleteContactRequest.cs" />
     <Compile Include="Models\Requests\PushAddressRequest.cs" />
     <Compile Include="Models\Requests\PushFileRequest.cs" />
     <Compile Include="Models\Requests\PushLinkRequest.cs" />
     <Compile Include="Models\Requests\PushListRequest.cs" />
     <Compile Include="Models\Requests\PushNoteRequest.cs" />
     <Compile Include="Models\Requests\PushRequestBase.cs" />
+    <Compile Include="Models\Requests\UpdateContactRequest.cs" />
     <Compile Include="Models\Responses\Contact.cs" />
     <Compile Include="Models\Responses\Device.cs" />
     <Compile Include="Models\Responses\FileUploadResponse.cs" />

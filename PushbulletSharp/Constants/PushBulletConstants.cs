@@ -49,6 +49,26 @@
         }
 
 
+        public class CreateContactErrorMessages
+        {
+            public const string ErrorNameProperty = "The name property for creating a new contact is empty. Please provide a name.";
+            public const string ErrorEmailProperty = "The email property for creating a new contact is empty. Please provide an email.";
+        }
+
+
+        public class UpdateContactErrorMessages
+        {
+            public const string ErrorContactIdenProperty = "The contact_iden property for updating a contact is empty. Please provide a valid contact_iden.";
+            public const string ErrorNameProperty = "The name property for updating a contact is empty. Please provide a new name.";
+        }
+
+
+        public class DeleteContactErrorMessages
+        {
+            public const string ErrorContactIdenProperty = "The contact_iden property for deleting a contact is empty. Please provide a valid contact_iden.";
+        }
+
+
         public class HeadersConstants
         {
             public const string AuthorizationKey = "Authorization";
