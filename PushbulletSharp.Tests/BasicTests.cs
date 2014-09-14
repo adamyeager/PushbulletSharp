@@ -145,7 +145,8 @@ namespace PushbulletSharp.Tests
                     device_iden = device.iden,
                     file_name = "daftpunk.png",
                     file_type = "image/png",
-                    file_path = @"C:\daftpunk.png"
+                    file_path = @"C:\daftpunk.png",
+                    body = "Work It Harder\r\nMake It Better\r\nDo It Faster"
                 };
 
                 var response = Client.PushFile(request);
