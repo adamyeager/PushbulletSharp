@@ -16,7 +16,7 @@ namespace PushbulletSharp.Tests
         [TestInitialize]
         public void TestInit()
         {
-            ApiKey = "v1D9wn0PPHEEKxiPp3e4PHutgAPF4mopQeujxqK4gPgSO";
+            ApiKey = "--YOURKEYGOESHERE--";
             Client = new PushbulletClient(ApiKey);
         }
 
@@ -143,9 +143,9 @@ namespace PushbulletSharp.Tests
                 PushFileRequest request = new PushFileRequest()
                 {
                     device_iden = device.iden,
-                    file_name = "pblogo.png",
-                    file_type = "iamge/png",
-                    file_path = @"C:\pblogo.png"
+                    file_name = "daftpunk.png",
+                    file_type = "image/png",
+                    file_path = @"C:\daftpunk.png"
                 };
 
                 var response = Client.PushFile(request);

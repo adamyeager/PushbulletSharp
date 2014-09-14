@@ -33,5 +33,21 @@
         /// The file_path.
         /// </value>
         public string file_path { get; set; }
+
+        /// <summary>
+        /// Gets or sets the file_url.
+        /// </summary>
+        /// <value>
+        /// The file_url.
+        /// </value>
+        public string file_url { get; set; }
+
+        /// <summary>
+        /// Gets or sets the body.
+        /// </summary>
+        /// <value>
+        /// The body.
+        /// </value>
+        public string body { get; set; }
     }
 }

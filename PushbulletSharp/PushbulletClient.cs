@@ -1,14 +1,11 @@
 ﻿using PushbulletSharp.Models.Requests;
 using PushbulletSharp.Models.Responses;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Script.Serialization;
 
@@ -283,7 +280,7 @@ namespace PushbulletSharp
         /// <param name="request">The request.</param>
         /// <returns></returns>
         /// <exception cref="System.ArgumentNullException">file request</exception>
-        public string PushFile(PushFileRequest request)
+        public PushResponse PushFile(PushFileRequest request)
         {
             if (request == null)
             {
@@ -299,14 +296,14 @@ namespace PushbulletSharp
 
             try
             {
-                PushFileToAmazonAWS(request.file_path, uploadRequestResponse);
+                PushFileToAmazonAWS(request, uploadRequestResponse);
+                request.file_url = uploadRequestResponse.file_url;
+                return PostPushRequest(JsonSerializer.Serialize(request));
             }
             catch (Exception)
             {
                 throw;
             }
-
-            return "";
         }
           
 
@@ -423,28 +420,63 @@ namespace PushbulletSharp
         }
 
 
-        private void PushFileToAmazonAWS(string filePath, FileUploadResponse fileUploadResponse)
+        /// <summary>
+        /// Pushes the file to amazon aws.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="fileUploadResponse">The file upload response.</param>
+        /// <exception cref="System.Exception"></exception>
+        private void PushFileToAmazonAWS(PushFileRequest request, FileUploadResponse fileUploadResponse)
         {
+            StringContent awsaccesskeyidContent = null;
+            StringContent aclContent = null;
+            StringContent keyContent = null;
+            StringContent signatureContent = null;
+            StringContent policyContent = null;
+            StringContent contentTypeContent = null;
+            StringContent cacheControlContent = null;
+            ByteArrayContent fileContent = null;
+
             try
             {
-                using (var requestMessage = new HttpRequestMessage(HttpMethod.Post, new Uri(PushbulletConstants.FileUrls.AmazonAWS)))
+                using (var multiPartCont = new MultipartFormDataContent())
                 {
-                    requestMessage.Headers.ExpectContinue = false;
+                    awsaccesskeyidContent = CreateStringContentFromNameValue(FileUploadResponseData.Properties.awsaccesskeyid, fileUploadResponse.data.awsaccesskeyid);
+                    aclContent = CreateStringContentFromNameValue(FileUploadResponseData.Properties.acl, fileUploadResponse.data.acl);
+                    keyContent = CreateStringContentFromNameValue(FileUploadResponseData.Properties.key, fileUploadResponse.data.key);
+                    signatureContent = CreateStringContentFromNameValue(FileUploadResponseData.Properties.signature, fileUploadResponse.data.signature);
+                    policyContent = CreateStringContentFromNameValue(FileUploadResponseData.Properties.policy, fileUploadResponse.data.policy);
+                    contentTypeContent = CreateStringContentFromNameValue("Content-Type", fileUploadResponse.file_type);
+                    cacheControlContent = CreateStringContentFromNameValue("Cache-Control", "max-age=31556926");
 
-                    using (var multiPartCont = new MultipartFormDataContent())
+                    multiPartCont.Add(awsaccesskeyidContent);
+                    multiPartCont.Add(aclContent);
+                    multiPartCont.Add(keyContent);
+                    multiPartCont.Add(signatureContent);
+                    multiPartCont.Add(policyContent);
+                    multiPartCont.Add(contentTypeContent);
+                    multiPartCont.Add(cacheControlContent);
+
+                    byte[] fileContents = File.ReadAllBytes(request.file_path);
+                    fileContent = new ByteArrayContent(fileContents);
+                    fileContent.Headers.Add("Content-Type", "application/octet-stream");
+                    fileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
                     {
-                        multiPartCont.Add(CreateStringContentFromNameValue("awsaccesskeyid", fileUploadResponse.data.awsaccesskeyid));
-                        multiPartCont.Add(CreateStringContentFromNameValue("acl", fileUploadResponse.data.acl));
-                        multiPartCont.Add(CreateStringContentFromNameValue("key", fileUploadResponse.data.key));
-                        multiPartCont.Add(CreateStringContentFromNameValue("signature", fileUploadResponse.data.signature));
-                        multiPartCont.Add(CreateStringContentFromNameValue("policy", fileUploadResponse.data.policy));
-                        multiPartCont.Add(CreateStringContentFromNameValue("content", fileUploadResponse.file_type));
-                        multiPartCont.Add(CreateFileHttpContentFromFilePath(filePath));
+                        Name = string.Format("\"{0}\"", "file"),
+                        FileName = string.Format("\"{0}\"", request.file_name)
+                    };
 
-                        using (var httpClient = new HttpClient())
+                    multiPartCont.Add(fileContent);
+
+                    using (var httpClient = new HttpClient())
+                    {
+                        Task<HttpResponseMessage> httpRequest = httpClient.PostAsync(PushbulletConstants.FileUrls.AmazonAWS, multiPartCont);
+                        HttpResponseMessage httpResponse = httpRequest.Result;
+
+                        Task<string> xmlContentResponse = httpResponse.Content.ReadAsStringAsync();
+                        if(!string.IsNullOrWhiteSpace(xmlContentResponse.Result))
                         {
-                            Task<HttpResponseMessage> httpRequest = httpClient.SendAsync(requestMessage, HttpCompletionOption.ResponseContentRead, CancellationToken.None);
-                            HttpResponseMessage httpResponse = httpRequest.Result;
+                            throw new Exception(xmlContentResponse.Result);
                         }
                     }
                 }
@@ -453,25 +485,41 @@ namespace PushbulletSharp
             {
                 throw;
             }
-        }
-
-
-        /// <summary>
-        /// Creates the file HTTP content from file path.
-        /// </summary>
-        /// <param name="filePath">The file path.</param>
-        /// <returns></returns>
-        private ByteArrayContent CreateFileHttpContentFromFilePath(string filePath)
-        {
-            byte[] fileContents = File.ReadAllBytes(filePath);
-            ByteArrayContent content = new ByteArrayContent(fileContents);
-            content.Headers.Add("Content-Type", "application/octet-stream");
-            content.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
+            finally
             {
-                Name = "\"file\"",
-                FileName = string.Format("\"{0}\"", Path.GetFileName(filePath))
-            };
-            return content;
+                if (awsaccesskeyidContent != null)
+                {
+                    awsaccesskeyidContent.Dispose();
+                }
+                if (aclContent != null)
+                {
+                    aclContent.Dispose();
+                }
+                if (keyContent != null)
+                {
+                    keyContent.Dispose();
+                }
+                if (signatureContent != null)
+                {
+                    signatureContent.Dispose();
+                }
+                if (policyContent != null)
+                {
+                    policyContent.Dispose();
+                }
+                if (contentTypeContent != null)
+                {
+                    contentTypeContent.Dispose();
+                }
+                if (cacheControlContent != null)
+                {
+                    cacheControlContent.Dispose();
+                }
+                if (fileContent != null)
+                {
+                    fileContent.Dispose();
+                }
+            }
         }
 
 
@@ -483,14 +531,12 @@ namespace PushbulletSharp
         /// <returns></returns>
         private StringContent CreateStringContentFromNameValue(string name, string value)
         {
-            using (var content = new StringContent(value))
+            var content = new StringContent(value);
+            content.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
             {
-                content.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
-                {
-                    Name = string.Format("\"{0}\"", name)
-                };
-                return content;
-            }
+                Name = string.Format("\"{0}\"", name)
+            };
+            return content;
         }
 
         #endregion private methods

@@ -67,6 +67,15 @@
 
     internal class FileUploadResponseData
     {
+        internal class Properties
+        {
+            internal const string awsaccesskeyid = "awsaccesskeyid";
+            internal const string acl = "acl";
+            internal const string key = "key";
+            internal const string signature = "signature";
+            internal const string policy = "policy";
+        }
+
         /// <summary>
         /// Gets or sets the awsaccesskeyid.
         /// </summary>

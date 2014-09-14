@@ -85,5 +85,13 @@
             public const string UploadRequest = "upload-request";
             public const string AmazonAWS = "https://s3.amazonaws.com/pushbullet-uploads";
         }
+
+        
+        public class AmazonHeaders
+        {
+            public const string ContentType = "Content-Type";
+            public const string CacheControl = "Cache-Control";
+            public const string CacheControlDefaultValue = "max-age=31556926";
+        }
     }
 }
