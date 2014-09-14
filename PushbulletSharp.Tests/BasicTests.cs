@@ -152,5 +152,58 @@ namespace PushbulletSharp.PrivateTests
                 var response = Client.PushFile(request);
             }
         }
+
+
+        [TestMethod]
+        public void PushbulletGetContactsTest()
+        {
+            var contacts = Client.CurrentUsersContacts();
+        }
+
+
+        [TestMethod]
+        public void PushbulletCreateContactTest()
+        {
+            CreateContactRequest request = new CreateContactRequest()
+            {
+                name = "Some Person",
+                email = "some.person@aninternetwebsite.com"
+            };
+
+            var result = Client.CreateNewContact(request);
+        }
+
+
+        [TestMethod]
+        public void PushbulletUpdateContactTest()
+        {
+            var contacts = Client.CurrentUsersContacts();
+
+            var contact = contacts.contacts.Where(o => o.email == "some.person@aninternetwebsite.com").FirstOrDefault();
+
+            UpdateContactRequest request = new UpdateContactRequest()
+            {
+                name = "Not A Real Person",
+                contact_iden = contact.iden
+            };
+
+            var result = Client.UpdateContact(request);
+        }
+
+
+        [TestMethod]
+        public void PushbulletDeleteContactTest()
+        {
+            var contacts = Client.CurrentUsersContacts();
+
+            var contact = contacts.contacts.Where(o => o.email == "some.person@aninternetwebsite.com").FirstOrDefault();
+
+            DeleteContactRequest request = new DeleteContactRequest()
+            {
+                contact_iden = contact.iden
+            };
+
+            Client.DeleteContact(request);
+        }
     }
 }

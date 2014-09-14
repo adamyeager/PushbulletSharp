@@ -4,6 +4,13 @@
     {
         public const string BaseUrl = "https://api.pushbullet.com/v2/";
 
+        public class HttpMethods
+        {
+            public const string GET = "GET";
+            public const string POST = "POST";
+            public const string DELETE = "DELETE";
+        }
+
         public class PushRequestErrorMessages
         {
             public const string EmptyDeviceIdenProperty = "The device iden property for the reqeust is empty.";

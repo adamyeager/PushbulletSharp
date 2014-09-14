@@ -86,12 +86,14 @@ namespace PushbulletSharp
         {
             try
             {
-                User result = new User();
+                #region processing
 
+                User result = new User();
                 string jsonResult = GetRequest(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.UsersUrls.Me));
                 result = JsonSerializer.Deserialize<User>(jsonResult);
-
                 return result;
+
+                #endregion processing
             }
             catch (Exception)
             {
@@ -108,12 +110,14 @@ namespace PushbulletSharp
         {
             try
             {
-                UserDevices result = new UserDevices();
+                #region processing
 
+                UserDevices result = new UserDevices();
                 string jsonResult = GetRequest(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.DevicesUrls.Me));
                 result = JsonSerializer.Deserialize<UserDevices>(jsonResult);
-
                 return result;
+
+                #endregion processing
             }
             catch (Exception)
             {
@@ -130,9 +134,13 @@ namespace PushbulletSharp
         {
             try
             {
+                #region processing
+
                 UserDevices result = CurrentUsersDevices();
                 result.Devices = result.Devices.Where(o => o.active).ToList();
                 return result;
+
+                #endregion processing
             }
             catch (Exception)
             {
@@ -153,12 +161,14 @@ namespace PushbulletSharp
         {
             try
             {
-                UserContacts result = new UserContacts();
+                #region processing
 
+                UserContacts result = new UserContacts();
                 string jsonResult = GetRequest(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.ContactsUrls.Contacts));
                 result = JsonSerializer.Deserialize<UserContacts>(jsonResult);
-
                 return result;
+
+                #endregion processing
             }
             catch (Exception)
             {
@@ -308,6 +318,8 @@ namespace PushbulletSharp
         {
             try
             {
+                #region pre-processing
+
                 if (request == null)
                 {
                     throw new ArgumentNullException("note request");
@@ -336,7 +348,14 @@ namespace PushbulletSharp
                     }
                 }
 
+                #endregion pre-processing
+
+
+                #region processing
+
                 return PostPushRequest(JsonSerializer.Serialize(request));
+
+                #endregion processing
             }
             catch (Exception)
             {
@@ -355,6 +374,8 @@ namespace PushbulletSharp
         {
             try
             {
+                #region pre-processing
+
                 if (request == null)
                 {
                     throw new ArgumentNullException("address request");
@@ -383,7 +404,14 @@ namespace PushbulletSharp
                     }
                 }
 
+                #endregion pre-processing
+
+
+                #region processing
+
                 return PostPushRequest(JsonSerializer.Serialize(request));
+
+                #endregion processing
             }
             catch (Exception)
             {
@@ -401,6 +429,8 @@ namespace PushbulletSharp
         {
             try
             {
+                #region pre-processing
+
                 if (request == null)
                 {
                     throw new ArgumentNullException("link request");
@@ -431,7 +461,14 @@ namespace PushbulletSharp
                     //the body property is optional.
                 }
 
+                #endregion pre-processing
+
+
+                #region processing
+
                 return PostPushRequest(JsonSerializer.Serialize(request));
+
+                #endregion processing
             }
             catch (Exception)
             {
@@ -450,6 +487,8 @@ namespace PushbulletSharp
         {
             try
             {
+                #region pre-processing
+
                 if (request == null)
                 {
                     throw new ArgumentNullException("list request");
@@ -473,7 +512,14 @@ namespace PushbulletSharp
                     }
                 }
 
+                #endregion pre-processing
+
+
+                #region processing
+
                 return PostPushRequest(JsonSerializer.Serialize(request));
+
+                #endregion processing
             }
             catch (Exception)
             {
@@ -492,6 +538,8 @@ namespace PushbulletSharp
         {
             try
             {
+                #region pre-processing
+
                 if (request == null)
                 {
                     throw new ArgumentNullException("file request");
@@ -517,6 +565,11 @@ namespace PushbulletSharp
                     throw new Exception(PushbulletConstants.PushFileErrorMessages.EmptyFilePathProperty);
                 }
 
+                #endregion pre-processing
+
+
+                #region processing
+
                 FileUploadResponse uploadRequestResponse = PostFileUploadRequest(request);
 
                 if (uploadRequestResponse.data == null || string.IsNullOrWhiteSpace(uploadRequestResponse.file_url))
@@ -527,6 +580,8 @@ namespace PushbulletSharp
                 PushFileToAmazonAWS(request, uploadRequestResponse);
                 request.file_url = uploadRequestResponse.file_url;
                 return PostPushRequest(JsonSerializer.Serialize(request));
+
+                #endregion processing
             }
             catch (Exception)
             {
@@ -569,7 +624,7 @@ namespace PushbulletSharp
         private string DeleteRequest(string url)
         {
             var request = GetWebRequest(url);
-            request.Method = "DELETE";
+            request.Method = PushbulletConstants.HttpMethods.DELETE;
 
             using(var response = request.GetResponse())
             {
@@ -619,7 +674,7 @@ namespace PushbulletSharp
 
             var request = (HttpWebRequest)HttpWebRequest.Create(url);
 
-            request.Method = "POST";
+            request.Method = PushbulletConstants.HttpMethods.POST;
             request.ContentType = PushbulletConstants.MimeTypes.Json;
             request.Headers.Add(PushbulletConstants.HeadersConstants.AuthorizationKey, string.Format(PushbulletConstants.HeadersConstants.AuthorizationValue, this.AccessToken));
 
