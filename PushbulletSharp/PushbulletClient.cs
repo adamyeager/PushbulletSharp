@@ -141,7 +141,7 @@ namespace PushbulletSharp
                 throw new Exception(PushbulletConstants.PushRequestErrorMessages.EmptyTypeProperty);
             }
 
-            if(!ignoreEmptyFields)
+            if (!ignoreEmptyFields)
             {
                 if(string.IsNullOrWhiteSpace(request.title))
                 {
@@ -285,6 +285,26 @@ namespace PushbulletSharp
             if (request == null)
             {
                 throw new ArgumentNullException("file request");
+            }
+
+            if (string.IsNullOrWhiteSpace(request.device_iden) && string.IsNullOrWhiteSpace(request.email))
+            {
+                throw new Exception(PushbulletConstants.PushRequestErrorMessages.EmptyEmailProperty);
+            }
+
+            if(string.IsNullOrWhiteSpace(request.file_name))
+            {
+                throw new Exception(PushbulletConstants.PushFileErrorMessages.EmptyFileNameProperty);
+            }
+
+            if(string.IsNullOrWhiteSpace(request.file_type))
+            {
+                throw new Exception(PushbulletConstants.PushFileErrorMessages.EmptyFileTypeProperty);
+            }
+
+            if(string.IsNullOrWhiteSpace(request.file_path))
+            {
+                throw new Exception(PushbulletConstants.PushFileErrorMessages.EmptyFilePathProperty);
             }
 
             FileUploadResponse uploadRequestResponse = PostFileUploadRequest(request);
