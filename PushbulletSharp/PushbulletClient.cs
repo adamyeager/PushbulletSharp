@@ -82,12 +82,19 @@ namespace PushbulletSharp
         /// <returns></returns>
         public User CurrentUsersInformation()
         {
-            User result = new User();
+            try
+            {
+                User result = new User();
 
-            string jsonResult = GetRequest(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.UsersUrls.Me));
-            result = JsonSerializer.Deserialize<User>(jsonResult);
+                string jsonResult = GetRequest(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.UsersUrls.Me));
+                result = JsonSerializer.Deserialize<User>(jsonResult);
 
-            return result;
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
 
@@ -97,12 +104,19 @@ namespace PushbulletSharp
         /// <returns></returns>
         public UserDevices CurrentUsersDevices()
         {
-            UserDevices result = new UserDevices();
+            try
+            {
+                UserDevices result = new UserDevices();
 
-            string jsonResult = GetRequest(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.DevicesUrls.Me));
-            result = JsonSerializer.Deserialize<UserDevices>(jsonResult);
+                string jsonResult = GetRequest(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.DevicesUrls.Me));
+                result = JsonSerializer.Deserialize<UserDevices>(jsonResult);
 
-            return result;
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
 
@@ -112,9 +126,16 @@ namespace PushbulletSharp
         /// <returns></returns>
         public UserDevices CurrentUsersActiveDevices()
         {
-            UserDevices result = CurrentUsersDevices();
-            result.Devices = result.Devices.Where(o => o.active).ToList();
-            return result;
+            try
+            {
+                UserDevices result = CurrentUsersDevices();
+                result.Devices = result.Devices.Where(o => o.active).ToList();
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
 
@@ -126,35 +147,42 @@ namespace PushbulletSharp
         /// <exception cref="System.ArgumentNullException">request</exception>
         public PushResponse PushNote(PushNoteRequest request, bool ignoreEmptyFields = false)
         {
-            if(request == null)
+            try
             {
-                throw new ArgumentNullException("note request");
-            }
-
-            if (string.IsNullOrWhiteSpace(request.device_iden) && string.IsNullOrWhiteSpace(request.email))
-            {
-                throw new Exception(PushbulletConstants.PushRequestErrorMessages.EmptyEmailProperty);
-            }
-
-            if(string.IsNullOrWhiteSpace(request.type))
-            {
-                throw new Exception(PushbulletConstants.PushRequestErrorMessages.EmptyTypeProperty);
-            }
-
-            if (!ignoreEmptyFields)
-            {
-                if(string.IsNullOrWhiteSpace(request.title))
+                if (request == null)
                 {
-                    throw new Exception(PushbulletConstants.PushNoteRequestErrorMessages.EmptyTitleProperty);
+                    throw new ArgumentNullException("note request");
                 }
 
-                if(string.IsNullOrWhiteSpace(request.body))
+                if (string.IsNullOrWhiteSpace(request.device_iden) && string.IsNullOrWhiteSpace(request.email))
                 {
-                    throw new Exception(PushbulletConstants.PushNoteRequestErrorMessages.EmptyBodyProperty);
+                    throw new Exception(PushbulletConstants.PushRequestErrorMessages.EmptyEmailProperty);
                 }
-            }
 
-            return PostPushRequest(JsonSerializer.Serialize(request));
+                if (string.IsNullOrWhiteSpace(request.type))
+                {
+                    throw new Exception(PushbulletConstants.PushRequestErrorMessages.EmptyTypeProperty);
+                }
+
+                if (!ignoreEmptyFields)
+                {
+                    if (string.IsNullOrWhiteSpace(request.title))
+                    {
+                        throw new Exception(PushbulletConstants.PushNoteRequestErrorMessages.EmptyTitleProperty);
+                    }
+
+                    if (string.IsNullOrWhiteSpace(request.body))
+                    {
+                        throw new Exception(PushbulletConstants.PushNoteRequestErrorMessages.EmptyBodyProperty);
+                    }
+                }
+
+                return PostPushRequest(JsonSerializer.Serialize(request));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
 
@@ -166,35 +194,42 @@ namespace PushbulletSharp
         /// <exception cref="System.ArgumentNullException">request</exception>
         public PushResponse PushAddress(PushAddressRequest request, bool ignoreEmptyFields = false)
         {
-            if(request == null)
+            try
             {
-                throw new ArgumentNullException("address request");
-            }
-
-            if (string.IsNullOrWhiteSpace(request.device_iden) && string.IsNullOrWhiteSpace(request.email))
-            {
-                throw new Exception(PushbulletConstants.PushRequestErrorMessages.EmptyEmailProperty);
-            }
-
-            if (string.IsNullOrWhiteSpace(request.type))
-            {
-                throw new Exception(PushbulletConstants.PushRequestErrorMessages.EmptyTypeProperty);
-            }
-
-            if (!ignoreEmptyFields)
-            {
-                if (string.IsNullOrWhiteSpace(request.name))
+                if (request == null)
                 {
-                    throw new Exception(PushbulletConstants.PushAddressErrorMessages.EmptyNameProperty);
+                    throw new ArgumentNullException("address request");
                 }
 
-                if (string.IsNullOrWhiteSpace(request.address))
+                if (string.IsNullOrWhiteSpace(request.device_iden) && string.IsNullOrWhiteSpace(request.email))
                 {
-                    throw new Exception(PushbulletConstants.PushAddressErrorMessages.EmptyAddressProperty);
+                    throw new Exception(PushbulletConstants.PushRequestErrorMessages.EmptyEmailProperty);
                 }
-            }
 
-            return PostPushRequest(JsonSerializer.Serialize(request));
+                if (string.IsNullOrWhiteSpace(request.type))
+                {
+                    throw new Exception(PushbulletConstants.PushRequestErrorMessages.EmptyTypeProperty);
+                }
+
+                if (!ignoreEmptyFields)
+                {
+                    if (string.IsNullOrWhiteSpace(request.name))
+                    {
+                        throw new Exception(PushbulletConstants.PushAddressErrorMessages.EmptyNameProperty);
+                    }
+
+                    if (string.IsNullOrWhiteSpace(request.address))
+                    {
+                        throw new Exception(PushbulletConstants.PushAddressErrorMessages.EmptyAddressProperty);
+                    }
+                }
+
+                return PostPushRequest(JsonSerializer.Serialize(request));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         /// <summary>
@@ -205,37 +240,44 @@ namespace PushbulletSharp
         /// <exception cref="System.ArgumentNullException">request</exception>
         public PushResponse PushLink(PushLinkRequest request, bool ignoreEmptyFields = false)
         {
-            if(request == null)
+            try
             {
-                throw new ArgumentNullException("link request");
-            }
-
-            if (string.IsNullOrWhiteSpace(request.device_iden) && string.IsNullOrWhiteSpace(request.email))
-            {
-                throw new Exception(PushbulletConstants.PushRequestErrorMessages.EmptyEmailProperty);
-            }
-
-            if (string.IsNullOrWhiteSpace(request.type))
-            {
-                throw new Exception(PushbulletConstants.PushRequestErrorMessages.EmptyTypeProperty);
-            }
-
-            if (!ignoreEmptyFields)
-            {
-                if (string.IsNullOrWhiteSpace(request.title))
+                if (request == null)
                 {
-                    throw new Exception(PushbulletConstants.PushLinkErrorMessages.EmptyTitleProperty);
+                    throw new ArgumentNullException("link request");
                 }
 
-                if (string.IsNullOrWhiteSpace(request.url))
+                if (string.IsNullOrWhiteSpace(request.device_iden) && string.IsNullOrWhiteSpace(request.email))
                 {
-                    throw new Exception(PushbulletConstants.PushLinkErrorMessages.EmptyUrlProperty);
+                    throw new Exception(PushbulletConstants.PushRequestErrorMessages.EmptyEmailProperty);
                 }
 
-                //the body property is optional.
-            }
+                if (string.IsNullOrWhiteSpace(request.type))
+                {
+                    throw new Exception(PushbulletConstants.PushRequestErrorMessages.EmptyTypeProperty);
+                }
 
-            return PostPushRequest(JsonSerializer.Serialize(request));
+                if (!ignoreEmptyFields)
+                {
+                    if (string.IsNullOrWhiteSpace(request.title))
+                    {
+                        throw new Exception(PushbulletConstants.PushLinkErrorMessages.EmptyTitleProperty);
+                    }
+
+                    if (string.IsNullOrWhiteSpace(request.url))
+                    {
+                        throw new Exception(PushbulletConstants.PushLinkErrorMessages.EmptyUrlProperty);
+                    }
+
+                    //the body property is optional.
+                }
+
+                return PostPushRequest(JsonSerializer.Serialize(request));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
 
@@ -247,30 +289,37 @@ namespace PushbulletSharp
         /// <exception cref="System.ArgumentNullException">list request</exception>
         public PushResponse PushList(PushListRequest request, bool ignoreEmptyFields = false)
         {
-            if (request == null)
+            try
             {
-                throw new ArgumentNullException("list request");
-            }
-
-            if (string.IsNullOrWhiteSpace(request.device_iden) && string.IsNullOrWhiteSpace(request.email))
-            {
-                throw new Exception(PushbulletConstants.PushRequestErrorMessages.EmptyEmailProperty);
-            }
-
-            if (string.IsNullOrWhiteSpace(request.type))
-            {
-                throw new Exception(PushbulletConstants.PushRequestErrorMessages.EmptyTypeProperty);
-            }
-
-            if (!ignoreEmptyFields)
-            {
-                if (string.IsNullOrWhiteSpace(request.title))
+                if (request == null)
                 {
-                    throw new Exception(PushbulletConstants.PushListErrorMessages.EmptyTitleProperty);
+                    throw new ArgumentNullException("list request");
                 }
-            }
 
-            return PostPushRequest(JsonSerializer.Serialize(request));
+                if (string.IsNullOrWhiteSpace(request.device_iden) && string.IsNullOrWhiteSpace(request.email))
+                {
+                    throw new Exception(PushbulletConstants.PushRequestErrorMessages.EmptyEmailProperty);
+                }
+
+                if (string.IsNullOrWhiteSpace(request.type))
+                {
+                    throw new Exception(PushbulletConstants.PushRequestErrorMessages.EmptyTypeProperty);
+                }
+
+                if (!ignoreEmptyFields)
+                {
+                    if (string.IsNullOrWhiteSpace(request.title))
+                    {
+                        throw new Exception(PushbulletConstants.PushListErrorMessages.EmptyTitleProperty);
+                    }
+                }
+
+                return PostPushRequest(JsonSerializer.Serialize(request));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
 
@@ -282,40 +331,40 @@ namespace PushbulletSharp
         /// <exception cref="System.ArgumentNullException">file request</exception>
         public PushResponse PushFile(PushFileRequest request)
         {
-            if (request == null)
-            {
-                throw new ArgumentNullException("file request");
-            }
-
-            if (string.IsNullOrWhiteSpace(request.device_iden) && string.IsNullOrWhiteSpace(request.email))
-            {
-                throw new Exception(PushbulletConstants.PushRequestErrorMessages.EmptyEmailProperty);
-            }
-
-            if(string.IsNullOrWhiteSpace(request.file_name))
-            {
-                throw new Exception(PushbulletConstants.PushFileErrorMessages.EmptyFileNameProperty);
-            }
-
-            if(string.IsNullOrWhiteSpace(request.file_type))
-            {
-                throw new Exception(PushbulletConstants.PushFileErrorMessages.EmptyFileTypeProperty);
-            }
-
-            if(string.IsNullOrWhiteSpace(request.file_path))
-            {
-                throw new Exception(PushbulletConstants.PushFileErrorMessages.EmptyFilePathProperty);
-            }
-
-            FileUploadResponse uploadRequestResponse = PostFileUploadRequest(request);
-
-            if(uploadRequestResponse.data == null || string.IsNullOrWhiteSpace(uploadRequestResponse.file_url))
-            {
-                throw new Exception(PushbulletConstants.PushFileErrorMessages.ErrorMakingFileUploadRequest);
-            }
-
             try
             {
+                if (request == null)
+                {
+                    throw new ArgumentNullException("file request");
+                }
+
+                if (string.IsNullOrWhiteSpace(request.device_iden) && string.IsNullOrWhiteSpace(request.email))
+                {
+                    throw new Exception(PushbulletConstants.PushRequestErrorMessages.EmptyEmailProperty);
+                }
+
+                if (string.IsNullOrWhiteSpace(request.file_name))
+                {
+                    throw new Exception(PushbulletConstants.PushFileErrorMessages.EmptyFileNameProperty);
+                }
+
+                if (string.IsNullOrWhiteSpace(request.file_type))
+                {
+                    throw new Exception(PushbulletConstants.PushFileErrorMessages.EmptyFileTypeProperty);
+                }
+
+                if (string.IsNullOrWhiteSpace(request.file_path))
+                {
+                    throw new Exception(PushbulletConstants.PushFileErrorMessages.EmptyFilePathProperty);
+                }
+
+                FileUploadResponse uploadRequestResponse = PostFileUploadRequest(request);
+
+                if (uploadRequestResponse.data == null || string.IsNullOrWhiteSpace(uploadRequestResponse.file_url))
+                {
+                    throw new Exception(PushbulletConstants.PushFileErrorMessages.ErrorMakingFileUploadRequest);
+                }
+
                 PushFileToAmazonAWS(request, uploadRequestResponse);
                 request.file_url = uploadRequestResponse.file_url;
                 return PostPushRequest(JsonSerializer.Serialize(request));
