@@ -51,8 +51,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="BasicTests.cs" />
+    <Compile Include="ContactsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PushTests.cs" />
+    <Compile Include="TestBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PushbulletSharp\PushbulletSharp.csproj">

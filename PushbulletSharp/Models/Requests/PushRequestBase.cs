@@ -24,6 +24,6 @@
         /// <value>
         /// The type.
         /// </value>
-        public string type { get; set; }
+        public string type { get; protected set; }
     }
 }
