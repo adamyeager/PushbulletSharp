@@ -6,7 +6,7 @@ using System.Linq;
 namespace PushbulletSharp.Tests
 {
     [TestClass]
-    public class BasicTests : TestBase
+    public class PushTests : TestBase
     {
         /// <summary>
         /// Currents the user information test.
