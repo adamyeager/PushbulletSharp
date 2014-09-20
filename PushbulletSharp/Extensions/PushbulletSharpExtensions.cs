@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace PushbulletSharp
 {
-    public class PushbulletSharpExtensions
+    public static class PushbulletSharpExtensions
     {
         public static DateTime UnixTimeToDateTime(this string unixTime)
         {
