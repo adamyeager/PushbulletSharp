@@ -589,6 +589,38 @@ namespace PushbulletSharp
             }
         }
 
+
+        public void GetPushesSinceModifiedTime(DateTime modifiedDate)
+        {
+            try
+            {
+                #region pre-processing
+
+                if(modifiedDate == null)
+                {
+                    throw new ArgumentNullException("modifiedDate");
+                }
+
+                #endregion
+
+
+                #region processing
+
+                DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+                TimeSpan modifiedDateTimeSpan = modifiedDate - epoch;
+                string jsonResult = GetRequest(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.PushesUrls.Push, "?modified_after=", modifiedDateTimeSpan.TotalSeconds));
+                if(string.IsNullOrWhiteSpace(jsonResult))
+                {
+                    throw new Exception("Connect issue.");
+                }
+                #endregion processing
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         #endregion Push Methods
 
         #endregion public methods
