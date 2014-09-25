@@ -25,5 +25,13 @@
         /// The type.
         /// </value>
         public string type { get; protected set; }
+
+        /// <summary>
+        /// Gets or sets the source_device_iden.
+        /// </summary>
+        /// <value>
+        /// The source_device_iden.
+        /// </value>
+        public string source_device_iden { get; set; }
     }
 }
