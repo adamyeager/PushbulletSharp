@@ -52,6 +52,7 @@
     <Compile Include="Models\Requests\PushNoteRequest.cs" />
     <Compile Include="Models\Requests\PushRequestBase.cs" />
     <Compile Include="Models\Requests\UpdateContactRequest.cs" />
+    <Compile Include="Models\Responses\BasicPushResponse.cs" />
     <Compile Include="Models\Responses\Contact.cs" />
     <Compile Include="Models\Responses\Device.cs" />
     <Compile Include="Models\Responses\FileUploadResponse.cs" />

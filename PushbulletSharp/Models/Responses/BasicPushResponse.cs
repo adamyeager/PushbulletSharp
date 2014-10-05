@@ -1,7 +1,6 @@
-﻿using System;
-namespace PushbulletSharp.Models.Responses
+﻿namespace PushbulletSharp.Models.Responses
 {
-    public class PushResponse
+    public class BasicPushResponse
     {
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="PushResponse"/> is active.
@@ -25,7 +24,7 @@ namespace PushbulletSharp.Models.Responses
         /// <value>
         /// The created.
         /// </value>
-        public DateTime created { get; set; }
+        public string created { get; set; }
 
         /// <summary>
         /// Gets or sets the modified.
@@ -33,7 +32,7 @@ namespace PushbulletSharp.Models.Responses
         /// <value>
         /// The modified.
         /// </value>
-        public DateTime modified { get; set; }
+        public string modified { get; set; }
 
         /// <summary>
         /// Gets or sets the type.

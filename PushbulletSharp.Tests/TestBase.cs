@@ -17,6 +17,12 @@ namespace PushbulletSharp.Tests
         {
             ApiKey = "--YOURKEYGOESHERE--";
             Client = new PushbulletClient(ApiKey);
+
+            //Optional pass in your timezone
+            //Client = new PushbulletClient(ApiKey, TimeZoneInfo.Local);
+
+            //Or pass in a specific timezone
+            //Client = new PushbulletClient(ApiKey, TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time"));
         }
     }
 }

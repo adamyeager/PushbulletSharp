@@ -20,11 +20,16 @@ namespace PushbulletSharp
         /// </summary>
         /// <param name="accessToken">The access token.</param>
         /// <exception cref="System.ArgumentNullException">accessToken</exception>
-        public PushbulletClient(string accessToken)
+        public PushbulletClient(string accessToken, TimeZoneInfo timeZoneInfo = null)
         {
             if(string.IsNullOrWhiteSpace(accessToken))
             {
                 throw new ArgumentNullException("accessToken");
+            }
+
+            if(timeZoneInfo != null)
+            {
+                _timeZoneInfo = timeZoneInfo;
             }
 
             _accessToken = accessToken;
@@ -67,6 +72,16 @@ namespace PushbulletSharp
                     _jsonSerializer = new JavaScriptSerializer();
                 }
                 return _jsonSerializer;
+            }
+        }
+
+
+        private TimeZoneInfo _timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("UTC");
+        internal TimeZoneInfo TimeZoneInfo
+        {
+            get
+            {
+                return _timeZoneInfo;
             }
         }
 
@@ -689,7 +704,35 @@ namespace PushbulletSharp
         private PushResponse PostPushRequest(string requestJson)
         {
             string responseJson = PostRequest(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.PushesUrls.Push), requestJson);
-            PushResponse response = JsonSerializer.Deserialize<PushResponse>(responseJson);
+            BasicPushResponse basicResponse = JsonSerializer.Deserialize<BasicPushResponse>(responseJson);
+            PushResponse response = ConvertBasicPushResponse(basicResponse);
+            return response;
+        }
+
+
+        /// <summary>
+        /// Converts the basic push response.
+        /// </summary>
+        /// <param name="basicResponse">The basic response.</param>
+        /// <returns></returns>
+        private PushResponse ConvertBasicPushResponse(BasicPushResponse basicResponse)
+        {
+            PushResponse response = new PushResponse();
+            response.active = basicResponse.active;
+            response.created = TimeZoneInfo.ConvertTimeFromUtc(basicResponse.created.UnixTimeToDateTime(), TimeZoneInfo);
+            response.dismissed = basicResponse.dismissed;
+            response.iden = basicResponse.iden;
+            response.modified = TimeZoneInfo.ConvertTimeFromUtc(basicResponse.modified.UnixTimeToDateTime(), TimeZoneInfo);
+            response.receiver_email = basicResponse.receiver_email;
+            response.receiver_email_normalized = basicResponse.receiver_email_normalized;
+            response.receiver_iden = basicResponse.receiver_iden;
+            response.sender_email = basicResponse.sender_email;
+            response.sender_email_normalized = basicResponse.sender_email_normalized;
+            response.sender_iden = basicResponse.sender_iden;
+            response.sender_name = basicResponse.sender_name;
+            response.source_device_iden = basicResponse.source_device_iden;
+            response.target_device_iden = basicResponse.target_device_iden;
+            response.type = basicResponse.type;
             return response;
         }
 
