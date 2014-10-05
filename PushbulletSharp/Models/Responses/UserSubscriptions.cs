@@ -9,7 +9,7 @@ namespace PushbulletSharp.Models.Responses
         /// </summary>
         public UserSubscriptions()
         {
-            this.subscriptions = new List<Subscription>();
+            this.Subscriptions = new List<Subscription>();
         }
 
         /// <summary>
@@ -18,6 +18,6 @@ namespace PushbulletSharp.Models.Responses
         /// <value>
         /// The subscriptions.
         /// </value>
-        public List<Subscription> subscriptions { get; set; }
+        public List<Subscription> Subscriptions { get; set; }
     }
 }

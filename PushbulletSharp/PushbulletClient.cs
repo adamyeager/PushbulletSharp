@@ -323,6 +323,35 @@ namespace PushbulletSharp
 
         #region Channels Methods
 
+        public Subscription SubscribeToChannel(string channel_tag)
+        {
+            #region pre-processing
+
+            if (string.IsNullOrWhiteSpace(channel_tag))
+            {
+                throw new ArgumentNullException("channel_tag");
+            }
+
+            #endregion pre-processing
+
+
+            #region processing
+
+            ChannelSubscriptionRequest request = new ChannelSubscriptionRequest()
+            {
+                channel_tag = channel_tag
+            };
+
+            string requestJson = JsonSerializer.Serialize(request);
+            string responseJson = PostRequest(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.SubscriptionUrls.Subscriptions), requestJson);
+            var basicResponse = JsonSerializer.Deserialize<BasicSubscription>(responseJson);
+            Subscription result = ConvertFromBasicSubscription(basicResponse);
+            return result;
+
+            #endregion processing
+        }
+
+
         /// <summary>
         /// Get the current user's subscriptions.
         /// </summary>
@@ -338,7 +367,7 @@ namespace PushbulletSharp
                 var basicResult = JsonSerializer.Deserialize<BasicUserSubscriptions>(jsonResult);
                 foreach(var sub in basicResult.subscriptions)
                 {
-                    result.subscriptions.Add(ConvertFromBasicSubscription(sub));
+                    result.Subscriptions.Add(ConvertFromBasicSubscription(sub));
                 }
                 return result;
 

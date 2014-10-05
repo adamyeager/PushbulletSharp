@@ -1,6 +1,6 @@
 ﻿namespace PushbulletSharp.Models.Requests
 {
-    public class ChannelSubscribeRequest
+    public class ChannelSubscriptionRequest
     {
         /// <summary>
         /// Gets or sets the channel_tag.
