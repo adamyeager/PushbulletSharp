@@ -123,6 +123,13 @@
             public const string Contacts = "contacts";
         }
 
+
+        public class SubscriptionUrls
+        {
+            public const string Subscriptions = "subscriptions";
+            public const string ChannelInfo = "channel-info";
+        }
+
         
         public class AmazonHeaders
         {

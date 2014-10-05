@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Constants\PushbulletConstants.cs" />
     <Compile Include="Extensions\PushbulletSharpExtensions.cs" />
+    <Compile Include="Models\Requests\ChannelSubscribeRequest.cs" />
     <Compile Include="Models\Requests\CreateContactRequest.cs" />
     <Compile Include="Models\Requests\DeleteContactRequest.cs" />
     <Compile Include="Models\Requests\PushAddressRequest.cs" />
@@ -53,14 +54,19 @@
     <Compile Include="Models\Requests\PushRequestBase.cs" />
     <Compile Include="Models\Requests\UpdateContactRequest.cs" />
     <Compile Include="Models\Responses\BasicPushResponse.cs" />
+    <Compile Include="Models\Responses\BasicSubscription.cs" />
+    <Compile Include="Models\Responses\BasicUserSubscriptions.cs" />
+    <Compile Include="Models\Responses\Channel.cs" />
     <Compile Include="Models\Responses\Contact.cs" />
     <Compile Include="Models\Responses\Device.cs" />
     <Compile Include="Models\Responses\FileUploadResponse.cs" />
     <Compile Include="Models\Responses\GoogleUserInfo.cs" />
     <Compile Include="Models\Responses\PushResponse.cs" />
+    <Compile Include="Models\Responses\Subscription.cs" />
     <Compile Include="Models\Responses\User.cs" />
     <Compile Include="Models\Responses\UserContacts.cs" />
     <Compile Include="Models\Responses\UserDevices.cs" />
+    <Compile Include="Models\Responses\UserSubscriptions.cs" />
     <Compile Include="PushbulletClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

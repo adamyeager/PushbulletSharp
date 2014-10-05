@@ -321,6 +321,104 @@ namespace PushbulletSharp
         #endregion Contacts Methods
 
 
+        #region Channels Methods
+
+        /// <summary>
+        /// Get the current user's subscriptions.
+        /// </summary>
+        /// <returns></returns>
+        public UserSubscriptions CurrentUsersSubscriptions()
+        {
+            try
+            {
+                #region processing
+
+                UserSubscriptions result = new UserSubscriptions();
+                string jsonResult = GetRequest(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.SubscriptionUrls.Subscriptions));
+                var basicResult = JsonSerializer.Deserialize<BasicUserSubscriptions>(jsonResult);
+                foreach(var sub in basicResult.subscriptions)
+                {
+                    result.subscriptions.Add(ConvertFromBasicSubscription(sub));
+                }
+                return result;
+
+                #endregion processing
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+        private Subscription ConvertFromBasicSubscription(BasicSubscription basicSubscription)
+        {
+            Subscription result = new Subscription();
+            result.active = basicSubscription.active;
+            result.channel = basicSubscription.channel;
+            result.iden = basicSubscription.iden;
+            result.created = TimeZoneInfo.ConvertTimeFromUtc(basicSubscription.created.UnixTimeToDateTime(), TimeZoneInfo);
+            result.modified = TimeZoneInfo.ConvertTimeFromUtc(basicSubscription.modified.UnixTimeToDateTime(), TimeZoneInfo);
+            return result;
+        }
+
+
+        /// <summary>
+        /// Unsubscribes from channel.
+        /// </summary>
+        /// <param name="channel_iden">The channel_iden.</param>
+        /// <exception cref="System.ArgumentException">unsubscribe from channel request</exception>
+        /// <exception cref="System.Exception"></exception>
+        public void UnsubscribeFromChannel(string channel_iden)
+        {
+            #region pre-processing
+
+            if (string.IsNullOrWhiteSpace(channel_iden))
+            {
+                throw new ArgumentNullException("channel_iden");
+            }
+
+            #endregion pre-processing
+
+
+            #region processing
+
+            string jsonResult = DeleteRequest(string.Format("{0}{1}/{2}", PushbulletConstants.BaseUrl, PushbulletConstants.SubscriptionUrls.Subscriptions, channel_iden));
+
+            #endregion processing
+        }
+
+
+        /// <summary>
+        /// Gets the channel information.
+        /// </summary>
+        /// <param name="channel_tag">The channel_tag.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentNullException">channel_tag</exception>
+        public Channel GetChannelInformation(string channel_tag)
+        {
+            #region pre-processing
+
+            if (string.IsNullOrWhiteSpace(channel_tag))
+            {
+                throw new ArgumentNullException("channel_tag");
+            }
+
+            #endregion pre-processing
+
+
+            #region processing
+
+            string jsonResult = GetRequest(string.Format("{0}{1}?tag={2}", PushbulletConstants.BaseUrl, PushbulletConstants.SubscriptionUrls.ChannelInfo, channel_tag));
+            var result = JsonSerializer.Deserialize<Channel>(jsonResult);
+            return result;
+
+            #endregion processing
+        }
+
+        #endregion Channels Methods
+
+
         #region Push Methods
 
         /// <summary>

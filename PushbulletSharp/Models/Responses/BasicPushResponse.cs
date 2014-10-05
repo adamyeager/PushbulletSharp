@@ -1,6 +1,6 @@
 ﻿namespace PushbulletSharp.Models.Responses
 {
-    public class BasicPushResponse
+    internal class BasicPushResponse
     {
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="PushResponse"/> is active.
