@@ -953,7 +953,7 @@ namespace PushbulletSharp
                     signatureContent = CreateStringContentFromNameValue(FileUploadResponseData.Properties.signature, fileUploadResponse.data.signature);
                     policyContent = CreateStringContentFromNameValue(FileUploadResponseData.Properties.policy, fileUploadResponse.data.policy);
                     contentTypeContent = CreateStringContentFromNameValue(PushbulletConstants.AmazonHeaders.ContentType, fileUploadResponse.file_type);
-                    cacheControlContent = CreateStringContentFromNameValue(PushbulletConstants.AmazonHeaders.CacheControl, PushbulletConstants.AmazonHeaders.CacheControlDefaultValue);
+                    //cacheControlContent = CreateStringContentFromNameValue(PushbulletConstants.AmazonHeaders.CacheControl, PushbulletConstants.AmazonHeaders.CacheControlDefaultValue);
 
                     multiPartCont.Add(awsaccesskeyidContent);
                     multiPartCont.Add(aclContent);
@@ -961,7 +961,7 @@ namespace PushbulletSharp
                     multiPartCont.Add(signatureContent);
                     multiPartCont.Add(policyContent);
                     multiPartCont.Add(contentTypeContent);
-                    multiPartCont.Add(cacheControlContent);
+                    //multiPartCont.Add(cacheControlContent);
 
                     byte[] fileContents = File.ReadAllBytes(request.file_path);
                     fileContent = new ByteArrayContent(fileContents);
