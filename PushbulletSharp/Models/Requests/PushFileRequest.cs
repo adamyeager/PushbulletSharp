@@ -1,4 +1,7 @@
-﻿namespace PushbulletSharp.Models.Requests
+﻿using System.IO;
+using System.Web.Script.Serialization;
+
+namespace PushbulletSharp.Models.Requests
 {
     public class PushFileRequest : PushRequestBase
     {
@@ -27,12 +30,13 @@
         public string file_type { get; set; }
 
         /// <summary>
-        /// Gets or sets the file_path.
+        /// Gets or sets the file_stream.
         /// </summary>
         /// <value>
-        /// The file_path.
+        /// The file_stream.
         /// </value>
-        public string file_path { get; set; }
+        [ScriptIgnore]
+        public Stream file_stream { get; set; }
 
         /// <summary>
         /// Gets or sets the file_url.

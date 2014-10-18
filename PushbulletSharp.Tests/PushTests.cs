@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.IO;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PushbulletSharp.Models.Requests;
 using System;
 using System.Linq;
@@ -200,16 +201,19 @@ namespace PushbulletSharp.Tests
                 var device = devices.Devices.Where(o => o.manufacturer == "Apple").FirstOrDefault();
                 Assert.IsNotNull(device, "Could not find the device specified.");
 
-                PushFileRequest request = new PushFileRequest()
-                {
-                    device_iden = device.iden,
-                    file_name = "daftpunk.png",
-                    file_type = "image/png",
-                    file_path = @"C:\daftpunk.png",
-                    body = "Work It Harder\r\nMake It Better\r\nDo It Faster"
-                };
+                using(var fileStream = new FileStream(@"c:\daftpunk.png", FileMode.Open, FileAccess.Read, FileShare.Read)) {
+                    PushFileRequest request = new PushFileRequest()
+                    {
+                        device_iden = device.iden,
+                        file_name = "daftpunk.png",
+                        file_type = "image/png",
+                        file_stream = fileStream,
+                        body = "Work It Harder\r\nMake It Better\r\nDo It Faster"
+                    };
 
-                var response = Client.PushFile(request);
+                    var response = Client.PushFile(request);
+                }
+
             }
             catch (Exception ex)
             {
