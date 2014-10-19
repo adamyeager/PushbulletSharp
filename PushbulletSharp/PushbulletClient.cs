@@ -702,9 +702,14 @@ namespace PushbulletSharp
                     throw new Exception(PushbulletConstants.PushFileErrorMessages.EmptyFileTypeProperty);
                 }
 
-                if (string.IsNullOrWhiteSpace(request.file_path))
+                if (request.file_stream == null)
                 {
-                    throw new Exception(PushbulletConstants.PushFileErrorMessages.EmptyFilePathProperty);
+                    throw new Exception(PushbulletConstants.PushFileErrorMessages.EmptyFileStreamProperty);
+                }
+
+                if (!request.file_stream.CanRead)
+                {
+                  throw new Exception(PushbulletConstants.PushFileErrorMessages.CantReadFileStreamProperty);
                 }
 
                 #endregion pre-processing
@@ -963,8 +968,11 @@ namespace PushbulletSharp
                     multiPartCont.Add(contentTypeContent);
                     //multiPartCont.Add(cacheControlContent);
 
-                    byte[] fileContents = File.ReadAllBytes(request.file_path);
-                    fileContent = new ByteArrayContent(fileContents);
+                    using (var memoryStream = new MemoryStream()) { 
+                      request.file_stream.CopyTo(memoryStream);
+                      fileContent = new ByteArrayContent(memoryStream.ToArray());
+                    }
+
                     fileContent.Headers.Add(PushbulletConstants.AmazonHeaders.ContentType, PushbulletConstants.MimeTypes.OctetStream);
                     fileContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data")
                     {

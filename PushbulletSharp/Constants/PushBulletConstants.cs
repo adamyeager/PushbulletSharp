@@ -51,8 +51,9 @@
             public const string ErrorMakingFileUploadRequest = "There was an error while making a request to upload the file to pushbullet.";
             public const string EmptyFileNameProperty = "The file_name property for the file request is empty. Please provide a file_name.";
             public const string EmptyFileTypeProperty = "The file_type property for the file request is empty. Please provide a file_type.";
-            public const string EmptyFilePathProperty = "The file_path property for the file request is empty. Please provice a valid file_path.";
+            public const string EmptyFileStreamProperty = "The file_stream property for the file request is empty. Please provide a valid file_stream.";
             public const string EmptyBodyProperty = "The body property for the file request is empty. While this is optional, the way you are calling the PushFile method requires you to provide a body.";
+            public const string CantReadFileStreamProperty = "The file_stream for the file request can't be read. Please provide a valid file_stream.";
         }
 
 
