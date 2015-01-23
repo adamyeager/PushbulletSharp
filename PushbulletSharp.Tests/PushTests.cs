@@ -93,6 +93,36 @@ namespace PushbulletSharp.Tests
             }
         }
 
+
+        /// <summary>
+        /// Pushbullets the push note by email test.
+        /// This test shows how to push by using just an email address.
+        /// This will result in all active devices receiving the push.
+        /// </summary>
+        [TestMethod]
+        public void PushbulletPushNoteByEmailTest()
+        {
+            try
+            {
+                var currentUserInformation = Client.CurrentUsersInformation();
+                Assert.IsNotNull(currentUserInformation);
+
+                PushNoteRequest reqeust = new PushNoteRequest()
+                {
+                    email = currentUserInformation.email,
+                    title = "hello world",
+                    body = "This is a test from my C# wrapper."
+                };
+
+                var response = Client.PushNote(reqeust);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.Message);
+            }
+        }
+
+
         /// <summary>
         /// Pushbullets the push list test.
         /// </summary>
@@ -201,7 +231,8 @@ namespace PushbulletSharp.Tests
                 var device = devices.Devices.Where(o => o.manufacturer == "Apple").FirstOrDefault();
                 Assert.IsNotNull(device, "Could not find the device specified.");
 
-                using(var fileStream = new FileStream(@"c:\daftpunk.png", FileMode.Open, FileAccess.Read, FileShare.Read)) {
+                using(var fileStream = new FileStream(@"c:\daftpunk.png", FileMode.Open, FileAccess.Read, FileShare.Read))
+                {
                     PushFileRequest request = new PushFileRequest()
                     {
                         device_iden = device.iden,
