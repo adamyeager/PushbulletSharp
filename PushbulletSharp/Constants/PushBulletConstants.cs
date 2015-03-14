@@ -131,6 +131,12 @@
             public const string ChannelInfo = "channel-info";
         }
 
+
+        public class OAuthUrls
+        {
+            public const string OAuthToken = "oauth2/token";
+        }
+
         
         public class AmazonHeaders
         {
