@@ -984,7 +984,7 @@ namespace PushbulletSharp
 
                     using (var httpClient = new HttpClient())
                     {
-                        Task<HttpResponseMessage> httpRequest = httpClient.PostAsync(PushbulletConstants.FileUrls.AmazonAWS, multiPartCont);
+                        Task<HttpResponseMessage> httpRequest = httpClient.PostAsync(fileUploadResponse.upload_url, multiPartCont);
                         HttpResponseMessage httpResponse = httpRequest.Result;
 
                         Task<string> xmlContentResponse = httpResponse.Content.ReadAsStringAsync();
