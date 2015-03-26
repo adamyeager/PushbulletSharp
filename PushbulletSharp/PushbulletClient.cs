@@ -54,6 +54,10 @@ namespace PushbulletSharp
             {
                 return _accessToken;
             }
+            set
+            {
+                _accessToken = value;
+            }
         }
 
         private JavaScriptSerializer _jsonSerializer;
@@ -770,6 +774,54 @@ namespace PushbulletSharp
 
         #endregion Push Methods
 
+
+        #region OAuth Methods
+
+        /// <summary>
+        /// Requests the token.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentNullException">oauth token request</exception>
+        public OAuthTokenResponse RequestToken(OAuthTokenRequest request)
+        {
+            try
+            {
+                #region pre-processing
+
+                if (request == null)
+                {
+                    throw new ArgumentNullException("oauth token request");
+                }
+
+                #endregion pre-processing
+
+
+                #region processing
+
+                string grantTypeParam = string.Concat("grant_type=", request.grant_type);
+                string clientIdParam = string.Concat("client_id=", request.client_id);
+                string clientSecretParam = string.Concat("client_secret=", request.client_secret);
+                string codeParam = string.Concat("code=", request.code);
+                string jsonResult = PostRequest(string.Concat(PushbulletConstants.BaseUrlNonVersion, PushbulletConstants.OAuthUrls.OAuthToken), grantTypeParam, clientIdParam, clientSecretParam, codeParam);
+                var result = JsonSerializer.Deserialize<OAuthTokenResponse>(jsonResult);
+                return result;
+
+                #endregion processing
+            }
+            catch (WebException ex)
+            {
+                var statusCode = ((HttpWebResponse)ex.Response).StatusCode;
+                throw new Exception(string.Format(PushbulletConstants.OAuthErrorMessages.WebExceptionFormat, statusCode, ex.Message), ex);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        #endregion OAuth Methods
+
         #endregion public methods
 
 
@@ -918,6 +970,58 @@ namespace PushbulletSharp
 
 
         /// <summary>
+        /// Posts the request.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns></returns>
+        private string PostRequest(string url, params string[] parameters)
+        {
+            try
+            {
+                string result = string.Empty;
+
+                var request = (HttpWebRequest)HttpWebRequest.Create(url);
+
+                request.Method = PushbulletConstants.HttpMethods.POST;
+                request.ContentType = PushbulletConstants.MimeTypes.FormUrlEncoded;
+                string postData = string.Join("&", parameters);
+                byte[] bytes = System.Text.Encoding.UTF8.GetBytes(postData);
+                request.ContentLength = bytes.Length;
+
+                using (var requestStream = request.GetRequestStream())
+                {
+                    requestStream.Write(bytes, 0, bytes.Length);
+                }
+
+                request.BeginGetResponse((x) =>
+                {
+                    try
+                    {
+                        using (var response = request.EndGetResponse(x))
+                        {
+                            using (var reader = new StreamReader(response.GetResponseStream()))
+                            {
+                                result = reader.ReadToEnd();
+                            }
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                }, null);
+
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+        /// <summary>
         /// Posts the file upload request.
         /// </summary>
         /// <param name="request">The request.</param>
@@ -958,7 +1062,6 @@ namespace PushbulletSharp
                     signatureContent = CreateStringContentFromNameValue(FileUploadResponseData.Properties.signature, fileUploadResponse.data.signature);
                     policyContent = CreateStringContentFromNameValue(FileUploadResponseData.Properties.policy, fileUploadResponse.data.policy);
                     contentTypeContent = CreateStringContentFromNameValue(PushbulletConstants.AmazonHeaders.ContentType, fileUploadResponse.file_type);
-                    //cacheControlContent = CreateStringContentFromNameValue(PushbulletConstants.AmazonHeaders.CacheControl, PushbulletConstants.AmazonHeaders.CacheControlDefaultValue);
 
                     multiPartCont.Add(awsaccesskeyidContent);
                     multiPartCont.Add(aclContent);
@@ -966,7 +1069,6 @@ namespace PushbulletSharp
                     multiPartCont.Add(signatureContent);
                     multiPartCont.Add(policyContent);
                     multiPartCont.Add(contentTypeContent);
-                    //multiPartCont.Add(cacheControlContent);
 
                     using (var memoryStream = new MemoryStream()) { 
                       request.file_stream.CopyTo(memoryStream);

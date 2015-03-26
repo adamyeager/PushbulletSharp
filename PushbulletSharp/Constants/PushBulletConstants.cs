@@ -3,6 +3,7 @@
     public class PushbulletConstants
     {
         public const string BaseUrl = "https://api.pushbullet.com/v2/";
+        public const string BaseUrlNonVersion = "https://api.pushbullet.com/";
 
         public class HttpMethods
         {
@@ -74,6 +75,12 @@
         public class DeleteContactErrorMessages
         {
             public const string ErrorContactIdenProperty = "The contact_iden property for deleting a contact is empty. Please provide a valid contact_iden.";
+        }
+
+
+        public class OAuthErrorMessages
+        {
+            public const string WebExceptionFormat = "Status code: {0} while trying to request an OAuth token. {1}";
         }
 
 
@@ -150,6 +157,15 @@
         {
             public const string Json = "application/json";
             public const string OctetStream = "application/octet-stream";
+            public const string FormUrlEncoded = "application/x-www-form-urlencoded";
+        }
+
+        public class Defaults
+        {
+            public class OAuth
+            {
+                public const string DefaultGrantType = "authorization_code";
+            }
         }
     }
 }

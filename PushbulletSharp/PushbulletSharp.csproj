@@ -46,6 +46,7 @@
     <Compile Include="Models\Requests\ChannelSubscriptionRequest.cs" />
     <Compile Include="Models\Requests\CreateContactRequest.cs" />
     <Compile Include="Models\Requests\DeleteContactRequest.cs" />
+    <Compile Include="Models\Requests\OAuthTokenRequest.cs" />
     <Compile Include="Models\Requests\PushAddressRequest.cs" />
     <Compile Include="Models\Requests\PushFileRequest.cs" />
     <Compile Include="Models\Requests\PushLinkRequest.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="Models\Responses\Device.cs" />
     <Compile Include="Models\Responses\FileUploadResponse.cs" />
     <Compile Include="Models\Responses\GoogleUserInfo.cs" />
+    <Compile Include="Models\Responses\OAuthTokenResponse.cs" />
     <Compile Include="Models\Responses\PushResponse.cs" />
     <Compile Include="Models\Responses\Subscription.cs" />
     <Compile Include="Models\Responses\User.cs" />
