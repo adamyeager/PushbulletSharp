@@ -360,14 +360,25 @@ namespace PushbulletSharp
         /// Get the current user's subscriptions.
         /// </summary>
         /// <returns></returns>
-        public UserSubscriptions CurrentUsersSubscriptions()
+        public UserSubscriptions CurrentUsersSubscriptions(bool showOnlyActive = false)
         {
             try
             {
+                #region pre-processing
+
+                string additionalQuery = string.Empty;
+
+                if(showOnlyActive)
+                {
+                    additionalQuery = "?active=true";
+                }
+
+                #endregion end pre-processing
+
                 #region processing
 
                 UserSubscriptions result = new UserSubscriptions();
-                string jsonResult = GetRequest(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.SubscriptionUrls.Subscriptions));
+                string jsonResult = GetRequest(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.SubscriptionUrls.Subscriptions, additionalQuery).Trim());
                 var basicResult = JsonSerializer.Deserialize<BasicUserSubscriptions>(jsonResult);
                 foreach(var sub in basicResult.subscriptions)
                 {

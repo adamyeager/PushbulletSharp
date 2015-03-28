@@ -89,5 +89,21 @@
         /// The app_version.
         /// </value>
         public int app_version { get; set; }
+
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString()
+        {
+            if (!string.IsNullOrWhiteSpace(nickname))
+            {
+                return nickname;
+            }
+
+            return base.ToString();
+        }
     }
 }

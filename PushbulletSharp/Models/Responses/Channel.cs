@@ -49,5 +49,21 @@
         /// The image_url.
         /// </value>
         public string image_url { get; set; }
+
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString()
+        {
+            if(!string.IsNullOrWhiteSpace(name))
+            {
+                return name;
+            }
+            
+            return base.ToString();
+        }
     }
 }

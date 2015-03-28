@@ -17,6 +17,9 @@ namespace PushbulletSharp.Tests
             {
                 var subscriptions = Client.CurrentUsersSubscriptions();
                 Assert.IsNotNull(subscriptions);
+
+                var activeSubscriptions = Client.CurrentUsersSubscriptions(true);
+                Assert.IsNotNull(activeSubscriptions);
             }
             catch (Exception ex)
             {
