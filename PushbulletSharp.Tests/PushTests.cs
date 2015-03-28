@@ -54,7 +54,7 @@ namespace PushbulletSharp.Tests
         {
             try
             {
-                var devices = Client.CurrentUsersActiveDevices();
+                var devices = Client.CurrentUsersDevices(true);
                 Assert.IsNotNull(devices);
             }
             catch (Exception ex)

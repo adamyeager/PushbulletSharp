@@ -125,38 +125,26 @@ namespace PushbulletSharp
         /// Currents the users devices.
         /// </summary>
         /// <returns></returns>
-        public UserDevices CurrentUsersDevices()
+        public UserDevices CurrentUsersDevices(bool showActiveOnly = false)
         {
             try
             {
+                #region pre-processing
+
+                string additionalQuery = string.Empty;
+
+                if (showActiveOnly)
+                {
+                    additionalQuery = "?active=true";
+                }
+
+                #endregion end pre-processing
+
                 #region processing
 
                 UserDevices result = new UserDevices();
-                string jsonResult = GetRequest(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.DevicesUrls.Me));
+                string jsonResult = GetRequest(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.DevicesUrls.Me, additionalQuery).Trim());
                 result = JsonSerializer.Deserialize<UserDevices>(jsonResult);
-                return result;
-
-                #endregion processing
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-
-        /// <summary>
-        /// Currents the users active devices.
-        /// </summary>
-        /// <returns></returns>
-        public UserDevices CurrentUsersActiveDevices()
-        {
-            try
-            {
-                #region processing
-
-                UserDevices result = CurrentUsersDevices();
-                result.Devices = result.Devices.Where(o => o.active).ToList();
                 return result;
 
                 #endregion processing
@@ -360,7 +348,7 @@ namespace PushbulletSharp
         /// Get the current user's subscriptions.
         /// </summary>
         /// <returns></returns>
-        public UserSubscriptions CurrentUsersSubscriptions(bool showOnlyActive = false)
+        public UserSubscriptions CurrentUsersSubscriptions(bool showActiveOnly = false)
         {
             try
             {
@@ -368,7 +356,7 @@ namespace PushbulletSharp
 
                 string additionalQuery = string.Empty;
 
-                if(showOnlyActive)
+                if(showActiveOnly)
                 {
                     additionalQuery = "?active=true";
                 }

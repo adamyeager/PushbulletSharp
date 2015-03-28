@@ -29,6 +29,24 @@ namespace PushbulletSharp.Tests
 
 
         /// <summary>
+        /// Pushbullets the get active subscriptions test.
+        /// </summary>
+        [TestMethod]
+        public void PushbulletGetActiveSubscriptionsTest()
+        {
+            try
+            {
+                var activeSubscriptions = Client.CurrentUsersSubscriptions(true);
+                Assert.IsNotNull(activeSubscriptions);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.Message);
+            }
+        }
+
+
+        /// <summary>
         /// Pushbullets the get channel information test.
         /// </summary>
         [TestMethod]
