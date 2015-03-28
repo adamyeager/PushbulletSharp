@@ -81,5 +81,21 @@
         ///   <c>true</c> if verified_email; otherwise, <c>false</c>.
         /// </value>
         public bool verified_email { get; set; }
+
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String" /> that represents this instance.
+        /// </returns>
+        public override string ToString()
+        {
+            if(!string.IsNullOrWhiteSpace(email))
+            {
+                return email;
+            }
+
+            return base.ToString();
+        }
     }
 }
