@@ -27,6 +27,24 @@ namespace PushbulletSharp.Tests
 
 
         /// <summary>
+        /// Pushbullets the get active contacts test.
+        /// </summary>
+        [TestMethod]
+        public void PushbulletGetActiveContactsTest()
+        {
+            try
+            {
+                var contacts = Client.CurrentUsersContacts(true);
+                Assert.IsNotNull(contacts);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.Message);
+            }
+        }
+
+
+        /// <summary>
         /// Pushbullets the create contact test.
         /// </summary>
         [TestMethod]

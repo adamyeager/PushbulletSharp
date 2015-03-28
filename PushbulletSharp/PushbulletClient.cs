@@ -124,6 +124,7 @@ namespace PushbulletSharp
         /// <summary>
         /// Currents the users devices.
         /// </summary>
+        /// <param name="showActiveOnly">if set to <c>true</c> [show active only].</param>
         /// <returns></returns>
         public UserDevices CurrentUsersDevices(bool showActiveOnly = false)
         {
@@ -163,15 +164,27 @@ namespace PushbulletSharp
         /// <summary>
         /// Currents the users contacts.
         /// </summary>
+        /// <param name="showActiveOnly">if set to <c>true</c> [show active only].</param>
         /// <returns></returns>
-        public UserContacts CurrentUsersContacts()
+        public UserContacts CurrentUsersContacts(bool showActiveOnly = false)
         {
             try
             {
+                #region pre-processing
+
+                string additionalQuery = string.Empty;
+
+                if (showActiveOnly)
+                {
+                    additionalQuery = "?active=true";
+                }
+
+                #endregion end pre-processing
+
                 #region processing
 
                 UserContacts result = new UserContacts();
-                string jsonResult = GetRequest(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.ContactsUrls.Contacts));
+                string jsonResult = GetRequest(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.ContactsUrls.Contacts, additionalQuery).Trim());
                 result = JsonSerializer.Deserialize<UserContacts>(jsonResult);
                 return result;
 
@@ -347,6 +360,7 @@ namespace PushbulletSharp
         /// <summary>
         /// Get the current user's subscriptions.
         /// </summary>
+        /// <param name="showActiveOnly">if set to <c>true</c> [show active only].</param>
         /// <returns></returns>
         public UserSubscriptions CurrentUsersSubscriptions(bool showActiveOnly = false)
         {
