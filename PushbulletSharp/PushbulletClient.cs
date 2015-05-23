@@ -772,10 +772,7 @@ namespace PushbulletSharp
                     throw new ArgumentNullException("filter", PushbulletConstants.PushResponseFilterErrorMessages.MissingDateModifiedError);
                 }
 
-                DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-                TimeSpan modifiedDateTimeSpan = filter.ModifiedDate - epoch;
-
-                string additionalQuery = string.Concat("?modified_after=", modifiedDateTimeSpan.TotalSeconds);
+                string additionalQuery = string.Concat("?modified_after=", filter.ModifiedDate.DateTimeToUnixTime());
 
                 if(filter.Active)
                 {

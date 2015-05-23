@@ -74,6 +74,7 @@
     <Compile Include="Models\Responses\UserContacts.cs" />
     <Compile Include="Models\Responses\UserDevices.cs" />
     <Compile Include="Models\Responses\UserSubscriptions.cs" />
+    <Compile Include="Models\Responses\WebSocket\WebSocketResponse.cs" />
     <Compile Include="PushbulletClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

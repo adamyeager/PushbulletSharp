@@ -6,6 +6,15 @@ namespace PushbulletSharp.Filters
     public class PushResponseFilter
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="PushResponseFilter"/> class.
+        /// </summary>
+        public PushResponseFilter()
+        {
+            ModifiedDate = DateTime.Now;
+            Active = true;
+        }
+
+        /// <summary>
         /// Gets or sets the modified date.
         /// </summary>
         /// <value>
