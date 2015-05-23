@@ -1,9 +1,18 @@
 ﻿using PushbulletSharp.Models.Responses;
+using System;
 
 namespace PushbulletSharp.Filters
 {
     public class PushResponseFilter
     {
+        /// <summary>
+        /// Gets or sets the modified date.
+        /// </summary>
+        /// <value>
+        /// The modified date.
+        /// </value>
+        public DateTime ModifiedDate { get; set; }
+
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="PushResponseFilter"/> is active.
         /// </summary>

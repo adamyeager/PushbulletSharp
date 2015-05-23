@@ -58,6 +58,12 @@
         }
 
 
+        public class PushResponseFilterErrorMessages
+        {
+            public const string MissingDateModifiedError = "You must provide a modified date in your filter.";
+        }
+
+
         public class CreateContactErrorMessages
         {
             public const string ErrorNameProperty = "The name property for creating a new contact is empty. Please provide a name.";

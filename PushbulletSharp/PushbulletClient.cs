@@ -756,19 +756,24 @@ namespace PushbulletSharp
         }
 
 
-        public PushResponseContainer GetPushesSinceModifiedTime(DateTime modifiedDate, PushResponseFilter filter)
+        public PushResponseContainer GetPushesSinceModifiedTime(PushResponseFilter filter)
         {
             try
             {
                 #region pre-processing
 
-                if(modifiedDate == null)
+                if (filter == null)
                 {
-                    throw new ArgumentNullException("modifiedDate");
+                    throw new ArgumentNullException("filter");
+                }
+
+                if(filter.ModifiedDate == null)
+                {
+                    throw new ArgumentNullException("filter", PushbulletConstants.PushResponseFilterErrorMessages.MissingDateModifiedError);
                 }
 
                 DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-                TimeSpan modifiedDateTimeSpan = modifiedDate - epoch;
+                TimeSpan modifiedDateTimeSpan = filter.ModifiedDate - epoch;
 
                 string additionalQuery = string.Concat("?modified_after=", modifiedDateTimeSpan.TotalSeconds);
 
