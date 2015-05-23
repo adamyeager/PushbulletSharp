@@ -10,7 +10,7 @@ namespace PushbulletSharp.Filters
         /// </summary>
         public PushResponseFilter()
         {
-            ModifiedDate = DateTime.Now;
+            ModifiedDate = new DateTime(1970, 1, 1);
             Active = true;
         }
 

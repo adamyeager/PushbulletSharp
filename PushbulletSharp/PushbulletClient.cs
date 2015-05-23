@@ -756,7 +756,18 @@ namespace PushbulletSharp
         }
 
 
-        public PushResponseContainer GetPushesSinceModifiedTime(PushResponseFilter filter)
+        /// <summary>
+        /// Gets the pushes.
+        /// </summary>
+        /// <param name="filter">The filter.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentNullException">
+        /// filter
+        /// or
+        /// filter
+        /// </exception>
+        /// <exception cref="System.Exception">Connect issue.</exception>
+        public PushResponseContainer GetPushes(PushResponseFilter filter)
         {
             try
             {
