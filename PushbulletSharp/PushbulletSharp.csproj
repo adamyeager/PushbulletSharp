@@ -33,6 +33,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -43,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Constants\PushbulletConstants.cs" />
     <Compile Include="Extensions\PushbulletSharpExtensions.cs" />
+    <Compile Include="Filters\PushResponseFilter.cs" />
     <Compile Include="Models\Requests\ChannelSubscriptionRequest.cs" />
     <Compile Include="Models\Requests\CreateContactRequest.cs" />
     <Compile Include="Models\Requests\DeleteContactRequest.cs" />
@@ -55,6 +57,7 @@
     <Compile Include="Models\Requests\PushRequestBase.cs" />
     <Compile Include="Models\Requests\UpdateContactRequest.cs" />
     <Compile Include="Models\Responses\BasicPushResponse.cs" />
+    <Compile Include="Models\Responses\BasicPushResponseContainer.cs" />
     <Compile Include="Models\Responses\BasicSubscription.cs" />
     <Compile Include="Models\Responses\BasicUserSubscriptions.cs" />
     <Compile Include="Models\Responses\Channel.cs" />
@@ -62,8 +65,10 @@
     <Compile Include="Models\Responses\Device.cs" />
     <Compile Include="Models\Responses\FileUploadResponse.cs" />
     <Compile Include="Models\Responses\GoogleUserInfo.cs" />
+    <Compile Include="Models\Responses\ListItem.cs" />
     <Compile Include="Models\Responses\OAuthTokenResponse.cs" />
     <Compile Include="Models\Responses\PushResponse.cs" />
+    <Compile Include="Models\Responses\PushResponseContainer.cs" />
     <Compile Include="Models\Responses\Subscription.cs" />
     <Compile Include="Models\Responses\User.cs" />
     <Compile Include="Models\Responses\UserContacts.cs" />

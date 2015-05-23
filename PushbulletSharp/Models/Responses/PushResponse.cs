@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace PushbulletSharp.Models.Responses
 {
     public class PushResponse
@@ -9,7 +11,7 @@ namespace PushbulletSharp.Models.Responses
         /// <value>
         ///   <c>true</c> if active; otherwise, <c>false</c>.
         /// </value>
-        public bool active { get; set; }
+        public bool Active { get; set; }
 
         /// <summary>
         /// Gets or sets the iden.
@@ -17,7 +19,7 @@ namespace PushbulletSharp.Models.Responses
         /// <value>
         /// The iden.
         /// </value>
-        public string iden { get; set; }
+        public string Iden { get; set; }
 
         /// <summary>
         /// Gets or sets the created.
@@ -25,7 +27,7 @@ namespace PushbulletSharp.Models.Responses
         /// <value>
         /// The created.
         /// </value>
-        public DateTime created { get; set; }
+        public DateTime Created { get; set; }
 
         /// <summary>
         /// Gets or sets the modified.
@@ -33,7 +35,7 @@ namespace PushbulletSharp.Models.Responses
         /// <value>
         /// The modified.
         /// </value>
-        public DateTime modified { get; set; }
+        public DateTime Modified { get; set; }
 
         /// <summary>
         /// Gets or sets the type.
@@ -41,7 +43,7 @@ namespace PushbulletSharp.Models.Responses
         /// <value>
         /// The type.
         /// </value>
-        public string type { get; set; }
+        public PushResponseType Type { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="PushResponse"/> is dismissed.
@@ -49,7 +51,15 @@ namespace PushbulletSharp.Models.Responses
         /// <value>
         ///   <c>true</c> if dismissed; otherwise, <c>false</c>.
         /// </value>
-        public bool dismissed { get; set; }
+        public bool Dismissed { get; set; }
+
+        /// <summary>
+        /// Gets or sets the direction.
+        /// </summary>
+        /// <value>
+        /// The direction.
+        /// </value>
+        public string Direction { get; set; }
 
         /// <summary>
         /// Gets or sets the sender_iden.
@@ -57,7 +67,7 @@ namespace PushbulletSharp.Models.Responses
         /// <value>
         /// The sender_iden.
         /// </value>
-        public string sender_iden { get; set; }
+        public string SenderIden { get; set; }
 
         /// <summary>
         /// Gets or sets the sender_email.
@@ -65,7 +75,7 @@ namespace PushbulletSharp.Models.Responses
         /// <value>
         /// The sender_email.
         /// </value>
-        public string sender_email { get; set; }
+        public string SenderEmail { get; set; }
 
         /// <summary>
         /// Gets or sets the sender_email_normalized.
@@ -73,7 +83,7 @@ namespace PushbulletSharp.Models.Responses
         /// <value>
         /// The sender_email_normalized.
         /// </value>
-        public string sender_email_normalized { get; set; }
+        public string SenderEmailNormalized { get; set; }
 
         /// <summary>
         /// Gets or sets the sender_name.
@@ -81,7 +91,7 @@ namespace PushbulletSharp.Models.Responses
         /// <value>
         /// The sender_name.
         /// </value>
-        public string sender_name { get; set; }
+        public string SenderName { get; set; }
 
         /// <summary>
         /// Gets or sets the receiver_iden.
@@ -89,7 +99,7 @@ namespace PushbulletSharp.Models.Responses
         /// <value>
         /// The receiver_iden.
         /// </value>
-        public string receiver_iden { get; set; }
+        public string ReceiverIden { get; set; }
 
         /// <summary>
         /// Gets or sets the receiver_email.
@@ -97,7 +107,7 @@ namespace PushbulletSharp.Models.Responses
         /// <value>
         /// The receiver_email.
         /// </value>
-        public string receiver_email { get; set; }
+        public string ReceiverEmail { get; set; }
 
         /// <summary>
         /// Gets or sets the receiver_email_normalized.
@@ -105,7 +115,7 @@ namespace PushbulletSharp.Models.Responses
         /// <value>
         /// The receiver_email_normalized.
         /// </value>
-        public string receiver_email_normalized { get; set; }
+        public string ReceiverEmailNormalized { get; set; }
 
         /// <summary>
         /// Gets or sets the target_device_iden.
@@ -113,7 +123,7 @@ namespace PushbulletSharp.Models.Responses
         /// <value>
         /// The target_device_iden.
         /// </value>
-        public string target_device_iden { get; set; }
+        public string TargetDeviceIden { get; set; }
 
         /// <summary>
         /// Gets or sets the source_device_iden.
@@ -121,6 +131,114 @@ namespace PushbulletSharp.Models.Responses
         /// <value>
         /// The source_device_iden.
         /// </value>
-        public string source_device_iden { get; set; }
+        public string SourceDeviceIden { get; set; }
+
+        /// <summary>
+        /// Gets or sets the client iden.
+        /// </summary>
+        /// <value>
+        /// The client iden.
+        /// </value>
+        public string ClientIden { get; set; }
+
+        /// <summary>
+        /// Gets or sets the channel iden.
+        /// </summary>
+        /// <value>
+        /// The channel iden.
+        /// </value>
+        public string ChannelIden { get; set; }
+
+        /// <summary>
+        /// Gets or sets the title.
+        /// </summary>
+        /// <value>
+        /// The title.
+        /// </value>
+        public string Title { get; set; }
+
+        /// <summary>
+        /// Gets or sets the body.
+        /// </summary>
+        /// <value>
+        /// The body.
+        /// </value>
+        public string Body { get; set; }
+
+        /// <summary>
+        /// Gets or sets the URL.
+        /// </summary>
+        /// <value>
+        /// The URL.
+        /// </value>
+        public string Url { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the file.
+        /// </summary>
+        /// <value>
+        /// The name of the file.
+        /// </value>
+        public string FileName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type of the file.
+        /// </summary>
+        /// <value>
+        /// The type of the file.
+        /// </value>
+        public string FileType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the file URL.
+        /// </summary>
+        /// <value>
+        /// The file URL.
+        /// </value>
+        public string FileUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the image URL.
+        /// </summary>
+        /// <value>
+        /// The image URL.
+        /// </value>
+        public string ImageUrl { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the address.
+        /// </summary>
+        /// <value>
+        /// The address.
+        /// </value>
+        public string Address { get; set; }
+
+        /// <summary>
+        /// Gets or sets the items.
+        /// </summary>
+        /// <value>
+        /// The items.
+        /// </value>
+        public List<ListItem> Items { get; set; }
+    }
+
+    /// <summary>
+    /// Push Response Types (Note, Link, Address, List, File, etc)
+    /// </summary>
+    public enum PushResponseType
+    {
+        Note,
+        Link,
+        Address,
+        List,
+        File
     }
 }

@@ -51,6 +51,14 @@
         public bool dismissed { get; set; }
 
         /// <summary>
+        /// Gets or sets the direction.
+        /// </summary>
+        /// <value>
+        /// The direction.
+        /// </value>
+        public string direction { get; set; }
+
+        /// <summary>
         /// Gets or sets the sender_iden.
         /// </summary>
         /// <value>
@@ -121,5 +129,107 @@
         /// The source_device_iden.
         /// </value>
         public string source_device_iden { get; set; }
+
+        /// <summary>
+        /// Gets or sets the client_iden.
+        /// </summary>
+        /// <value>
+        /// The client_iden.
+        /// </value>
+        public string client_iden { get; set; }
+
+        /// <summary>
+        /// Gets or sets the channel_iden.
+        /// </summary>
+        /// <value>
+        /// The channel_iden.
+        /// </value>
+        public string channel_iden { get; set; }
+
+        /// <summary>
+        /// Gets or sets the title.
+        /// </summary>
+        /// <value>
+        /// The title.
+        /// </value>
+        public string title { get; set; }
+
+        /// <summary>
+        /// Gets or sets the body.
+        /// </summary>
+        /// <value>
+        /// The body.
+        /// </value>
+        public string body { get; set; }
+
+        /// <summary>
+        /// Gets or sets the URL.
+        /// </summary>
+        /// <value>
+        /// The URL.
+        /// </value>
+        public string url { get; set; }
+
+        /// <summary>
+        /// Gets or sets the file_name.
+        /// </summary>
+        /// <value>
+        /// The file_name.
+        /// </value>
+        public string file_name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the file_type.
+        /// </summary>
+        /// <value>
+        /// The file_type.
+        /// </value>
+        public string file_type { get; set; }
+
+        /// <summary>
+        /// Gets or sets the file_url.
+        /// </summary>
+        /// <value>
+        /// The file_url.
+        /// </value>
+        public string file_url { get; set; }
+
+        /// <summary>
+        /// Gets or sets the image_url.
+        /// </summary>
+        /// <value>
+        /// The image_url.
+        /// </value>
+        public string image_url { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
+        public string name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the address.
+        /// </summary>
+        /// <value>
+        /// The address.
+        /// </value>
+        public string address { get; set; }
+
+        /// <summary>
+        /// Gets or sets the items.
+        /// </summary>
+        /// <value>
+        /// The items.
+        /// </value>
+        public Item[] items { get; set; }
+    }
+
+    internal class Item
+    {
+        public bool Checked { get; set; }
+        public string text { get; set; }
     }
 }

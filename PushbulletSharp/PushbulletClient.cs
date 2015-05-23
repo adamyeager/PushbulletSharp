@@ -1,6 +1,8 @@
-﻿using PushbulletSharp.Models.Requests;
+﻿using PushbulletSharp.Filters;
+using PushbulletSharp.Models.Requests;
 using PushbulletSharp.Models.Responses;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -754,7 +756,7 @@ namespace PushbulletSharp
         }
 
 
-        public void GetPushesSinceModifiedTime(DateTime modifiedDate)
+        public PushResponseContainer GetPushesSinceModifiedTime(DateTime modifiedDate, PushResponseFilter filter)
         {
             try
             {
@@ -765,24 +767,68 @@ namespace PushbulletSharp
                     throw new ArgumentNullException("modifiedDate");
                 }
 
+                DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+                TimeSpan modifiedDateTimeSpan = modifiedDate - epoch;
+
+                string additionalQuery = string.Concat("?modified_after=", modifiedDateTimeSpan.TotalSeconds);
+
+                if(filter.Active)
+                {
+                    additionalQuery = string.Concat(additionalQuery, "&active=true");
+                }
+
                 #endregion
 
 
                 #region processing
 
-                DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-                TimeSpan modifiedDateTimeSpan = modifiedDate - epoch;
-                string jsonResult = GetRequest(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.PushesUrls.Push, "?modified_after=", modifiedDateTimeSpan.TotalSeconds));
+                PushResponseContainer results = new PushResponseContainer();
+                string jsonResult = GetRequest(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.PushesUrls.Push, additionalQuery).Trim());
                 if(string.IsNullOrWhiteSpace(jsonResult))
                 {
                     throw new Exception("Connect issue.");
                 }
+
+                BasicPushResponseContainer basicPushContainer = JsonSerializer.Deserialize<BasicPushResponseContainer>(jsonResult);
+                PushResponseContainer pushContainer = ConvertBasicPushResponseContainer(basicPushContainer);
+
+                if(filter.IncludeTypes != null && filter.IncludeTypes.Count() > 0)
+                {
+                    foreach(var type in filter.IncludeTypes)
+                    {
+                        results.pushes.AddRange(pushContainer.pushes.Where(o => o.Type == type).ToList());
+                    }
+                    results.pushes = results.pushes.OrderByDescending(o => o.Created).ToList();
+                }
+                else
+                {
+                    results = pushContainer;
+                }
+
+                return results;
+
                 #endregion processing
             }
             catch (Exception)
             {
                 throw;
             }
+        }
+
+
+        /// <summary>
+        /// Converts the basic push response container.
+        /// </summary>
+        /// <param name="container">The container.</param>
+        /// <returns></returns>
+        private PushResponseContainer ConvertBasicPushResponseContainer(BasicPushResponseContainer container)
+        {
+            PushResponseContainer result = new PushResponseContainer();
+            foreach(var basicPush in container.pushes)
+            {
+                result.pushes.Add(ConvertBasicPushResponse(basicPush));
+            }
+            return result;
         }
 
         #endregion Push Methods
@@ -915,22 +961,61 @@ namespace PushbulletSharp
         private PushResponse ConvertBasicPushResponse(BasicPushResponse basicResponse)
         {
             PushResponse response = new PushResponse();
-            response.active = basicResponse.active;
-            response.created = TimeZoneInfo.ConvertTimeFromUtc(basicResponse.created.UnixTimeToDateTime(), TimeZoneInfo);
-            response.dismissed = basicResponse.dismissed;
-            response.iden = basicResponse.iden;
-            response.modified = TimeZoneInfo.ConvertTimeFromUtc(basicResponse.modified.UnixTimeToDateTime(), TimeZoneInfo);
-            response.receiver_email = basicResponse.receiver_email;
-            response.receiver_email_normalized = basicResponse.receiver_email_normalized;
-            response.receiver_iden = basicResponse.receiver_iden;
-            response.sender_email = basicResponse.sender_email;
-            response.sender_email_normalized = basicResponse.sender_email_normalized;
-            response.sender_iden = basicResponse.sender_iden;
-            response.sender_name = basicResponse.sender_name;
-            response.source_device_iden = basicResponse.source_device_iden;
-            response.target_device_iden = basicResponse.target_device_iden;
-            response.type = basicResponse.type;
+            response.Active = basicResponse.active;
+            response.Created = TimeZoneInfo.ConvertTimeFromUtc(basicResponse.created.UnixTimeToDateTime(), TimeZoneInfo);
+            response.Dismissed = basicResponse.dismissed;
+            response.Direction = basicResponse.direction;
+            response.Iden = basicResponse.iden;
+            response.Modified = TimeZoneInfo.ConvertTimeFromUtc(basicResponse.modified.UnixTimeToDateTime(), TimeZoneInfo);
+            response.ReceiverEmail = basicResponse.receiver_email;
+            response.ReceiverEmailNormalized = basicResponse.receiver_email_normalized;
+            response.ReceiverIden = basicResponse.receiver_iden;
+            response.SenderEmail = basicResponse.sender_email;
+            response.SenderEmailNormalized = basicResponse.sender_email_normalized;
+            response.SenderIden = basicResponse.sender_iden;
+            response.SenderName = basicResponse.sender_name;
+            response.SourceDeviceIden = basicResponse.source_device_iden;
+            response.TargetDeviceIden = basicResponse.target_device_iden;
+            response.Type = ConvertPushResponseType(basicResponse.type);
+            response.ClientIden = basicResponse.client_iden;
+            response.Title = basicResponse.title;
+            response.Body = basicResponse.body;
+            response.Url = basicResponse.url;
+            response.FileName = basicResponse.file_name;
+            response.FileType = basicResponse.file_type;
+            response.FileUrl = basicResponse.file_url;
+            response.ImageUrl = basicResponse.image_url;
+            response.Name = basicResponse.name;
+            response.Address = basicResponse.address;
+            if(basicResponse.items != null)
+            {
+                response.Items = basicResponse.items.Select(o => new ListItem() { Checked = o.Checked, Text = o.text }).ToList();
+            }
             return response;
+        }
+
+
+        /// <summary>
+        /// Converts the type of the push response.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns></returns>
+        private PushResponseType ConvertPushResponseType(string type)
+        {
+            switch(type)
+            {
+                case PushbulletConstants.TypeConstants.Address:
+                    return PushResponseType.Address;
+                case PushbulletConstants.TypeConstants.File:
+                    return PushResponseType.File;
+                case PushbulletConstants.TypeConstants.Link:
+                    return PushResponseType.Link;
+                case PushbulletConstants.TypeConstants.List:
+                    return PushResponseType.List;
+                case PushbulletConstants.TypeConstants.Note:
+                default:
+                    return PushResponseType.Note;
+            }
         }
 
 
