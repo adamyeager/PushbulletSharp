@@ -29,7 +29,7 @@ namespace PushbulletSharp.Tests
                     email = oauthUserInformation.email
                 });
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
