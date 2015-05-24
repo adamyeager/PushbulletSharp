@@ -1,5 +1,8 @@
-﻿namespace PushbulletSharp.Models.Requests
+﻿using System.Runtime.Serialization;
+
+namespace PushbulletSharp.Models.Requests
 {
+    [DataContract]
     public class CreateContactRequest
     {
         /// <summary>
@@ -8,7 +11,8 @@
         /// <value>
         /// The name.
         /// </value>
-        public string name { get; set; }
+        [DataMember(Name = "name")]
+        public string Name { get; set; }
 
         /// <summary>
         /// Gets or sets the email.
@@ -16,6 +20,7 @@
         /// <value>
         /// The email.
         /// </value>
-        public string email { get; set; }
+        [DataMember(Name = "email")]
+        public string Email { get; set; }
     }
 }

@@ -1,5 +1,8 @@
-﻿namespace PushbulletSharp.Models.Requests
+﻿using System.Runtime.Serialization;
+
+namespace PushbulletSharp.Models.Requests
 {
+    [DataContract]
     public class OAuthTokenRequest
     {
         /// <summary>
@@ -7,7 +10,7 @@
         /// </summary>
         public OAuthTokenRequest()
         {
-            grant_type = PushbulletConstants.Defaults.OAuth.DefaultGrantType;
+            GrantType = PushbulletConstants.Defaults.OAuth.DefaultGrantType;
         }
 
         /// <summary>
@@ -16,7 +19,8 @@
         /// <value>
         /// The grant_type.
         /// </value>
-        public string grant_type { get; set; }
+        [DataMember(Name = "grant_type")]
+        public string GrantType { get; set; }
 
         /// <summary>
         /// Gets or sets the client_id.
@@ -24,7 +28,8 @@
         /// <value>
         /// The client_id.
         /// </value>
-        public string client_id { get; set; }
+        [DataMember(Name = "client_id")]
+        public string ClientId { get; set; }
 
         /// <summary>
         /// Gets or sets the client_secret.
@@ -32,7 +37,8 @@
         /// <value>
         /// The client_secret.
         /// </value>
-        public string client_secret { get; set; }
+        [DataMember(Name = "client_secret")]
+        public string ClientSecret { get; set; }
 
         /// <summary>
         /// Gets or sets the code.
@@ -40,6 +46,7 @@
         /// <value>
         /// The code.
         /// </value>
-        public string code { get; set; }
+        [DataMember(Name = "code")]
+        public string Code { get; set; }
     }
 }

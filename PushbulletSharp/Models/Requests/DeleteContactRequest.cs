@@ -1,5 +1,8 @@
-﻿namespace PushbulletSharp.Models.Requests
+﻿using System.Runtime.Serialization;
+
+namespace PushbulletSharp.Models.Requests
 {
+    [DataContract]
     public class DeleteContactRequest
     {
         /// <summary>
@@ -8,6 +11,7 @@
         /// <value>
         /// The contact_iden.
         /// </value>
-        public string contact_iden { get; set; }
+        [DataMember(Name = "contact_iden")]
+        public string ContactIden { get; set; }
     }
 }

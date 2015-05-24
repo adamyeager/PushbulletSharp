@@ -378,11 +378,11 @@ namespace PushbulletSharp
         private Subscription ConvertFromBasicSubscription(BasicSubscription basicSubscription)
         {
             Subscription result = new Subscription();
-            result.active = basicSubscription.active;
-            result.channel = basicSubscription.channel;
-            result.iden = basicSubscription.iden;
-            result.created = TimeZoneInfo.ConvertTime(basicSubscription.created.UnixTimeToDateTime(), TimeZoneInfo);
-            result.modified = TimeZoneInfo.ConvertTime(basicSubscription.modified.UnixTimeToDateTime(), TimeZoneInfo);
+            result.active = basicSubscription.Active;
+            result.channel = basicSubscription.Channel;
+            result.iden = basicSubscription.Iden;
+            result.created = TimeZoneInfo.ConvertTime(basicSubscription.Created.UnixTimeToDateTime(), TimeZoneInfo);
+            result.modified = TimeZoneInfo.ConvertTime(basicSubscription.Modified.UnixTimeToDateTime(), TimeZoneInfo);
             return result;
         }
 

@@ -1,5 +1,8 @@
-﻿namespace PushbulletSharp.Models.Responses.WebSocket
+﻿using System.Runtime.Serialization;
+
+namespace PushbulletSharp.Models.Responses.WebSocket
 {
+    [DataContract]
     public class WebSocketResponse
     {
         /// <summary>
@@ -8,7 +11,8 @@
         /// <value>
         /// The type.
         /// </value>
-        public string type { get; set; }
+        [DataMember(Name = "type")]
+        public string Type { get; set; }
 
         /// <summary>
         /// Gets or sets the subtype.
@@ -16,7 +20,8 @@
         /// <value>
         /// The subtype.
         /// </value>
-        public string subtype { get; set; }
+        [DataMember(Name = "subtype")]
+        public string Subtype { get; set; }
 
         /// <summary>
         /// Gets or sets the push.
@@ -24,6 +29,7 @@
         /// <value>
         /// The push.
         /// </value>
-        public BasicPushResponse push { get; set; }
+        [DataMember(Name = "push")]
+        public BasicPushResponse Push { get; set; }
     }
 }

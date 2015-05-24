@@ -1,5 +1,8 @@
-﻿namespace PushbulletSharp.Models.Requests
+﻿using System.Runtime.Serialization;
+
+namespace PushbulletSharp.Models.Requests
 {
+    [DataContract]
     public class ChannelSubscriptionRequest
     {
         /// <summary>
@@ -8,6 +11,7 @@
         /// <value>
         /// The channel_tag.
         /// </value>
-        public string channel_tag { get; set; }
+        [DataMember(Name = "channel_tag")]
+        public string ChannelTag { get; set; }
     }
 }
