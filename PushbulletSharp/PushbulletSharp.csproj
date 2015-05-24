@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{459FDFF0-D68E-49AE-961F-0912916B78AB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PushbulletSharp</RootNamespace>
+    <AssemblyName>PushbulletSharp</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .NET Framework is automatically included -->
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Constants\PushbulletConstants.cs" />
+    <Compile Include="Extensions\PushbulletSharpExtensions.cs" />
+    <Compile Include="Filters\PushResponseFilter.cs" />
+    <Compile Include="Models\Requests\ChannelSubscriptionRequest.cs" />
+    <Compile Include="Models\Requests\CreateContactRequest.cs" />
+    <Compile Include="Models\Requests\DeleteContactRequest.cs" />
+    <Compile Include="Models\Requests\OAuthTokenRequest.cs" />
+    <Compile Include="Models\Requests\PushAddressRequest.cs" />
+    <Compile Include="Models\Requests\PushFileRequest.cs" />
+    <Compile Include="Models\Requests\PushLinkRequest.cs" />
+    <Compile Include="Models\Requests\PushListRequest.cs" />
+    <Compile Include="Models\Requests\PushNoteRequest.cs" />
+    <Compile Include="Models\Requests\PushRequestBase.cs" />
+    <Compile Include="Models\Requests\UpdateContactRequest.cs" />
+    <Compile Include="Models\Responses\BasicPushResponse.cs" />
+    <Compile Include="Models\Responses\BasicPushResponseContainer.cs" />
+    <Compile Include="Models\Responses\BasicSubscription.cs" />
+    <Compile Include="Models\Responses\BasicUserSubscriptions.cs" />
+    <Compile Include="Models\Responses\Channel.cs" />
+    <Compile Include="Models\Responses\Contact.cs" />
+    <Compile Include="Models\Responses\Device.cs" />
+    <Compile Include="Models\Responses\FileUploadResponse.cs" />
+    <Compile Include="Models\Responses\GoogleUserInfo.cs" />
+    <Compile Include="Models\Responses\ListItem.cs" />
+    <Compile Include="Models\Responses\OAuthTokenResponse.cs" />
+    <Compile Include="Models\Responses\PushResponse.cs" />
+    <Compile Include="Models\Responses\PushResponseContainer.cs" />
+    <Compile Include="Models\Responses\Subscription.cs" />
+    <Compile Include="Models\Responses\User.cs" />
+    <Compile Include="Models\Responses\UserContacts.cs" />
+    <Compile Include="Models\Responses\UserDevices.cs" />
+    <Compile Include="Models\Responses\UserSubscriptions.cs" />
+    <Compile Include="Models\Responses\WebSocket\WebSocketResponse.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PushbulletClient.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
