@@ -1,5 +1,8 @@
-﻿namespace PushbulletSharp.Models.Requests
+﻿using System.Runtime.Serialization;
+
+namespace PushbulletSharp.Models.Requests
 {
+    [DataContract]
     public class PushLinkRequest : PushRequestBase
     {
         /// <summary>
@@ -7,7 +10,7 @@
         /// </summary>
         public PushLinkRequest()
         {
-            type = PushbulletConstants.TypeConstants.Link;
+            Type = PushbulletConstants.TypeConstants.Link;
         }
 
         /// <summary>
@@ -16,7 +19,8 @@
         /// <value>
         /// The title.
         /// </value>
-        public string title { get; set; }
+        [DataMember(Name = "title")]
+        public string Title { get; set; }
 
         /// <summary>
         /// Gets or sets the URL.
@@ -24,7 +28,8 @@
         /// <value>
         /// The URL.
         /// </value>
-        public string url { get; set; }
+        [DataMember(Name = "url")]
+        public string Url { get; set; }
 
         /// <summary>
         /// Gets or sets the body.
@@ -32,6 +37,7 @@
         /// <value>
         /// The body.
         /// </value>
-        public string body { get; set; }
+        [DataMember(Name = "body")]
+        public string Body { get; set; }
     }
 }

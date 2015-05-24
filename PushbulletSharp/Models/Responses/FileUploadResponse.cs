@@ -1,4 +1,6 @@
-﻿namespace PushbulletSharp.Models.Responses
+﻿using System.Runtime.Serialization;
+
+namespace PushbulletSharp.Models.Responses
 {
     /// <summary>
     /// Response when request a push for a file
@@ -21,6 +23,7 @@
     /// }
     /// 
     /// </summary>
+    [DataContract]
     internal class FileUploadResponse
     {
         /// <summary>
@@ -29,7 +32,8 @@
         /// <value>
         /// The file_type.
         /// </value>
-        public string file_type { get; set; }
+        [DataMember(Name = "file_type")]
+        public string FileType { get; set; }
 
         /// <summary>
         /// Gets or sets the file_name.
@@ -37,7 +41,8 @@
         /// <value>
         /// The file_name.
         /// </value>
-        public string file_name { get; set; }
+        [DataMember(Name = "file_name")]
+        public string FileName { get; set; }
 
         /// <summary>
         /// Gets or sets the file_url.
@@ -45,7 +50,8 @@
         /// <value>
         /// The file_url.
         /// </value>
-        public string file_url { get; set; }
+        [DataMember(Name = "file_url")]
+        public string FileUrl { get; set; }
 
         /// <summary>
         /// Gets or sets the upload_url.
@@ -53,7 +59,8 @@
         /// <value>
         /// The upload_url.
         /// </value>
-        public string upload_url { get; set; }
+        [DataMember(Name = "upload_url")]
+        public string UploadUrl { get; set; }
 
         /// <summary>
         /// Gets or sets the data.
@@ -61,19 +68,20 @@
         /// <value>
         /// The data.
         /// </value>
-        public FileUploadResponseData data { get; set; }
+        [DataMember(Name = "data")]
+        public FileUploadResponseData Data { get; set; }
     }
 
-
+    [DataContract]
     internal class FileUploadResponseData
     {
         internal class Properties
         {
-            internal const string awsaccesskeyid = "awsaccesskeyid";
-            internal const string acl = "acl";
-            internal const string key = "key";
-            internal const string signature = "signature";
-            internal const string policy = "policy";
+            internal const string AWSAccessKeyId = "awsaccesskeyid";
+            internal const string Acl = "acl";
+            internal const string Key = "key";
+            internal const string Signature = "signature";
+            internal const string Policy = "policy";
         }
 
         /// <summary>
@@ -82,7 +90,8 @@
         /// <value>
         /// The awsaccesskeyid.
         /// </value>
-        public string awsaccesskeyid { get; set; }
+        [DataMember(Name = "awsaccesskeyid")]
+        public string AWSAccessKeyId { get; set; }
 
         /// <summary>
         /// Gets or sets the acl.
@@ -90,7 +99,8 @@
         /// <value>
         /// The acl.
         /// </value>
-        public string acl { get; set; }
+        [DataMember(Name = "acl")]
+        public string Acl { get; set; }
 
         /// <summary>
         /// Gets or sets the key.
@@ -98,7 +108,8 @@
         /// <value>
         /// The key.
         /// </value>
-        public string key { get; set; }
+        [DataMember(Name = "key")]
+        public string Key { get; set; }
 
         /// <summary>
         /// Gets or sets the signature.
@@ -106,7 +117,8 @@
         /// <value>
         /// The signature.
         /// </value>
-        public string signature { get; set; }
+        [DataMember(Name = "signature")]
+        public string Signature { get; set; }
 
         /// <summary>
         /// Gets or sets the policy.
@@ -114,6 +126,7 @@
         /// <value>
         /// The policy.
         /// </value>
-        public string policy { get; set; }
+        [DataMember(Name = "policy")]
+        public string Policy { get; set; }
     }
 }

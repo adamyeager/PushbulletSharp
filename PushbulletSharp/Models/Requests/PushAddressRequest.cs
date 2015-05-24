@@ -1,14 +1,19 @@
-﻿namespace PushbulletSharp.Models.Requests
+﻿using System.Runtime.Serialization;
+
+namespace PushbulletSharp.Models.Requests
 {
+    [DataContract]
     public class PushAddressRequest : PushRequestBase
     {
         public PushAddressRequest()
         {
-            type = PushbulletConstants.TypeConstants.Address;
+            Type = PushbulletConstants.TypeConstants.Address;
         }
 
-        public string name { get; set; }
+        [DataMember(Name = "name")]
+        public string Name { get; set; }
 
-        public string address { get; set; }
+        [DataMember(Name = "address")]
+        public string Address { get; set; }
     }
 }

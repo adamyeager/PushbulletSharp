@@ -1,5 +1,8 @@
-﻿namespace PushbulletSharp.Models.Responses
+﻿using System.Runtime.Serialization;
+
+namespace PushbulletSharp.Models.Responses
 {
+    [DataContract]
     public class BasicPushResponse
     {
         /// <summary>
@@ -8,7 +11,8 @@
         /// <value>
         ///   <c>true</c> if active; otherwise, <c>false</c>.
         /// </value>
-        public bool active { get; set; }
+        [DataMember(Name = "active")]
+        public bool Active { get; set; }
 
         /// <summary>
         /// Gets or sets the iden.
@@ -16,7 +20,8 @@
         /// <value>
         /// The iden.
         /// </value>
-        public string iden { get; set; }
+        [DataMember(Name = "iden")]
+        public string Iden { get; set; }
 
         /// <summary>
         /// Gets or sets the created.
@@ -24,7 +29,8 @@
         /// <value>
         /// The created.
         /// </value>
-        public string created { get; set; }
+        [DataMember(Name = "created")]
+        public string Created { get; set; }
 
         /// <summary>
         /// Gets or sets the modified.
@@ -32,7 +38,8 @@
         /// <value>
         /// The modified.
         /// </value>
-        public string modified { get; set; }
+        [DataMember(Name = "modified")]
+        public string Modified { get; set; }
 
         /// <summary>
         /// Gets or sets the type.
@@ -40,7 +47,8 @@
         /// <value>
         /// The type.
         /// </value>
-        public string type { get; set; }
+        [DataMember(Name = "type")]
+        public string Type { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="PushResponse"/> is dismissed.
@@ -48,7 +56,8 @@
         /// <value>
         ///   <c>true</c> if dismissed; otherwise, <c>false</c>.
         /// </value>
-        public bool dismissed { get; set; }
+        [DataMember(Name = "dismissed")]
+        public bool Dismissed { get; set; }
 
         /// <summary>
         /// Gets or sets the direction.
@@ -56,7 +65,8 @@
         /// <value>
         /// The direction.
         /// </value>
-        public string direction { get; set; }
+        [DataMember(Name = "direction")]
+        public string Direction { get; set; }
 
         /// <summary>
         /// Gets or sets the sender_iden.
@@ -64,7 +74,8 @@
         /// <value>
         /// The sender_iden.
         /// </value>
-        public string sender_iden { get; set; }
+        [DataMember(Name = "sender_iden")]
+        public string SenderIden { get; set; }
 
         /// <summary>
         /// Gets or sets the sender_email.
@@ -72,7 +83,8 @@
         /// <value>
         /// The sender_email.
         /// </value>
-        public string sender_email { get; set; }
+        [DataMember(Name = "sender_email")]
+        public string SenderEmail { get; set; }
 
         /// <summary>
         /// Gets or sets the sender_email_normalized.
@@ -80,7 +92,8 @@
         /// <value>
         /// The sender_email_normalized.
         /// </value>
-        public string sender_email_normalized { get; set; }
+        [DataMember(Name = "sender_email_normalized")]
+        public string SenderEmailNormalized { get; set; }
 
         /// <summary>
         /// Gets or sets the sender_name.
@@ -88,7 +101,8 @@
         /// <value>
         /// The sender_name.
         /// </value>
-        public string sender_name { get; set; }
+        [DataMember(Name = "sender_name")]
+        public string SenderName { get; set; }
 
         /// <summary>
         /// Gets or sets the receiver_iden.
@@ -96,7 +110,8 @@
         /// <value>
         /// The receiver_iden.
         /// </value>
-        public string receiver_iden { get; set; }
+        [DataMember(Name = "receiver_iden")]
+        public string ReceiverIden { get; set; }
 
         /// <summary>
         /// Gets or sets the receiver_email.
@@ -104,7 +119,8 @@
         /// <value>
         /// The receiver_email.
         /// </value>
-        public string receiver_email { get; set; }
+        [DataMember(Name = "receiver_email")]
+        public string ReceiverEmail { get; set; }
 
         /// <summary>
         /// Gets or sets the receiver_email_normalized.
@@ -112,7 +128,8 @@
         /// <value>
         /// The receiver_email_normalized.
         /// </value>
-        public string receiver_email_normalized { get; set; }
+        [DataMember(Name = "receiver_email_normalized")]
+        public string ReceiverEmailNormalized { get; set; }
 
         /// <summary>
         /// Gets or sets the target_device_iden.
@@ -120,7 +137,8 @@
         /// <value>
         /// The target_device_iden.
         /// </value>
-        public string target_device_iden { get; set; }
+        [DataMember(Name = "target_device_iden")]
+        public string TargetDeviceIden { get; set; }
 
         /// <summary>
         /// Gets or sets the source_device_iden.
@@ -128,7 +146,8 @@
         /// <value>
         /// The source_device_iden.
         /// </value>
-        public string source_device_iden { get; set; }
+        [DataMember(Name = "source_device_iden")]
+        public string SourceDeviceIden { get; set; }
 
         /// <summary>
         /// Gets or sets the client_iden.
@@ -136,7 +155,8 @@
         /// <value>
         /// The client_iden.
         /// </value>
-        public string client_iden { get; set; }
+        [DataMember(Name = "client_iden")]
+        public string ClientIden { get; set; }
 
         /// <summary>
         /// Gets or sets the channel_iden.
@@ -144,7 +164,8 @@
         /// <value>
         /// The channel_iden.
         /// </value>
-        public string channel_iden { get; set; }
+        [DataMember(Name = "channel_iden")]
+        public string ChannelIden { get; set; }
 
         /// <summary>
         /// Gets or sets the title.
@@ -152,7 +173,8 @@
         /// <value>
         /// The title.
         /// </value>
-        public string title { get; set; }
+        [DataMember(Name = "title")]
+        public string Title { get; set; }
 
         /// <summary>
         /// Gets or sets the body.
@@ -160,7 +182,8 @@
         /// <value>
         /// The body.
         /// </value>
-        public string body { get; set; }
+        [DataMember(Name = "body")]
+        public string Body { get; set; }
 
         /// <summary>
         /// Gets or sets the URL.
@@ -168,7 +191,8 @@
         /// <value>
         /// The URL.
         /// </value>
-        public string url { get; set; }
+        [DataMember(Name = "url")]
+        public string Url { get; set; }
 
         /// <summary>
         /// Gets or sets the file_name.
@@ -176,7 +200,8 @@
         /// <value>
         /// The file_name.
         /// </value>
-        public string file_name { get; set; }
+        [DataMember(Name = "file_name")]
+        public string FileName { get; set; }
 
         /// <summary>
         /// Gets or sets the file_type.
@@ -184,7 +209,8 @@
         /// <value>
         /// The file_type.
         /// </value>
-        public string file_type { get; set; }
+        [DataMember(Name = "file_type")]
+        public string FileType { get; set; }
 
         /// <summary>
         /// Gets or sets the file_url.
@@ -192,7 +218,8 @@
         /// <value>
         /// The file_url.
         /// </value>
-        public string file_url { get; set; }
+        [DataMember(Name = "file_url")]
+        public string FileUrl { get; set; }
 
         /// <summary>
         /// Gets or sets the image_url.
@@ -200,7 +227,8 @@
         /// <value>
         /// The image_url.
         /// </value>
-        public string image_url { get; set; }
+        [DataMember(Name = "image_url")]
+        public string ImageUrl { get; set; }
 
         /// <summary>
         /// Gets or sets the name.
@@ -208,7 +236,8 @@
         /// <value>
         /// The name.
         /// </value>
-        public string name { get; set; }
+        [DataMember(Name = "name")]
+        public string Name { get; set; }
 
         /// <summary>
         /// Gets or sets the address.
@@ -216,7 +245,8 @@
         /// <value>
         /// The address.
         /// </value>
-        public string address { get; set; }
+        [DataMember(Name = "address")]
+        public string Address { get; set; }
 
         /// <summary>
         /// Gets or sets the items.
@@ -224,12 +254,16 @@
         /// <value>
         /// The items.
         /// </value>
-        public Item[] items { get; set; }
+        [DataMember(Name = "items")]
+        public Item[] Items { get; set; }
     }
 
+    [DataContract]
     public class Item
     {
+        [DataMember(Name = "checked")]
         public bool Checked { get; set; }
-        public string text { get; set; }
+        [DataMember(Name = "text")]
+        public string Text { get; set; }
     }
 }

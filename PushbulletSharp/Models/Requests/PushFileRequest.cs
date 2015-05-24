@@ -3,6 +3,7 @@ using System.Runtime.Serialization;
 
 namespace PushbulletSharp.Models.Requests
 {
+    [DataContract]
     public class PushFileRequest : PushRequestBase
     {
         /// <summary>
@@ -10,7 +11,7 @@ namespace PushbulletSharp.Models.Requests
         /// </summary>
         public PushFileRequest()
         {
-            type = PushbulletConstants.TypeConstants.File;
+            Type = PushbulletConstants.TypeConstants.File;
         }
 
         /// <summary>
@@ -19,7 +20,8 @@ namespace PushbulletSharp.Models.Requests
         /// <value>
         /// The name of the file.
         /// </value>
-        public string file_name { get; set; }
+        [DataMember(Name = "file_name")]
+        public string FileName { get; set; }
 
         /// <summary>
         /// Gets or sets the type of the file.
@@ -27,7 +29,8 @@ namespace PushbulletSharp.Models.Requests
         /// <value>
         /// The type of the file.
         /// </value>
-        public string file_type { get; set; }
+        [DataMember(Name = "file_type")]
+        public string FileType { get; set; }
 
         /// <summary>
         /// Gets or sets the file_stream.
@@ -36,7 +39,7 @@ namespace PushbulletSharp.Models.Requests
         /// The file_stream.
         /// </value>
         [IgnoreDataMember]
-        public Stream file_stream { get; set; }
+        public Stream FileStream { get; set; }
 
         /// <summary>
         /// Gets or sets the file_url.
@@ -44,7 +47,8 @@ namespace PushbulletSharp.Models.Requests
         /// <value>
         /// The file_url.
         /// </value>
-        public string file_url { get; set; }
+        [DataMember(Name = "file_url")]
+        public string FileUrl { get; set; }
 
         /// <summary>
         /// Gets or sets the body.
@@ -52,6 +56,7 @@ namespace PushbulletSharp.Models.Requests
         /// <value>
         /// The body.
         /// </value>
-        public string body { get; set; }
+        [DataMember(Name = "body")]
+        public string Body { get; set; }
     }
 }

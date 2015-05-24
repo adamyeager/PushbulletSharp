@@ -1,5 +1,8 @@
-﻿namespace PushbulletSharp.Models.Requests
+﻿using System.Runtime.Serialization;
+
+namespace PushbulletSharp.Models.Requests
 {
+    [DataContract]
     public class PushNoteRequest : PushRequestBase
     {
         /// <summary>
@@ -7,7 +10,7 @@
         /// </summary>
         public PushNoteRequest()
         {
-            type = PushbulletConstants.TypeConstants.Note;
+            Type = PushbulletConstants.TypeConstants.Note;
         }
 
         /// <summary>
@@ -16,7 +19,8 @@
         /// <value>
         /// The title.
         /// </value>
-        public string title { get; set; }
+        [DataMember(Name = "title")]
+        public string Title { get; set; }
 
         /// <summary>
         /// Gets or sets the body.
@@ -24,6 +28,7 @@
         /// <value>
         /// The body.
         /// </value>
-        public string body { get; set; }
+        [DataMember(Name = "body")]
+        public string Body { get; set; }
     }
 }

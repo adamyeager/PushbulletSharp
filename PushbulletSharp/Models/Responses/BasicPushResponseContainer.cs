@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace PushbulletSharp.Models.Responses
 {
+    [DataContract]
     internal class BasicPushResponseContainer
     {
         /// <summary>
@@ -10,6 +12,7 @@ namespace PushbulletSharp.Models.Responses
         /// <value>
         /// The pushes.
         /// </value>
-        public List<BasicPushResponse> pushes { get; set; }
+        [DataMember(Name = "pushes")]
+        public List<BasicPushResponse> Pushes { get; set; }
     }
 }

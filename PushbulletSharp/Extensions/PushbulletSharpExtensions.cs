@@ -1,12 +1,37 @@
 ﻿using PushbulletSharp.Models.Responses;
 using System;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Json;
+using System.Text;
 
 namespace PushbulletSharp
 {
     public static class PushbulletSharpExtensions
     {
+        public static string ToJson(this object data)
+        {
+            var serializer = new DataContractJsonSerializer(data.GetType());
+
+            using (MemoryStream stream = new MemoryStream())
+            {
+                serializer.WriteObject(stream, data);
+                return Encoding.UTF8.GetString(stream.ToArray(), 0, (int)stream.Length);
+            }
+        }
+
+        public static T JsonToOjbect<T>(this string json)
+        {
+            var bytes = Encoding.Unicode.GetBytes(json);
+            using (MemoryStream stream = new MemoryStream(bytes))
+            {
+                var serializer = new DataContractJsonSerializer(typeof(T));
+                var output = (T)serializer.ReadObject(stream);
+                return output;
+            }
+        }
+
         public static DateTime UnixTimeToDateTime(this string unixTime)
         {
             DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
@@ -27,35 +52,35 @@ namespace PushbulletSharp
         public static PushResponse ConvertBasicPushResponse(BasicPushResponse basicResponse)
         {
             PushResponse response = new PushResponse();
-            response.Active = basicResponse.active;
-            response.Created = TimeZoneInfo.ConvertTime(basicResponse.created.UnixTimeToDateTime(), TimeZoneInfo.Utc);
-            response.Dismissed = basicResponse.dismissed;
-            response.Direction = basicResponse.direction;
-            response.Iden = basicResponse.iden;
-            response.Modified = TimeZoneInfo.ConvertTime(basicResponse.modified.UnixTimeToDateTime(), TimeZoneInfo.Utc);
-            response.ReceiverEmail = basicResponse.receiver_email;
-            response.ReceiverEmailNormalized = basicResponse.receiver_email_normalized;
-            response.ReceiverIden = basicResponse.receiver_iden;
-            response.SenderEmail = basicResponse.sender_email;
-            response.SenderEmailNormalized = basicResponse.sender_email_normalized;
-            response.SenderIden = basicResponse.sender_iden;
-            response.SenderName = basicResponse.sender_name;
-            response.SourceDeviceIden = basicResponse.source_device_iden;
-            response.TargetDeviceIden = basicResponse.target_device_iden;
-            response.Type = ConvertPushResponseType(basicResponse.type);
-            response.ClientIden = basicResponse.client_iden;
-            response.Title = basicResponse.title;
-            response.Body = basicResponse.body;
-            response.Url = basicResponse.url;
-            response.FileName = basicResponse.file_name;
-            response.FileType = basicResponse.file_type;
-            response.FileUrl = basicResponse.file_url;
-            response.ImageUrl = basicResponse.image_url;
-            response.Name = basicResponse.name;
-            response.Address = basicResponse.address;
-            if (basicResponse.items != null)
+            response.Active = basicResponse.Active;
+            response.Created = TimeZoneInfo.ConvertTime(basicResponse.Created.UnixTimeToDateTime(), TimeZoneInfo.Utc);
+            response.Dismissed = basicResponse.Dismissed;
+            response.Direction = basicResponse.Direction;
+            response.Iden = basicResponse.Iden;
+            response.Modified = TimeZoneInfo.ConvertTime(basicResponse.Modified.UnixTimeToDateTime(), TimeZoneInfo.Utc);
+            response.ReceiverEmail = basicResponse.ReceiverEmail;
+            response.ReceiverEmailNormalized = basicResponse.ReceiverEmailNormalized;
+            response.ReceiverIden = basicResponse.ReceiverIden;
+            response.SenderEmail = basicResponse.SenderEmail;
+            response.SenderEmailNormalized = basicResponse.SenderEmailNormalized;
+            response.SenderIden = basicResponse.SenderIden;
+            response.SenderName = basicResponse.SenderName;
+            response.SourceDeviceIden = basicResponse.SourceDeviceIden;
+            response.TargetDeviceIden = basicResponse.TargetDeviceIden;
+            response.Type = ConvertPushResponseType(basicResponse.Type);
+            response.ClientIden = basicResponse.ClientIden;
+            response.Title = basicResponse.Title;
+            response.Body = basicResponse.Body;
+            response.Url = basicResponse.Url;
+            response.FileName = basicResponse.FileName;
+            response.FileType = basicResponse.FileType;
+            response.FileUrl = basicResponse.FileUrl;
+            response.ImageUrl = basicResponse.ImageUrl;
+            response.Name = basicResponse.Name;
+            response.Address = basicResponse.Address;
+            if (basicResponse.Items != null)
             {
-                response.Items = basicResponse.items.Select(o => new ListItem() { Checked = o.Checked, Text = o.text }).ToList();
+                response.Items = basicResponse.Items.Select(o => new ListItem() { Checked = o.Checked, Text = o.Text }).ToList();
             }
             return response;
         }

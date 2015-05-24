@@ -1,5 +1,8 @@
-﻿namespace PushbulletSharp.Models.Requests
+﻿using System.Runtime.Serialization;
+
+namespace PushbulletSharp.Models.Requests
 {
+    [DataContract]
     public abstract class PushRequestBase
     {
         /// <summary>
@@ -8,7 +11,8 @@
         /// <value>
         /// The device iden.
         /// </value>
-        public string device_iden { get; set; }
+        [DataMember(Name = "device_iden")]
+        public string DeviceIden { get; set; }
 
         /// <summary>
         /// Gets or sets the email.
@@ -16,7 +20,8 @@
         /// <value>
         /// The email.
         /// </value>
-        public string email { get; set; }
+        [DataMember(Name = "email")]
+        public string Email { get; set; }
 
         /// <summary>
         /// Gets or sets the type.
@@ -24,7 +29,8 @@
         /// <value>
         /// The type.
         /// </value>
-        public string type { get; protected set; }
+        [DataMember(Name = "type")]
+        public string Type { get; protected set; }
 
         /// <summary>
         /// Gets or sets the source_device_iden.
@@ -32,6 +38,7 @@
         /// <value>
         /// The source_device_iden.
         /// </value>
-        public string source_device_iden { get; set; }
+        [DataMember(Name = "source_device_iden")]
+        public string SourceDeviceIden { get; set; }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace PushbulletSharp.Models.Requests
 {
+    [DataContract]
     public class PushListRequest : PushRequestBase
     {
         /// <summary>
@@ -9,8 +11,8 @@ namespace PushbulletSharp.Models.Requests
         /// </summary>
         public PushListRequest()
         {
-            type = PushbulletConstants.TypeConstants.List;
-            items = new List<string>();
+            Type = PushbulletConstants.TypeConstants.List;
+            Items = new List<string>();
         }
 
         /// <summary>
@@ -19,7 +21,8 @@ namespace PushbulletSharp.Models.Requests
         /// <value>
         /// The title.
         /// </value>
-        public string title { get; set; }
+        [DataMember(Name = "title")]
+        public string Title { get; set; }
 
         /// <summary>
         /// Gets or sets the items.
@@ -27,6 +30,7 @@ namespace PushbulletSharp.Models.Requests
         /// <value>
         /// The items.
         /// </value>
-        public List<string> items { get; set; }
+        [DataMember(Name = "items")]
+        public List<string> Items { get; set; }
     }
 }
