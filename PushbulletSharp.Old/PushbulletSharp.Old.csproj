@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4F7BB7E4-35D2-467E-8C61-1C86795F7653}</ProjectGuid>
+    <ProjectGuid>{E72AAACC-4E79-4B76-9771-EE3405748148}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PushbulletSharp.Old</RootNamespace>
