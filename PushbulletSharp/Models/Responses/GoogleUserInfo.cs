@@ -1,5 +1,8 @@
-﻿namespace PushbulletSharp.Models.Responses
+﻿using System.Runtime.Serialization;
+
+namespace PushbulletSharp.Models.Responses
 {
+    [DataContract]
     public class GoogleUserInfo
     {
         /// <summary>
@@ -8,7 +11,8 @@
         /// <value>
         /// The family_name.
         /// </value>
-        public string family_name { get; set; }
+        [DataMember(Name = "family_name")]
+        public string FamilyName { get; set; }
 
         /// <summary>
         /// Gets or sets the name.
@@ -16,7 +20,8 @@
         /// <value>
         /// The name.
         /// </value>
-        public string name { get; set; }
+        [DataMember(Name = "name")]
+        public string Name { get; set; }
 
         /// <summary>
         /// Gets or sets the picture.
@@ -24,7 +29,8 @@
         /// <value>
         /// The picture.
         /// </value>
-        public string picture { get; set; }
+        [DataMember(Name = "picture")]
+        public string Picture { get; set; }
 
         /// <summary>
         /// Gets or sets the locale.
@@ -32,7 +38,8 @@
         /// <value>
         /// The locale.
         /// </value>
-        public string locale { get; set; }
+        [DataMember(Name = "locale")]
+        public string Locale { get; set; }
 
         /// <summary>
         /// Gets or sets the gender.
@@ -40,7 +47,8 @@
         /// <value>
         /// The gender.
         /// </value>
-        public string gender { get; set; }
+        [DataMember(Name = "gender")]
+        public string Gender { get; set; }
 
         /// <summary>
         /// Gets or sets the email.
@@ -48,7 +56,8 @@
         /// <value>
         /// The email.
         /// </value>
-        public string email { get; set; }
+        [DataMember(Name = "email")]
+        public string Email { get; set; }
 
         /// <summary>
         /// Gets or sets the link.
@@ -56,7 +65,8 @@
         /// <value>
         /// The link.
         /// </value>
-        public string link { get; set; }
+        [DataMember(Name = "link")]
+        public string Link { get; set; }
 
         /// <summary>
         /// Gets or sets the given_name.
@@ -64,7 +74,8 @@
         /// <value>
         /// The given_name.
         /// </value>
-        public string given_name { get; set; }
+        [DataMember(Name = "given_name")]
+        public string GivenName { get; set; }
 
         /// <summary>
         /// Gets or sets the identifier.
@@ -72,7 +83,8 @@
         /// <value>
         /// The identifier.
         /// </value>
-        public string id { get; set; }
+        [DataMember(Name = "id")]
+        public string Id { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="GoogleUserInfo"/> is verified_email.
@@ -80,7 +92,8 @@
         /// <value>
         ///   <c>true</c> if verified_email; otherwise, <c>false</c>.
         /// </value>
-        public bool verified_email { get; set; }
+        [DataMember(Name = "verified_email")]
+        public bool VerifiedEmail { get; set; }
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
@@ -90,9 +103,9 @@
         /// </returns>
         public override string ToString()
         {
-            if(!string.IsNullOrWhiteSpace(email))
+            if(!string.IsNullOrWhiteSpace(Email))
             {
-                return email;
+                return Email;
             }
 
             return base.ToString();

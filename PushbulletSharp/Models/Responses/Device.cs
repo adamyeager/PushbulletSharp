@@ -1,5 +1,8 @@
-﻿namespace PushbulletSharp.Models.Responses
+﻿using System.Runtime.Serialization;
+
+namespace PushbulletSharp.Models.Responses
 {
+    [DataContract]
     public class Device
     {
         /// <summary>
@@ -8,7 +11,8 @@
         /// <value>
         /// The iden.
         /// </value>
-        public string iden { get; set; }
+        [DataMember(Name = "iden")]
+        public string Iden { get; set; }
 
         /// <summary>
         /// Gets or sets the created.
@@ -16,7 +20,8 @@
         /// <value>
         /// The created.
         /// </value>
-        public string created { get; set; }
+        [DataMember(Name = "created")]
+        public string Created { get; set; }
 
         /// <summary>
         /// Gets or sets the nickname.
@@ -24,7 +29,8 @@
         /// <value>
         /// The nickname.
         /// </value>
-        public string nickname { get; set; }
+        [DataMember(Name = "nickname")]
+        public string Nickname { get; set; }
 
         /// <summary>
         /// Gets or sets the modified.
@@ -32,7 +38,8 @@
         /// <value>
         /// The modified.
         /// </value>
-        public string modified { get; set; }
+        [DataMember(Name = "modified")]
+        public string Modified { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="Device"/> is active.
@@ -40,7 +47,8 @@
         /// <value>
         ///   <c>true</c> if active; otherwise, <c>false</c>.
         /// </value>
-        public bool active { get; set; }
+        [DataMember(Name = "active")]
+        public bool Active { get; set; }
 
         /// <summary>
         /// Gets or sets the model.
@@ -48,7 +56,8 @@
         /// <value>
         /// The model.
         /// </value>
-        public string model { get; set; }
+        [DataMember(Name = "model")]
+        public string Model { get; set; }
 
         /// <summary>
         /// Gets or sets the type.
@@ -56,7 +65,8 @@
         /// <value>
         /// The type.
         /// </value>
-        public string type { get; set; }
+        [DataMember(Name = "type")]
+        public string Type { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="Device"/> is pushable.
@@ -64,7 +74,8 @@
         /// <value>
         ///   <c>true</c> if pushable; otherwise, <c>false</c>.
         /// </value>
-        public bool pushable { get; set; }
+        [DataMember(Name = "pushable")]
+        public bool Pushable { get; set; }
 
         /// <summary>
         /// Gets or sets the manufacturer.
@@ -72,7 +83,8 @@
         /// <value>
         /// The manufacturer.
         /// </value>
-        public string manufacturer { get; set; }
+        [DataMember(Name = "manufacturer")]
+        public string Manufacturer { get; set; }
 
         /// <summary>
         /// Gets or sets the push_token.
@@ -80,7 +92,8 @@
         /// <value>
         /// The push_token.
         /// </value>
-        public string push_token { get; set; }
+        [DataMember(Name = "push_token")]
+        public string PushToken { get; set; }
 
         /// <summary>
         /// Gets or sets the app_version.
@@ -88,7 +101,8 @@
         /// <value>
         /// The app_version.
         /// </value>
-        public int app_version { get; set; }
+        [DataMember(Name = "app_version")]
+        public int AppVersion { get; set; }
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
@@ -98,9 +112,9 @@
         /// </returns>
         public override string ToString()
         {
-            if (!string.IsNullOrWhiteSpace(nickname))
+            if (!string.IsNullOrWhiteSpace(Nickname))
             {
-                return nickname;
+                return Nickname;
             }
 
             return base.ToString();

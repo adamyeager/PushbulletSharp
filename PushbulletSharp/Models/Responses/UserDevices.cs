@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace PushbulletSharp.Models.Responses
 {
+    [DataContract]
     public class UserDevices
     {
         /// <summary>
@@ -18,6 +20,7 @@ namespace PushbulletSharp.Models.Responses
         /// <value>
         /// The devices.
         /// </value>
+        [DataMember(Name = "devices")]
         public List<Device> Devices { get; set; }
     }
 }
