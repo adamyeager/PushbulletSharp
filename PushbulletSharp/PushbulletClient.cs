@@ -2,13 +2,11 @@
 using PushbulletSharp.Models.Requests;
 using PushbulletSharp.Models.Responses;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -183,43 +181,41 @@ namespace PushbulletSharp
         /// <exception cref="System.ArgumentException">create contact request</exception>
         /// <exception cref="System.Exception">
         /// </exception>
-        //public Contact CreateNewContact(CreateContactRequest request)
-        //{
-        //    try
-        //    {
-        //        #region pre-processing
+        public Contact CreateNewContact(CreateContactRequest request)
+        {
+            try
+            {
+                #region pre-processing
 
-        //        if (request == null)
-        //        {
-        //            throw new ArgumentException("create contact request");
-        //        }
+                if (request == null)
+                {
+                    throw new ArgumentException("create contact request");
+                }
 
-        //        if (string.IsNullOrWhiteSpace(request.name))
-        //        {
-        //            throw new Exception(PushbulletConstants.CreateContactErrorMessages.ErrorNameProperty);
-        //        }
+                if (string.IsNullOrWhiteSpace(request.Name))
+                {
+                    throw new Exception(PushbulletConstants.CreateContactErrorMessages.ErrorNameProperty);
+                }
 
-        //        if (string.IsNullOrWhiteSpace(request.email))
-        //        {
-        //            throw new Exception(PushbulletConstants.CreateContactErrorMessages.ErrorEmailProperty);
-        //        }
+                if (string.IsNullOrWhiteSpace(request.Email))
+                {
+                    throw new Exception(PushbulletConstants.CreateContactErrorMessages.ErrorEmailProperty);
+                }
 
-        //        #endregion pre-processing
+                #endregion pre-processing
 
-        //        #region processing
+                #region processing
 
-        //        string requestJson = JsonSerializer.Serialize(request);
-        //        string responseJson = PostRequest(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.ContactsUrls.Contacts), requestJson);
-        //        Contact response = JsonSerializer.Deserialize<Contact>(responseJson);
-        //        return response;
+                Contact response = PostRequest<Contact>(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.ContactsUrls.Contacts), request);
+                return response;
 
-        //        #endregion processing
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //}
+                #endregion processing
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
 
         /// <summary>
@@ -230,76 +226,79 @@ namespace PushbulletSharp
         /// <exception cref="System.ArgumentException">update contact request</exception>
         /// <exception cref="System.Exception">
         /// </exception>
-        //public Contact UpdateContact(UpdateContactRequest request)
-        //{
-        //    try
-        //    {
-        //        #region pre-processing
+        public Contact UpdateContact(UpdateContactRequest request)
+        {
+            try
+            {
+                #region pre-processing
 
-        //        if(request == null)
-        //        {
-        //            throw new ArgumentException("update contact request");
-        //        }
+                if (request == null)
+                {
+                    throw new ArgumentException("update contact request");
+                }
 
-        //        if(string.IsNullOrWhiteSpace(request.contact_iden))
-        //        {
-        //            throw new Exception(PushbulletConstants.UpdateContactErrorMessages.ErrorContactIdenProperty);
-        //        }
+                if (string.IsNullOrWhiteSpace(request.ContactIden))
+                {
+                    throw new Exception(PushbulletConstants.UpdateContactErrorMessages.ErrorContactIdenProperty);
+                }
 
-        //        if(string.IsNullOrWhiteSpace(request.name))
-        //        {
-        //            throw new Exception(PushbulletConstants.UpdateContactErrorMessages.ErrorNameProperty);
-        //        }
+                if (string.IsNullOrWhiteSpace(request.Name))
+                {
+                    throw new Exception(PushbulletConstants.UpdateContactErrorMessages.ErrorNameProperty);
+                }
 
-        //        #endregion pre-processing
-
-
-        //        #region processing
-
-        //        string requestJson = JsonSerializer.Serialize(new { name = request.name });
-        //        string responseJson = PostRequest(string.Format("{0}{1}/{2}", PushbulletConstants.BaseUrl, PushbulletConstants.ContactsUrls.Contacts, request.contact_iden), requestJson);
-        //        Contact response = JsonSerializer.Deserialize<Contact>(responseJson);
-        //        return response;
-
-        //        #endregion processing
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //}
+                #endregion pre-processing
 
 
-        //public void DeleteContact(DeleteContactRequest request)
-        //{
-        //    try
-        //    {
-        //        #region pre-processing
+                #region processing
 
-        //        if(request == null)
-        //        {
-        //            throw new ArgumentException("delete contact request");
-        //        }
+                Contact response = PostRequest<Contact>(
+                    string.Format("{0}{1}/{2}", 
+                        PushbulletConstants.BaseUrl, 
+                        PushbulletConstants.ContactsUrls.Contacts, 
+                        request.ContactIden), 
+                    request);
+                return response;
 
-        //        if (string.IsNullOrWhiteSpace(request.contact_iden))
-        //        {
-        //            throw new Exception(PushbulletConstants.DeleteContactErrorMessages.ErrorContactIdenProperty);
-        //        }
+                #endregion processing
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
-        //        #endregion pre-processing
+
+        public void DeleteContact(DeleteContactRequest request)
+        {
+            try
+            {
+                #region pre-processing
+
+                if (request == null)
+                {
+                    throw new ArgumentException("delete contact request");
+                }
+
+                if (string.IsNullOrWhiteSpace(request.ContactIden))
+                {
+                    throw new Exception(PushbulletConstants.DeleteContactErrorMessages.ErrorContactIdenProperty);
+                }
+
+                #endregion pre-processing
 
 
-        //        #region processing
+                #region processing
 
-        //        string jsonResult = DeleteRequest(string.Format("{0}{1}/{2}", PushbulletConstants.BaseUrl, PushbulletConstants.ContactsUrls.Contacts, request.contact_iden));
+                string jsonResult = DeleteRequest(string.Format("{0}{1}/{2}", PushbulletConstants.BaseUrl, PushbulletConstants.ContactsUrls.Contacts, request.ContactIden));
 
-        //        #endregion processing
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //}
+                #endregion processing
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
         #endregion Contacts Methods
 
@@ -888,24 +887,8 @@ namespace PushbulletSharp
                         var output = result.JsonToOjbect<T>();
                         return output;
                     }
-                case (int)HttpStatusCode.BadRequest:
-                    throw new HttpRequestException(PushbulletConstants.StatusCodeExceptions.BadRequest);
-                case (int)HttpStatusCode.Unauthorized:
-                    throw new HttpRequestException(PushbulletConstants.StatusCodeExceptions.Unauthorized);
-                case (int)HttpStatusCode.Forbidden:
-                    throw new HttpRequestException(PushbulletConstants.StatusCodeExceptions.Forbidden);
-                case (int)HttpStatusCode.NotFound:
-                    throw new HttpRequestException(PushbulletConstants.StatusCodeExceptions.NotFound);
-                case 429:
-                    throw new HttpRequestException(PushbulletConstants.StatusCodeExceptions.BadRequest);
-                case (int)HttpStatusCode.InternalServerError:
-                case (int)HttpStatusCode.NotImplemented:
-                case (int)HttpStatusCode.BadGateway:
-                case (int)HttpStatusCode.ServiceUnavailable:
-                case (int)HttpStatusCode.GatewayTimeout:
-                case (int)HttpStatusCode.HttpVersionNotSupported:
-                    throw new HttpRequestException(string.Format(PushbulletConstants.StatusCodeExceptions.FiveHundredXX, (int)response.StatusCode, response.StatusCode));
                 default:
+                    HandleOtherStatusCodes(response.StatusCode);
                     throw new HttpRequestException(string.Format(PushbulletConstants.StatusCodeExceptions.Default, (int)response.StatusCode, response.StatusCode));
             }
         }
@@ -928,6 +911,49 @@ namespace PushbulletSharp
                         var output = result.JsonToOjbect<T>();
                         return output;
                     }
+                default:
+                    HandleOtherStatusCodes(response.StatusCode);
+                    throw new HttpRequestException(string.Format(PushbulletConstants.StatusCodeExceptions.Default, (int)response.StatusCode, response.StatusCode));
+            }
+        }
+
+
+        /// <summary>
+        /// Deletes the request.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <returns></returns>
+        private string DeleteRequest(string url)
+        {
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Delete, url);
+            request.Headers.Add(PushbulletConstants.HeadersConstants.AuthorizationKey, string.Format(PushbulletConstants.HeadersConstants.AuthorizationValue, this.AccessToken));
+            HttpClient client = new HttpClient();
+            var response = client.SendAsync(request).Result;
+
+            switch ((int)response.StatusCode)
+            {
+                case (int)HttpStatusCode.OK:
+                    {
+                        var result = response.Content.ReadAsStringAsync().Result;
+                        return result;
+                    }
+                default:
+                    HandleOtherStatusCodes(response.StatusCode);
+                    throw new HttpRequestException(string.Format(PushbulletConstants.StatusCodeExceptions.Default, (int)response.StatusCode, response.StatusCode));
+            }
+        }
+
+
+        /// <summary>
+        /// Handles the other status codes.
+        /// </summary>
+        /// <param name="statusCode">The status code.</param>
+        /// <exception cref="System.Net.Http.HttpRequestException">
+        /// </exception>
+        private void HandleOtherStatusCodes(HttpStatusCode statusCode)
+        {
+            switch((int)statusCode)
+            {
                 case (int)HttpStatusCode.BadRequest:
                     throw new HttpRequestException(PushbulletConstants.StatusCodeExceptions.BadRequest);
                 case (int)HttpStatusCode.Unauthorized:
@@ -944,62 +970,9 @@ namespace PushbulletSharp
                 case (int)HttpStatusCode.ServiceUnavailable:
                 case (int)HttpStatusCode.GatewayTimeout:
                 case (int)HttpStatusCode.HttpVersionNotSupported:
-                    throw new HttpRequestException(string.Format(PushbulletConstants.StatusCodeExceptions.FiveHundredXX, (int)response.StatusCode, response.StatusCode));
-                default:
-                    throw new HttpRequestException(string.Format(PushbulletConstants.StatusCodeExceptions.Default, (int)response.StatusCode, response.StatusCode));
+                    throw new HttpRequestException(string.Format(PushbulletConstants.StatusCodeExceptions.FiveHundredXX, (int)statusCode, statusCode));
             }
         }
-
-        /// <summary>
-        /// Gets the request.
-        /// </summary>
-        /// <param name="url">The URL.</param>
-        /// <returns></returns>
-        //private string GetRequest(string url)
-        //{
-        //    var request = GetWebRequest(url);
-
-        //    using (var response = request.GetResponse())
-        //    {
-        //        using (var reader = new StreamReader(response.GetResponseStream()))
-        //        {
-        //            return reader.ReadToEnd();
-        //        }
-        //    }
-        //}
-
-
-        /// <summary>
-        /// Deletes the request.
-        /// </summary>
-        /// <param name="url">The URL.</param>
-        /// <returns></returns>
-        //private string DeleteRequest(string url)
-        //{
-        //    var request = GetWebRequest(url);
-        //    request.Method = PushbulletConstants.HttpMethods.DELETE;
-
-        //    using(var response = request.GetResponse())
-        //    {
-        //        using(var reader = new StreamReader(response.GetResponseStream()))
-        //        {
-        //            return reader.ReadToEnd();
-        //        }
-        //    }
-        //}
-
-
-        /// <summary>
-        /// Gets the web request.
-        /// </summary>
-        /// <param name="url">The URL.</param>
-        /// <returns></returns>
-        //private WebRequest GetWebRequest(string url)
-        //{
-        //    var request = WebRequest.Create(url);
-        //    request.Headers.Add(PushbulletConstants.HeadersConstants.AuthorizationKey, string.Format(PushbulletConstants.HeadersConstants.AuthorizationValue, this.AccessToken));
-        //    return request;
-        //}
 
 
         /// <summary>
@@ -1079,106 +1052,6 @@ namespace PushbulletSharp
                     return PushResponseType.Note;
             }
         }
-
-
-        /// <summary>
-        /// Posts the request.
-        /// </summary>
-        /// <param name="url">The URL.</param>
-        /// <param name="json">The json.</param>
-        /// <returns></returns>
-        //private string PostRequest(string url, string json)
-        //{
-        //    string result = string.Empty;
-
-        //    var request = (HttpWebRequest)HttpWebRequest.Create(url);
-
-        //    request.Method = PushbulletConstants.HttpMethods.POST;
-        //    request.ContentType = PushbulletConstants.MimeTypes.Json;
-        //    request.Headers.Add(PushbulletConstants.HeadersConstants.AuthorizationKey, string.Format(PushbulletConstants.HeadersConstants.AuthorizationValue, this.AccessToken));
-
-        //    var encoding = new System.Text.UTF8Encoding();
-        //    byte[] bytes = encoding.GetBytes(json);
-
-        //    request.ContentLength = bytes.Length;
-
-        //    using (var requestStream = request.GetRequestStream())
-        //    {
-        //        requestStream.Write(bytes, 0, bytes.Length);
-        //    }
-
-        //    request.BeginGetResponse((x) =>
-        //    {
-        //        try
-        //        {
-        //            using (var response = request.EndGetResponse(x))
-        //            {
-        //                using (var reader = new StreamReader(response.GetResponseStream()))
-        //                {
-        //                    result = reader.ReadToEnd();
-        //                }
-        //            }
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            result = ex.Message;
-        //        }
-        //    }, null);
-
-        //    return result;
-        //}
-
-
-        /// <summary>
-        /// Posts the request.
-        /// </summary>
-        /// <param name="url">The URL.</param>
-        /// <param name="parameters">The parameters.</param>
-        /// <returns></returns>
-        //private string PostRequest(string url, params string[] parameters)
-        //{
-        //    try
-        //    {
-        //        string result = string.Empty;
-
-        //        var request = (HttpWebRequest)HttpWebRequest.Create(url);
-
-        //        request.Method = PushbulletConstants.HttpMethods.POST;
-        //        request.ContentType = PushbulletConstants.MimeTypes.FormUrlEncoded;
-        //        string postData = string.Join("&", parameters);
-        //        byte[] bytes = System.Text.Encoding.UTF8.GetBytes(postData);
-        //        request.ContentLength = bytes.Length;
-
-        //        using (var requestStream = request.GetRequestStream())
-        //        {
-        //            requestStream.Write(bytes, 0, bytes.Length);
-        //        }
-
-        //        request.BeginGetResponse((x) =>
-        //        {
-        //            try
-        //            {
-        //                using (var response = request.EndGetResponse(x))
-        //                {
-        //                    using (var reader = new StreamReader(response.GetResponseStream()))
-        //                    {
-        //                        result = reader.ReadToEnd();
-        //                    }
-        //                }
-        //            }
-        //            catch (Exception)
-        //            {
-        //                throw;
-        //            }
-        //        }, null);
-
-        //        return result;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //}
 
 
         /// <summary>
