@@ -13,20 +13,20 @@ namespace PushbulletSharp.Tests
             {
                 Models.Requests.OAuthTokenRequest request = new Models.Requests.OAuthTokenRequest()
                 {
-                    client_id = "--YOUR APP CLIENT ID--",
-                    client_secret = "--YOUR APP CLIENT SECRET--",
-                    code = "--USER CODE FROM REDIRECT--"
+                    ClientId = "--YOUR APP CLIENT ID--",
+                    ClientSecret = "--YOUR APP CLIENT SECRET--",
+                    Code = "--USER CODE FROM REDIRECT--"
                 };
 
                 var result = Client.RequestToken(request);
 
-                Client.AccessToken = result.access_token;
+                Client.AccessToken = result.AccessToken;
                 var oauthUserInformation = Client.CurrentUsersInformation();
                 var oauthTestPushResults = Client.PushNote(new Models.Requests.PushNoteRequest()
                 {
-                    title = "OAuth Push Test",
-                    body = "This is a test push using OAuth!",
-                    email = oauthUserInformation.email
+                    Title = "OAuth Push Test",
+                    Body = "This is a test push using OAuth!",
+                    Email = oauthUserInformation.Email
                 });
             }
             catch (Exception)

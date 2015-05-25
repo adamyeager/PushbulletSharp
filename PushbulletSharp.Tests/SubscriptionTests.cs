@@ -1,5 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 
 namespace PushbulletSharp.Tests
@@ -17,9 +17,6 @@ namespace PushbulletSharp.Tests
             {
                 var subscriptions = Client.CurrentUsersSubscriptions();
                 Assert.IsNotNull(subscriptions);
-
-                var activeSubscriptions = Client.CurrentUsersSubscriptions(true);
-                Assert.IsNotNull(activeSubscriptions);
             }
             catch (Exception ex)
             {
@@ -73,7 +70,6 @@ namespace PushbulletSharp.Tests
             try
             {
                 var response = Client.SubscribeToChannel("pushbullet");
-
                 Assert.IsNotNull(response);
             }
             catch (Exception ex)
@@ -92,11 +88,11 @@ namespace PushbulletSharp.Tests
             try
             {
                 var subscriptions = Client.CurrentUsersSubscriptions();
-                var target = subscriptions.Subscriptions.Where(o => o.channel.tag == "pushbullet").FirstOrDefault();
+                var target = subscriptions.Subscriptions.Where(o => o.Channel.Tag == "pushbullet").FirstOrDefault();
                 Assert.IsNotNull(target, "Could not find the target Channel");
 
-                Assert.IsTrue(target.active, "Target is not active. Cannot unsubscribe.");
-                Client.UnsubscribeFromChannel(target.iden);
+                Assert.IsTrue(target.Active, "Target is not active. Cannot unsubscribe.");
+                Client.UnsubscribeFromChannel(target.Iden);
             }
             catch (Exception ex)
             {

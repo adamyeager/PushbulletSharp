@@ -53,10 +53,10 @@ namespace PushbulletSharp.Tests
             try
             {
                 CreateContactRequest request = new CreateContactRequest()
-                    {
-                        name = "Some Person",
-                        email = "some.person@aninternetwebsite.com"
-                    };
+                {
+                    Name = "Some Person",
+                    Email = "some.person@aninternetwebsite.com"
+                };
 
                 var result = Client.CreateNewContact(request);
                 Assert.IsNotNull(result);
@@ -79,13 +79,13 @@ namespace PushbulletSharp.Tests
                 var contacts = Client.CurrentUsersContacts();
                 Assert.IsNotNull(contacts);
 
-                var contact = contacts.contacts.Where(o => o.email == "some.person@aninternetwebsite.com").FirstOrDefault();
+                var contact = contacts.Contacts.Where(o => o.Email == "some.person@aninternetwebsite.com").FirstOrDefault();
                 Assert.IsNotNull(contact);
 
                 UpdateContactRequest request = new UpdateContactRequest()
                 {
-                    name = "Not A Real Person",
-                    contact_iden = contact.iden
+                    Name = "Not A Real Person",
+                    ContactIden = contact.Iden
                 };
 
                 var result = Client.UpdateContact(request);
@@ -109,12 +109,12 @@ namespace PushbulletSharp.Tests
                 var contacts = Client.CurrentUsersContacts();
                 Assert.IsNotNull(contacts);
 
-                var contact = contacts.contacts.Where(o => o.email == "some.person@aninternetwebsite.com").FirstOrDefault();
+                var contact = contacts.Contacts.Where(o => o.Email == "some.person@aninternetwebsite.com").FirstOrDefault();
                 Assert.IsNotNull(contact);
 
                 DeleteContactRequest request = new DeleteContactRequest()
                 {
-                    contact_iden = contact.iden
+                    ContactIden = contact.Iden
                 };
 
                 Client.DeleteContact(request);

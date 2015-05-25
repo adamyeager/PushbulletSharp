@@ -1,8 +1,11 @@
-﻿using System.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PushbulletSharp.Filters;
 using PushbulletSharp.Models.Requests;
+using PushbulletSharp.Models.Responses;
 using System;
+using System.IO;
 using System.Linq;
+using PushbulletSharp;
 
 namespace PushbulletSharp.Tests
 {
@@ -24,7 +27,6 @@ namespace PushbulletSharp.Tests
             {
                 Assert.Fail(ex.Message);
             }
-
         }
 
 
@@ -75,14 +77,14 @@ namespace PushbulletSharp.Tests
                 var devices = Client.CurrentUsersDevices();
                 Assert.IsNotNull(devices);
 
-                var device = devices.Devices.Where(o => o.manufacturer == "Apple").FirstOrDefault();
+                var device = devices.Devices.Where(o => o.Nickname == "aPhone6").FirstOrDefault();
                 Assert.IsNotNull(device, "Could not find the device specified.");
 
                 PushNoteRequest reqeust = new PushNoteRequest()
                 {
-                    device_iden = device.iden,
-                    title = "hello world",
-                    body = "This is a test from my C# wrapper."
+                    DeviceIden = device.Iden,
+                    Title = "hello world",
+                    Body = "This is a test from my C# wrapper."
                 };
 
                 var response = Client.PushNote(reqeust);
@@ -109,9 +111,9 @@ namespace PushbulletSharp.Tests
 
                 PushNoteRequest reqeust = new PushNoteRequest()
                 {
-                    email = currentUserInformation.email,
-                    title = "hello world",
-                    body = "This is a test from my C# wrapper."
+                    Email = currentUserInformation.Email,
+                    Title = "hello world via email",
+                    Body = "This is a test from my C# wrapper."
                 };
 
                 var response = Client.PushNote(reqeust);
@@ -134,20 +136,22 @@ namespace PushbulletSharp.Tests
                 var devices = Client.CurrentUsersDevices();
                 Assert.IsNotNull(devices);
 
-                var device = devices.Devices.Where(o => o.manufacturer == "Apple").FirstOrDefault();
+                var device = devices.Devices.Where(o => o.Nickname == "aPhone6").FirstOrDefault();
                 Assert.IsNotNull(device, "Could not find the device specified.");
 
                 PushListRequest reqeust = new PushListRequest()
                 {
-                    device_iden = device.iden,
-                    title = "Shopping List"
+                    DeviceIden = device.Iden,
+                    Title = "Shopping List"
                 };
 
-                reqeust.items.Add("Milk");
-                reqeust.items.Add("Bread");
-                reqeust.items.Add("Chicken");
+                reqeust.Items.Add("Milk");
+                reqeust.Items.Add("Bread");
+                reqeust.Items.Add("Chicken");
 
                 var response = Client.PushList(reqeust);
+
+                Assert.IsNotNull(response);
             }
             catch (Exception ex)
             {
@@ -167,14 +171,14 @@ namespace PushbulletSharp.Tests
                 var devices = Client.CurrentUsersDevices();
                 Assert.IsNotNull(devices);
 
-                var device = devices.Devices.Where(o => o.manufacturer == "Apple").FirstOrDefault();
+                var device = devices.Devices.Where(o => o.Nickname == "aPhone6").FirstOrDefault();
                 Assert.IsNotNull(device, "Could not find the device specified.");
 
                 PushAddressRequest reqeust = new PushAddressRequest()
                 {
-                    device_iden = device.iden,
-                    name = "Apple Incorporated",
-                    address = "1 Infinite Loop, Cupertino, CA 95014"
+                    DeviceIden = device.Iden,
+                    Name = "Apple Incorporated",
+                    Address = "1 Infinite Loop, Cupertino, CA 95014"
                 };
 
                 var response = Client.PushAddress(reqeust);
@@ -197,15 +201,15 @@ namespace PushbulletSharp.Tests
                 var devices = Client.CurrentUsersDevices();
                 Assert.IsNotNull(devices);
 
-                var device = devices.Devices.Where(o => o.manufacturer == "Apple").FirstOrDefault();
+                var device = devices.Devices.Where(o => o.Nickname == "aPhone6").FirstOrDefault();
                 Assert.IsNotNull(device, "Could not find the device specified.");
 
                 PushLinkRequest reqeust = new PushLinkRequest()
                 {
-                    device_iden = device.iden,
-                    title = "Google",
-                    url = "http://google.com/",
-                    body = "Search the internet."
+                    DeviceIden = device.Iden,
+                    Title = "Google",
+                    Url = "http://google.com/",
+                    Body = "Search the internet."
                 };
 
                 var response = Client.PushLink(reqeust);
@@ -228,23 +232,70 @@ namespace PushbulletSharp.Tests
                 var devices = Client.CurrentUsersDevices();
                 Assert.IsNotNull(devices);
 
-                var device = devices.Devices.Where(o => o.manufacturer == "Apple").FirstOrDefault();
+                var device = devices.Devices.Where(o => o.Nickname == "aPhone6").FirstOrDefault();
                 Assert.IsNotNull(device, "Could not find the device specified.");
 
-                using(var fileStream = new FileStream(@"c:\daftpunk.png", FileMode.Open, FileAccess.Read, FileShare.Read))
+                using (var fileStream = new FileStream(@"c:\daftpunk.png", FileMode.Open, FileAccess.Read, FileShare.Read))
                 {
                     PushFileRequest request = new PushFileRequest()
                     {
-                        device_iden = device.iden,
-                        file_name = "daftpunk.png",
-                        file_type = "image/png",
-                        file_stream = fileStream,
-                        body = "Work It Harder\r\nMake It Better\r\nDo It Faster"
+                        DeviceIden = device.Iden,
+                        FileName = "daftpunk.png",
+                        FileType = "image/png",
+                        FileStream = fileStream,
+                        Body = "Work It Harder\r\nMake It Better\r\nDo It Faster"
                     };
 
                     var response = Client.PushFile(request);
                 }
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.Message);
+            }
+        }
 
+        [TestMethod]
+        public void GetPushesAllSince()
+        {
+            try
+            {
+                PushResponseFilter filter = new PushResponseFilter()
+                {
+                    ModifiedDate = new DateTime(2015, 3, 14),
+                };
+                var results = Client.GetPushes(new PushResponseFilter());
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.Message);
+            }
+        }
+
+        [TestMethod]
+        public void GetPushesNotesAndFilesSince()
+        {
+            try
+            {
+                PushResponseFilter filter = new PushResponseFilter()
+                {
+                    ModifiedDate = new DateTime(2015, 3, 14),
+                    IncludeTypes = new PushResponseType[] { PushResponseType.Note, PushResponseType.File }
+                };
+                var results = Client.GetPushes(filter);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.Message);
+            }
+        }
+
+        [TestMethod]
+        public void GetPushesAll()
+        {
+            try
+            {
+                var results = Client.GetPushes(new PushResponseFilter());
             }
             catch (Exception ex)
             {

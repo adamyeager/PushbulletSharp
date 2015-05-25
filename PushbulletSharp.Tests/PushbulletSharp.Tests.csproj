@@ -60,7 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PushbulletSharp\PushbulletSharp.csproj">
-      <Project>{4f7bb7e4-35d2-467e-8c61-1c86795f7653}</Project>
+      <Project>{459fdff0-d68e-49ae-961f-0912916b78ab}</Project>
       <Name>PushbulletSharp</Name>
     </ProjectReference>
   </ItemGroup>
