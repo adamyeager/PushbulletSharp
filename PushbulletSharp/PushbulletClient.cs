@@ -378,11 +378,11 @@ namespace PushbulletSharp
         private Subscription ConvertFromBasicSubscription(BasicSubscription basicSubscription)
         {
             Subscription result = new Subscription();
-            result.active = basicSubscription.Active;
-            result.channel = basicSubscription.Channel;
-            result.iden = basicSubscription.Iden;
-            result.created = TimeZoneInfo.ConvertTime(basicSubscription.Created.UnixTimeToDateTime(), TimeZoneInfo);
-            result.modified = TimeZoneInfo.ConvertTime(basicSubscription.Modified.UnixTimeToDateTime(), TimeZoneInfo);
+            result.Active = basicSubscription.Active;
+            result.Channel = basicSubscription.Channel;
+            result.Iden = basicSubscription.Iden;
+            result.Created = TimeZoneInfo.ConvertTime(basicSubscription.Created.UnixTimeToDateTime(), TimeZoneInfo);
+            result.Modified = TimeZoneInfo.ConvertTime(basicSubscription.Modified.UnixTimeToDateTime(), TimeZoneInfo);
             return result;
         }
 
@@ -779,9 +779,9 @@ namespace PushbulletSharp
                 {
                     foreach (var type in filter.IncludeTypes)
                     {
-                        results.pushes.AddRange(pushContainer.pushes.Where(o => o.Type == type).ToList());
+                        results.Pushes.AddRange(pushContainer.Pushes.Where(o => o.Type == type).ToList());
                     }
-                    results.pushes = results.pushes.OrderByDescending(o => o.Created).ToList();
+                    results.Pushes = results.Pushes.OrderByDescending(o => o.Created).ToList();
                 }
                 else
                 {
@@ -809,7 +809,7 @@ namespace PushbulletSharp
             PushResponseContainer result = new PushResponseContainer();
             foreach(var basicPush in container.Pushes)
             {
-                result.pushes.Add(ConvertBasicPushResponse(basicPush));
+                result.Pushes.Add(ConvertBasicPushResponse(basicPush));
             }
             return result;
         }

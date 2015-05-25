@@ -1,5 +1,7 @@
-﻿namespace PushbulletSharp.Models.Responses
+﻿using System.Runtime.Serialization;
+namespace PushbulletSharp.Models.Responses
 {
+    [DataContract]
     public class Channel
     {
         /// <summary>
@@ -8,7 +10,8 @@
         /// <value>
         /// The iden.
         /// </value>
-        public string iden { get; set; }
+        [DataMember(Name = "iden")]
+        public string Iden { get; set; }
 
         /// <summary>
         /// Gets or sets the tag.
@@ -16,7 +19,8 @@
         /// <value>
         /// The tag.
         /// </value>
-        public string tag { get; set; }
+        [DataMember(Name = "tag")]
+        public string Tag { get; set; }
 
         /// <summary>
         /// Gets or sets the name.
@@ -24,7 +28,8 @@
         /// <value>
         /// The name.
         /// </value>
-        public string name { get; set; }
+        [DataMember(Name = "name")]
+        public string Name { get; set; }
 
         /// <summary>
         /// Gets or sets the description.
@@ -32,7 +37,8 @@
         /// <value>
         /// The description.
         /// </value>
-        public string description { get; set; }
+        [DataMember(Name = "description")]
+        public string Description { get; set; }
 
         /// <summary>
         /// Gets or sets the website_url.
@@ -40,7 +46,8 @@
         /// <value>
         /// The website_url.
         /// </value>
-        public string website_url { get; set; }
+        [DataMember(Name = "website_url")]
+        public string WebsiteUrl { get; set; }
 
         /// <summary>
         /// Gets or sets the image_url.
@@ -48,7 +55,8 @@
         /// <value>
         /// The image_url.
         /// </value>
-        public string image_url { get; set; }
+        [DataMember(Name = "image_url")]
+        public string ImageUrl { get; set; }
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
@@ -58,9 +66,9 @@
         /// </returns>
         public override string ToString()
         {
-            if(!string.IsNullOrWhiteSpace(name))
+            if(!string.IsNullOrWhiteSpace(Name))
             {
-                return name;
+                return Name;
             }
             
             return base.ToString();

@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace PushbulletSharp.Models.Responses
 {
+    [DataContract]
     public class UserContacts
     {
         /// <summary>
@@ -9,7 +11,7 @@ namespace PushbulletSharp.Models.Responses
         /// </summary>
         public UserContacts()
         {
-            contacts = new List<Contact>();
+            Contacts = new List<Contact>();
         }
 
         /// <summary>
@@ -18,6 +20,7 @@ namespace PushbulletSharp.Models.Responses
         /// <value>
         /// The contacts.
         /// </value>
-        public List<Contact> contacts { get; set; }
+        [DataMember(Name = "contacts")]
+        public List<Contact> Contacts { get; set; }
     }
 }

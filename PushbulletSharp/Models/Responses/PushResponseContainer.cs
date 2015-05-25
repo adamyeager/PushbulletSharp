@@ -6,9 +6,9 @@ namespace PushbulletSharp.Models.Responses
     {
         public PushResponseContainer()
         {
-            pushes = new List<PushResponse>();
+            Pushes = new List<PushResponse>();
         }
 
-        public List<PushResponse> pushes { get; set; }
+        public List<PushResponse> Pushes { get; set; }
     }
 }

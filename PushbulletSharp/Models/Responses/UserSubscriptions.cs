@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace PushbulletSharp.Models.Responses
 {
+    [DataContract]
     public class UserSubscriptions
     {
         /// <summary>
@@ -18,6 +20,7 @@ namespace PushbulletSharp.Models.Responses
         /// <value>
         /// The subscriptions.
         /// </value>
+        [DataMember(Name = "subscriptions")]
         public List<Subscription> Subscriptions { get; set; }
     }
 }

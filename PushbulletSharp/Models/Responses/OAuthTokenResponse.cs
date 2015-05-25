@@ -1,5 +1,8 @@
-﻿namespace PushbulletSharp.Models.Responses
+﻿using System.Runtime.Serialization;
+
+namespace PushbulletSharp.Models.Responses
 {
+    [DataContract]
     public class OAuthTokenResponse
     {
         /// <summary>
@@ -8,7 +11,8 @@
         /// <value>
         /// The token_type.
         /// </value>
-        public string token_type { get; set; }
+        [DataMember(Name = "token_type")]
+        public string TokenType { get; set; }
 
         /// <summary>
         /// Gets or sets the access_token.
@@ -16,7 +20,8 @@
         /// <value>
         /// The access_token.
         /// </value>
-        public string access_token { get; set; }
+        [DataMember(Name = "access_token")]
+        public string AccessToken { get; set; }
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
@@ -26,9 +31,9 @@
         /// </returns>
         public override string ToString()
         {
-            if(!string.IsNullOrWhiteSpace(access_token))
+            if(!string.IsNullOrWhiteSpace(AccessToken))
             {
-                return access_token;
+                return AccessToken;
             }
 
             return base.ToString();

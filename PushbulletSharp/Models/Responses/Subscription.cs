@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace PushbulletSharp.Models.Responses
 {
+    [DataContract]
     public class Subscription
     {
         /// <summary>
@@ -10,7 +12,8 @@ namespace PushbulletSharp.Models.Responses
         /// <value>
         /// The iden.
         /// </value>
-        public string iden { get; set; }
+        [DataMember(Name = "iden")]
+        public string Iden { get; set; }
 
         /// <summary>
         /// Gets or sets the created.
@@ -18,7 +21,8 @@ namespace PushbulletSharp.Models.Responses
         /// <value>
         /// The created.
         /// </value>
-        public DateTime created { get; set; }
+        [DataMember(Name = "created")]
+        public DateTime Created { get; set; }
 
         /// <summary>
         /// Gets or sets the modified.
@@ -26,7 +30,8 @@ namespace PushbulletSharp.Models.Responses
         /// <value>
         /// The modified.
         /// </value>
-        public DateTime modified { get; set; }
+        [DataMember(Name = "modified")]
+        public DateTime Modified { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="Subscription"/> is active.
@@ -34,7 +39,8 @@ namespace PushbulletSharp.Models.Responses
         /// <value>
         ///   <c>true</c> if active; otherwise, <c>false</c>.
         /// </value>
-        public bool active { get; set; }
+        [DataMember(Name = "active")]
+        public bool Active { get; set; }
 
         /// <summary>
         /// Gets or sets the channel.
@@ -42,6 +48,7 @@ namespace PushbulletSharp.Models.Responses
         /// <value>
         /// The channel.
         /// </value>
-        public Channel channel { get; set; }
+        [DataMember(Name = "channel")]
+        public Channel Channel { get; set; }
     }
 }

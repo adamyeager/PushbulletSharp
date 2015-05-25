@@ -1,5 +1,7 @@
-﻿namespace PushbulletSharp.Models.Responses
+﻿using System.Runtime.Serialization;
+namespace PushbulletSharp.Models.Responses
 {
+    [DataContract]
     public class Contact
     {
         /// <summary>
@@ -8,7 +10,8 @@
         /// <value>
         /// The iden.
         /// </value>
-        public string iden { get; set; }
+        [DataMember(Name = "iden")]
+        public string Iden { get; set; }
 
         /// <summary>
         /// Gets or sets the name.
@@ -16,7 +19,8 @@
         /// <value>
         /// The name.
         /// </value>
-        public string name { get; set; }
+        [DataMember(Name = "name")]
+        public string Name { get; set; }
 
         /// <summary>
         /// Gets or sets the created.
@@ -24,7 +28,8 @@
         /// <value>
         /// The created.
         /// </value>
-        public string created { get; set; }
+        [DataMember(Name = "created")]
+        public string Created { get; set; }
 
         /// <summary>
         /// Gets or sets the modified.
@@ -32,7 +37,8 @@
         /// <value>
         /// The modified.
         /// </value>
-        public string modified { get; set; }
+        [DataMember(Name = "modified")]
+        public string Modified { get; set; }
 
         /// <summary>
         /// Gets or sets the email.
@@ -40,7 +46,8 @@
         /// <value>
         /// The email.
         /// </value>
-        public string email { get; set; }
+        [DataMember(Name = "email")]
+        public string Email { get; set; }
 
         /// <summary>
         /// Gets or sets the email_normalized.
@@ -48,7 +55,8 @@
         /// <value>
         /// The email_normalized.
         /// </value>
-        public string email_normalized { get; set; }
+        [DataMember(Name = "email_normalized")]
+        public string EmailNormalized { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="Contact"/> is active.
@@ -56,7 +64,8 @@
         /// <value>
         ///   <c>true</c> if active; otherwise, <c>false</c>.
         /// </value>
-        public bool active { get; set; }
+        [DataMember(Name = "active")]
+        public bool Active { get; set; }
 
         /// <summary>
         /// Gets or sets the image_url.
@@ -64,7 +73,8 @@
         /// <value>
         /// The image_url.
         /// </value>
-        public string image_url { get; set; }
+        [DataMember(Name = "image_url")]
+        public string ImageUrl { get; set; }
 
         /// <summary>
         /// Gets or sets the status.
@@ -72,7 +82,8 @@
         /// <value>
         /// The status.
         /// </value>
-        public string status { get; set; }
+        [DataMember(Name = "status")]
+        public string Status { get; set; }
 
         /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
@@ -82,9 +93,9 @@
         /// </returns>
         public override string ToString()
         {
-            if(!string.IsNullOrWhiteSpace(name))
+            if(!string.IsNullOrWhiteSpace(Name))
             {
-                return name;
+                return Name;
             }
 
             return base.ToString();
