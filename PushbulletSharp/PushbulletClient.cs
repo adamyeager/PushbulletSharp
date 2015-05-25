@@ -2,6 +2,7 @@
 using PushbulletSharp.Models.Requests;
 using PushbulletSharp.Models.Responses;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -63,6 +64,12 @@ namespace PushbulletSharp
 
 
         private TimeZoneInfo _timeZoneInfo = TimeZoneInfo.Utc;
+        /// <summary>
+        /// Gets the time zone information.
+        /// </summary>
+        /// <value>
+        /// The time zone information.
+        /// </value>
         internal TimeZoneInfo TimeZoneInfo
         {
             get
@@ -269,6 +276,12 @@ namespace PushbulletSharp
         }
 
 
+        /// <summary>
+        /// Deletes the contact.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <exception cref="System.ArgumentException">delete contact request</exception>
+        /// <exception cref="System.Exception"></exception>
         public void DeleteContact(DeleteContactRequest request)
         {
             try
@@ -305,75 +318,83 @@ namespace PushbulletSharp
 
         #region Channels Methods
 
-        //public Subscription SubscribeToChannel(string channel_tag)
-        //{
-        //    #region pre-processing
+        /// <summary>
+        /// Subscribes to channel.
+        /// </summary>
+        /// <param name="channelTag">The channel tag.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentNullException">channel_tag</exception>
+        public Subscription SubscribeToChannel(string channelTag)
+        {
+            #region pre-processing
 
-        //    if (string.IsNullOrWhiteSpace(channel_tag))
-        //    {
-        //        throw new ArgumentNullException("channel_tag");
-        //    }
+            if (string.IsNullOrWhiteSpace(channelTag))
+            {
+                throw new ArgumentNullException("channel_tag");
+            }
 
-        //    #endregion pre-processing
+            #endregion pre-processing
 
 
-        //    #region processing
+            #region processing
 
-        //    ChannelSubscriptionRequest request = new ChannelSubscriptionRequest()
-        //    {
-        //        channel_tag = channel_tag
-        //    };
+            ChannelSubscriptionRequest request = new ChannelSubscriptionRequest()
+            {
+                ChannelTag = channelTag
+            };
 
-        //    string requestJson = JsonSerializer.Serialize(request);
-        //    string responseJson = PostRequest(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.SubscriptionUrls.Subscriptions), requestJson);
-        //    var basicResponse = JsonSerializer.Deserialize<BasicSubscription>(responseJson);
-        //    Subscription result = ConvertFromBasicSubscription(basicResponse);
-        //    return result;
+            BasicSubscription basicResponse = PostRequest<BasicSubscription>(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.SubscriptionUrls.Subscriptions), request);
+            Subscription result = ConvertFromBasicSubscription(basicResponse);
+            return result;
 
-        //    #endregion processing
-        //}
+            #endregion processing
+        }
 
 
         /// <summary>
-        /// Get the current user's subscriptions.
+        /// Currents the users subscriptions.
         /// </summary>
         /// <param name="showActiveOnly">if set to <c>true</c> [show active only].</param>
         /// <returns></returns>
-        //public UserSubscriptions CurrentUsersSubscriptions(bool showActiveOnly = false)
-        //{
-        //    try
-        //    {
-        //        #region pre-processing
+        public UserSubscriptions CurrentUsersSubscriptions(bool showActiveOnly = false)
+        {
+            try
+            {
+                #region pre-processing
 
-        //        string additionalQuery = string.Empty;
+                string additionalQuery = string.Empty;
 
-        //        if(showActiveOnly)
-        //        {
-        //            additionalQuery = "?active=true";
-        //        }
+                if (showActiveOnly)
+                {
+                    additionalQuery = "?active=true";
+                }
 
-        //        #endregion end pre-processing
+                #endregion end pre-processing
 
-        //        #region processing
+                #region processing
 
-        //        UserSubscriptions result = new UserSubscriptions();
-        //        string jsonResult = GetRequest(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.SubscriptionUrls.Subscriptions, additionalQuery).Trim());
-        //        var basicResult = JsonSerializer.Deserialize<BasicUserSubscriptions>(jsonResult);
-        //        foreach(var sub in basicResult.subscriptions)
-        //        {
-        //            result.Subscriptions.Add(ConvertFromBasicSubscription(sub));
-        //        }
-        //        return result;
+                UserSubscriptions result = new UserSubscriptions(); 
+                var basicResult = GetRequest<BasicUserSubscriptions>(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.SubscriptionUrls.Subscriptions, additionalQuery).Trim());
+                foreach (var sub in basicResult.Subscriptions)
+                {
+                    result.Subscriptions.Add(ConvertFromBasicSubscription(sub));
+                }
+                return result;
 
-        //        #endregion processing
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //}
+                #endregion processing
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
 
+        /// <summary>
+        /// Converts from basic subscription.
+        /// </summary>
+        /// <param name="basicSubscription">The basic subscription.</param>
+        /// <returns></returns>
         private Subscription ConvertFromBasicSubscription(BasicSubscription basicSubscription)
         {
             Subscription result = new Subscription();
@@ -389,55 +410,53 @@ namespace PushbulletSharp
         /// <summary>
         /// Unsubscribes from channel.
         /// </summary>
-        /// <param name="channel_iden">The channel_iden.</param>
-        /// <exception cref="System.ArgumentException">unsubscribe from channel request</exception>
-        /// <exception cref="System.Exception"></exception>
-        //public void UnsubscribeFromChannel(string channel_iden)
-        //{
-        //    #region pre-processing
+        /// <param name="channelIden">The channel iden.</param>
+        /// <exception cref="System.ArgumentNullException">channel_iden</exception>
+        public void UnsubscribeFromChannel(string channelIden)
+        {
+            #region pre-processing
 
-        //    if (string.IsNullOrWhiteSpace(channel_iden))
-        //    {
-        //        throw new ArgumentNullException("channel_iden");
-        //    }
+            if (string.IsNullOrWhiteSpace(channelIden))
+            {
+                throw new ArgumentNullException("channel_iden");
+            }
 
-        //    #endregion pre-processing
+            #endregion pre-processing
 
 
-        //    #region processing
+            #region processing
 
-        //    string jsonResult = DeleteRequest(string.Format("{0}{1}/{2}", PushbulletConstants.BaseUrl, PushbulletConstants.SubscriptionUrls.Subscriptions, channel_iden));
+            string jsonResult = DeleteRequest(string.Format("{0}{1}/{2}", PushbulletConstants.BaseUrl, PushbulletConstants.SubscriptionUrls.Subscriptions, channelIden));
 
-        //    #endregion processing
-        //}
+            #endregion processing
+        }
 
 
         /// <summary>
         /// Gets the channel information.
         /// </summary>
-        /// <param name="channel_tag">The channel_tag.</param>
+        /// <param name="channelTag">The channel tag.</param>
         /// <returns></returns>
         /// <exception cref="System.ArgumentNullException">channel_tag</exception>
-        //public Channel GetChannelInformation(string channel_tag)
-        //{
-        //    #region pre-processing
+        public Channel GetChannelInformation(string channelTag)
+        {
+            #region pre-processing
 
-        //    if (string.IsNullOrWhiteSpace(channel_tag))
-        //    {
-        //        throw new ArgumentNullException("channel_tag");
-        //    }
+            if (string.IsNullOrWhiteSpace(channelTag))
+            {
+                throw new ArgumentNullException("channel_tag");
+            }
 
-        //    #endregion pre-processing
+            #endregion pre-processing
 
 
-        //    #region processing
+            #region processing
 
-        //    string jsonResult = GetRequest(string.Format("{0}{1}?tag={2}", PushbulletConstants.BaseUrl, PushbulletConstants.SubscriptionUrls.ChannelInfo, channel_tag));
-        //    var result = JsonSerializer.Deserialize<Channel>(jsonResult);
-        //    return result;
+            Channel result = GetRequest<Channel>(string.Format("{0}{1}?tag={2}", PushbulletConstants.BaseUrl, PushbulletConstants.SubscriptionUrls.ChannelInfo, channelTag));
+            return result;
 
-        //    #endregion processing
-        //}
+            #endregion processing
+        }
 
         #endregion Channels Methods
 
@@ -448,8 +467,11 @@ namespace PushbulletSharp
         /// Pushes the note.
         /// </summary>
         /// <param name="request">The request.</param>
+        /// <param name="ignoreEmptyFields">if set to <c>true</c> [ignore empty fields].</param>
         /// <returns></returns>
-        /// <exception cref="System.ArgumentNullException">request</exception>
+        /// <exception cref="System.ArgumentNullException">note request</exception>
+        /// <exception cref="System.Exception">
+        /// </exception>
         public PushResponse PushNote(PushNoteRequest request, bool ignoreEmptyFields = false)
         {
             try
@@ -504,8 +526,11 @@ namespace PushbulletSharp
         /// Pushes the address.
         /// </summary>
         /// <param name="request">The request.</param>
+        /// <param name="ignoreEmptyFields">if set to <c>true</c> [ignore empty fields].</param>
         /// <returns></returns>
-        /// <exception cref="System.ArgumentNullException">request</exception>
+        /// <exception cref="System.ArgumentNullException">address request</exception>
+        /// <exception cref="System.Exception">
+        /// </exception>
         public PushResponse PushAddress(PushAddressRequest request, bool ignoreEmptyFields = false)
         {
             try
@@ -555,12 +580,16 @@ namespace PushbulletSharp
             }
         }
 
+
         /// <summary>
         /// Pushes the link.
         /// </summary>
         /// <param name="request">The request.</param>
+        /// <param name="ignoreEmptyFields">if set to <c>true</c> [ignore empty fields].</param>
         /// <returns></returns>
-        /// <exception cref="System.ArgumentNullException">request</exception>
+        /// <exception cref="System.ArgumentNullException">link request</exception>
+        /// <exception cref="System.Exception">
+        /// </exception>
         public PushResponse PushLink(PushLinkRequest request, bool ignoreEmptyFields = false)
         {
             try
@@ -617,8 +646,11 @@ namespace PushbulletSharp
         /// Pushes the list.
         /// </summary>
         /// <param name="request">The request.</param>
+        /// <param name="ignoreEmptyFields">if set to <c>true</c> [ignore empty fields].</param>
         /// <returns></returns>
         /// <exception cref="System.ArgumentNullException">list request</exception>
+        /// <exception cref="System.Exception">
+        /// </exception>
         public PushResponse PushList(PushListRequest request, bool ignoreEmptyFields = false)
         {
             try
@@ -670,6 +702,8 @@ namespace PushbulletSharp
         /// <param name="request">The request.</param>
         /// <returns></returns>
         /// <exception cref="System.ArgumentNullException">file request</exception>
+        /// <exception cref="System.Exception">
+        /// </exception>
         public PushResponse PushFile(PushFileRequest request)
         {
             try
@@ -821,48 +855,47 @@ namespace PushbulletSharp
         /// <summary>
         /// Requests the token.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="url">The URL.</param>
+        /// <param name="request">The request.</param>
         /// <returns></returns>
-        /// <exception cref="System.Net.Http.HttpRequestException">
-        /// </exception>
         /// <exception cref="System.ArgumentNullException">oauth token request</exception>
-        //public OAuthTokenResponse RequestToken(OAuthTokenRequest request)
-        //{
-        //    try
-        //    {
-        //        #region pre-processing
+        /// <exception cref="System.Exception"></exception>
+        public OAuthTokenResponse RequestToken(OAuthTokenRequest request)
+        {
+            try
+            {
+                #region pre-processing
 
-        //        if (request == null)
-        //        {
-        //            throw new ArgumentNullException("oauth token request");
-        //        }
+                if (request == null)
+                {
+                    throw new ArgumentNullException("oauth token request");
+                }
 
-        //        #endregion pre-processing
+                #endregion pre-processing
 
 
-        //        #region processing
+                #region processing
 
-        //        string grantTypeParam = string.Concat("grant_type=", request.grant_type);
-        //        string clientIdParam = string.Concat("client_id=", request.client_id);
-        //        string clientSecretParam = string.Concat("client_secret=", request.client_secret);
-        //        string codeParam = string.Concat("code=", request.code);
-        //        string jsonResult = PostRequest(string.Concat(PushbulletConstants.BaseUrlNonVersion, PushbulletConstants.OAuthUrls.OAuthToken), grantTypeParam, clientIdParam, clientSecretParam, codeParam);
-        //        var result = JsonSerializer.Deserialize<OAuthTokenResponse>(jsonResult);
-        //        return result;
+                List<KeyValuePair<string, string>> parameters = new List<KeyValuePair<string, string>>();
+                parameters.Add(new KeyValuePair<string, string>("grant_type", request.GrantType));
+                parameters.Add(new KeyValuePair<string, string>("client_id", request.ClientId));
+                parameters.Add(new KeyValuePair<string, string>("client_secret", request.ClientSecret));
+                parameters.Add(new KeyValuePair<string, string>("code", request.Code));
+                string jsonResult = PostFormUrlEncodedContentRequest(string.Concat(PushbulletConstants.BaseUrlNonVersion, PushbulletConstants.OAuthUrls.OAuthToken), parameters);
+                var result = jsonResult.JsonToOjbect<OAuthTokenResponse>();
+                return result;
 
-        //        #endregion processing
-        //    }
-        //    catch (WebException ex)
-        //    {
-        //        var statusCode = ((HttpWebResponse)ex.Response).StatusCode;
-        //        throw new Exception(string.Format(PushbulletConstants.OAuthErrorMessages.WebExceptionFormat, statusCode, ex.Message), ex);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //}
+                #endregion processing
+            }
+            catch (WebException ex)
+            {
+                var statusCode = ((HttpWebResponse)ex.Response).StatusCode;
+                throw new Exception(string.Format(PushbulletConstants.OAuthErrorMessages.WebExceptionFormat, statusCode, ex.Message), ex);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
         #endregion OAuth Methods
 
@@ -872,6 +905,13 @@ namespace PushbulletSharp
 
         #region private methods
 
+        /// <summary>
+        /// Gets the request.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="url">The URL.</param>
+        /// <returns></returns>
+        /// <exception cref="System.Net.Http.HttpRequestException"></exception>
         private T GetRequest<T>(string url)
         {
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, url);
@@ -894,6 +934,14 @@ namespace PushbulletSharp
         }
 
 
+        /// <summary>
+        /// Posts the request.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="url">The URL.</param>
+        /// <param name="requestObject">The request object.</param>
+        /// <returns></returns>
+        /// <exception cref="System.Net.Http.HttpRequestException"></exception>
         private T PostRequest<T>(string url, object requestObject)
         {
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, url);
@@ -914,6 +962,44 @@ namespace PushbulletSharp
                 default:
                     HandleOtherStatusCodes(response.StatusCode);
                     throw new HttpRequestException(string.Format(PushbulletConstants.StatusCodeExceptions.Default, (int)response.StatusCode, response.StatusCode));
+            }
+        }
+
+
+        /// <summary>
+        /// Posts the form URL encoded content request.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns></returns>
+        /// <exception cref="System.Net.Http.HttpRequestException"></exception>
+        private string PostFormUrlEncodedContentRequest(string url, List<KeyValuePair<string, string>> parameters)
+        {
+            try
+            {
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, url);
+                request.Headers.Add(PushbulletConstants.HeadersConstants.AuthorizationKey, string.Format(PushbulletConstants.HeadersConstants.AuthorizationValue, this.AccessToken));
+                //string postData = string.Join("&", parameters);
+                request.Content = new FormUrlEncodedContent(parameters);
+
+                HttpClient client = new HttpClient();
+                var response = client.SendAsync(request).Result;
+
+                switch ((int)response.StatusCode)
+                {
+                    case (int)HttpStatusCode.OK:
+                        {
+                            var result = response.Content.ReadAsStringAsync().Result;
+                            return result;
+                        }
+                    default:
+                        HandleOtherStatusCodes(response.StatusCode);
+                        throw new HttpRequestException(string.Format(PushbulletConstants.StatusCodeExceptions.Default, (int)response.StatusCode, response.StatusCode));
+                }
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
 
@@ -978,7 +1064,8 @@ namespace PushbulletSharp
         /// <summary>
         /// Posts the push request.
         /// </summary>
-        /// <param name="requestJson">The request json.</param>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="requestObject">The request object.</param>
         /// <returns></returns>
         private PushResponse PostPushRequest<T>(T requestObject)
         {

@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace PushbulletSharp.Models.Responses
 {
+    [DataContract]
     internal class BasicUserSubscriptions
     {
         public BasicUserSubscriptions()
         {
-            this.subscriptions = new List<BasicSubscription>();
+            this.Subscriptions = new List<BasicSubscription>();
         }
 
         /// <summary>
@@ -15,6 +17,7 @@ namespace PushbulletSharp.Models.Responses
         /// <value>
         /// The subscriptions.
         /// </value>
-        public List<BasicSubscription> subscriptions { get; set; }
+        [DataMember(Name = "subscriptions")]
+        public List<BasicSubscription> Subscriptions { get; set; }
     }
 }
