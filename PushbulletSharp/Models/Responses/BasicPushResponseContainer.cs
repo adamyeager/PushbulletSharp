@@ -14,5 +14,9 @@ namespace PushbulletSharp.Models.Responses
         /// </value>
         [DataMember(Name = "pushes")]
         public List<BasicPushResponse> Pushes { get; set; }
+
+
+        [DataMember(Name = "cursor")]
+        public string Cursor { get; set; }
     }
 }

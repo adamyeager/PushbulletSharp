@@ -787,16 +787,32 @@ namespace PushbulletSharp
                     throw new ArgumentNullException("filter");
                 }
 
-                if (filter.ModifiedDate == null)
+                string queryString = string.Empty;
+
+                if(!string.IsNullOrWhiteSpace(filter.Cursor))
                 {
-                    throw new ArgumentNullException("filter", PushbulletConstants.PushResponseFilterErrorMessages.MissingDateModifiedError);
+                    queryString = string.Concat("?cursor=", filter.Cursor);
                 }
-
-                string additionalQuery = string.Concat("?modified_after=", filter.ModifiedDate.DateTimeToUnixTime());
-
-                if (filter.Active)
+                else
                 {
-                    additionalQuery = string.Concat(additionalQuery, "&active=true");
+                    List<string> queryStringList = new List<string>();
+
+                    if (filter.ModifiedDate != null)
+                    {
+                        string modifiedDateQueryString = string.Format("modified_after={0}", filter.ModifiedDate.DateTimeToUnixTime());
+                        queryStringList.Add(modifiedDateQueryString);
+                    }
+
+                    if (filter.Active != null)
+                    {
+                        string activeQueryString = string.Format("active={0}", (bool)filter.Active);
+                        queryStringList.Add(activeQueryString);
+                    }
+
+                    if (queryStringList.Count() > 0)
+                    {
+                        queryString = string.Concat("?", string.Join("&", queryStringList));
+                    }
                 }
 
                 #endregion
@@ -805,7 +821,7 @@ namespace PushbulletSharp
                 #region processing
 
                 PushResponseContainer results = new PushResponseContainer();
-                BasicPushResponseContainer basicPushContainer = GetRequest<BasicPushResponseContainer>(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.PushesUrls.Push, additionalQuery).Trim());
+                BasicPushResponseContainer basicPushContainer = GetRequest<BasicPushResponseContainer>(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.PushesUrls.Push, queryString).Trim());
                 PushResponseContainer pushContainer = ConvertBasicPushResponseContainer(basicPushContainer);
 
                 if (filter.IncludeTypes != null && filter.IncludeTypes.Count() > 0)
@@ -844,6 +860,7 @@ namespace PushbulletSharp
             {
                 result.Pushes.Add(ConvertBasicPushResponse(basicPush));
             }
+            result.Cursor = container.Cursor;
             return result;
         }
 

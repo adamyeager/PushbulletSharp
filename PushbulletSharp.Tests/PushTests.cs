@@ -262,9 +262,15 @@ namespace PushbulletSharp.Tests
             {
                 PushResponseFilter filter = new PushResponseFilter()
                 {
-                    ModifiedDate = new DateTime(2015, 3, 14),
+                    ModifiedDate = new DateTime(2015, 8, 14),
+                    Active = true
                 };
-                var results = Client.GetPushes(new PushResponseFilter());
+                var results = Client.GetPushes(filter);
+
+                if (!string.IsNullOrWhiteSpace(results.Cursor))
+                {
+                    results = Client.GetPushes(new PushResponseFilter(results.Cursor));
+                }
             }
             catch (Exception ex)
             {
@@ -296,6 +302,24 @@ namespace PushbulletSharp.Tests
             try
             {
                 var results = Client.GetPushes(new PushResponseFilter());
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.Message);
+            }
+        }
+
+        [TestMethod]
+        public void GetPushesAllWithCursor()
+        {
+            try
+            {
+                PushResponseContainer results = Client.GetPushes(new PushResponseFilter());
+
+                while (!string.IsNullOrWhiteSpace(results.Cursor))
+                {
+                    results = Client.GetPushes(new PushResponseFilter(results.Cursor));
+                }
             }
             catch (Exception ex)
             {

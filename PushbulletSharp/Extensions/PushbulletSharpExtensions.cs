@@ -10,6 +10,11 @@ namespace PushbulletSharp
 {
     public static class PushbulletSharpExtensions
     {
+        /// <summary>
+        /// To the json.
+        /// </summary>
+        /// <param name="data">The data.</param>
+        /// <returns></returns>
         public static string ToJson(this object data)
         {
             var serializer = new DataContractJsonSerializer(data.GetType());
@@ -21,6 +26,12 @@ namespace PushbulletSharp
             }
         }
 
+        /// <summary>
+        /// Jsons to ojbect.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="json">The json.</param>
+        /// <returns></returns>
         public static T JsonToOjbect<T>(this string json)
         {
             var bytes = Encoding.Unicode.GetBytes(json);
@@ -32,6 +43,11 @@ namespace PushbulletSharp
             }
         }
 
+        /// <summary>
+        /// Unixes the time to date time.
+        /// </summary>
+        /// <param name="unixTime">The unix time.</param>
+        /// <returns></returns>
         public static DateTime UnixTimeToDateTime(this string unixTime)
         {
             DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
@@ -39,9 +55,32 @@ namespace PushbulletSharp
             return epoch.AddSeconds(seconds);
         }
 
+        /// <summary>
+        /// Dates the time to unix time.
+        /// </summary>
+        /// <param name="dateTime">The date time.</param>
+        /// <returns></returns>
         public static double DateTimeToUnixTime(this DateTime dateTime)
         {
             return (dateTime - new DateTime(1970, 1, 1).ToLocalTime()).TotalSeconds;
+        }
+
+        /// <summary>
+        /// Dates the time to unix time.
+        /// </summary>
+        /// <param name="dateTime">The date time.</param>
+        /// <returns></returns>
+        public static double DateTimeToUnixTime(this DateTime? dateTime)
+        {
+            if(dateTime != null)
+            {
+                DateTime nonNullDateTime = dateTime ?? DateTime.Now;
+                return (nonNullDateTime - new DateTime(1970, 1, 1).ToLocalTime()).TotalSeconds;
+            }
+            else
+            {
+                return (DateTime.Now - new DateTime(1970, 1, 1).ToLocalTime()).TotalSeconds;
+            }
         }
 
         /// <summary>

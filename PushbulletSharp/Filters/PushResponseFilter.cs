@@ -10,8 +10,15 @@ namespace PushbulletSharp.Filters
         /// </summary>
         public PushResponseFilter()
         {
-            ModifiedDate = new DateTime(1970, 1, 1);
-            Active = true;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PushResponseFilter"/> class.
+        /// </summary>
+        /// <param name="cursor">The cursor.</param>
+        public PushResponseFilter(string cursor)
+        {
+            Cursor = cursor;
         }
 
         /// <summary>
@@ -20,7 +27,7 @@ namespace PushbulletSharp.Filters
         /// <value>
         /// The modified date.
         /// </value>
-        public DateTime ModifiedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="PushResponseFilter"/> is active.
@@ -28,7 +35,7 @@ namespace PushbulletSharp.Filters
         /// <value>
         ///   <c>true</c> if active; otherwise, <c>false</c>.
         /// </value>
-        public bool Active { get; set; }
+        public bool? Active { get; set; }
 
         /// <summary>
         /// Gets or sets the include types.
@@ -37,5 +44,13 @@ namespace PushbulletSharp.Filters
         /// The include types.
         /// </value>
         public PushResponseType[] IncludeTypes { get; set; }
+
+        /// <summary>
+        /// Gets or sets the cursor.
+        /// </summary>
+        /// <value>
+        /// The cursor.
+        /// </value>
+        public string Cursor { get; set; }
     }
 }
