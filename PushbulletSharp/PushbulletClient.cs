@@ -788,15 +788,15 @@ namespace PushbulletSharp
                 }
 
                 string queryString = string.Empty;
+                List<string> queryStringList = new List<string>();
 
-                if(!string.IsNullOrWhiteSpace(filter.Cursor))
+                if (!string.IsNullOrWhiteSpace(filter.Cursor))
                 {
-                    queryString = string.Concat("?cursor=", filter.Cursor);
+                    string cursorQueryString = string.Format("cursor={0}", filter.Cursor);
+                    queryStringList.Add(cursorQueryString);
                 }
                 else
                 {
-                    List<string> queryStringList = new List<string>();
-
                     if (filter.ModifiedDate != null)
                     {
                         string modifiedDateQueryString = string.Format("modified_after={0}", filter.ModifiedDate.DateTimeToUnixTime());
@@ -808,17 +808,19 @@ namespace PushbulletSharp
                         string activeQueryString = string.Format("active={0}", (bool)filter.Active);
                         queryStringList.Add(activeQueryString);
                     }
+                }
 
-                    if(!string.IsNullOrWhiteSpace(filter.Email))
-                    {
-                        string emailQueryString = string.Format("email={0}", filter.Email);
-                        queryStringList.Add(emailQueryString);
-                    }
+                //Email filtering can be done on either cursor or regular queries
+                if (!string.IsNullOrWhiteSpace(filter.Email))
+                {
+                    string emailQueryString = string.Format("email={0}", filter.Email);
+                    queryStringList.Add(emailQueryString);
+                }
 
-                    if (queryStringList.Count() > 0)
-                    {
-                        queryString = string.Concat("?", string.Join("&", queryStringList));
-                    }
+                //Join all of the query strings
+                if (queryStringList.Count() > 0)
+                {
+                    queryString = string.Concat("?", string.Join("&", queryStringList));
                 }
 
                 #endregion
