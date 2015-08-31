@@ -809,6 +809,12 @@ namespace PushbulletSharp
                         queryStringList.Add(activeQueryString);
                     }
 
+                    if(!string.IsNullOrWhiteSpace(filter.Email))
+                    {
+                        string emailQueryString = string.Format("email={0}", filter.Email);
+                        queryStringList.Add(emailQueryString);
+                    }
+
                     if (queryStringList.Count() > 0)
                     {
                         queryString = string.Concat("?", string.Join("&", queryStringList));

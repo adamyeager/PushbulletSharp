@@ -326,5 +326,23 @@ namespace PushbulletSharp.Tests
                 Assert.Fail(ex.Message);
             }
         }
+
+        [TestMethod]
+        public void GatAllPushesByEmail()
+        {
+            try
+            {
+                var filter = new PushResponseFilter()
+                {
+                    Email = "john.smith@aninternetwebsite.com"
+                };
+
+                var results = Client.GetPushes(filter);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.Message);
+            }
+        }
     }
 }

@@ -52,5 +52,13 @@ namespace PushbulletSharp.Filters
         /// The cursor.
         /// </value>
         public string Cursor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the email.
+        /// </summary>
+        /// <value>
+        /// The email.
+        /// </value>
+        public string Email { get; set; }
     }
 }
