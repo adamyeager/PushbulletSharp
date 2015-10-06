@@ -40,5 +40,14 @@ namespace PushbulletSharp.Models.Requests
         /// </value>
         [DataMember(Name = "source_device_iden")]
         public string SourceDeviceIden { get; set; }
+
+        /// <summary>
+        /// Gets or sets the channel tag
+        /// </summary>
+        /// <value>
+        /// The channel_tag.
+        /// </value>
+        [DataMember(Name = "channel_tag")]
+        public string ChannelTag { get; set; }
     }
 }
