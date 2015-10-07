@@ -27,7 +27,7 @@
         {
             public const string EmptyDeviceIdenProperty = "The device iden property for the reqeust is empty.";
             public const string EmptyTypeProperty = "The type property for the reqeust is empty. Not even sure how that happened.";
-            public const string EmptyEmailProperty = "The email property for the request is empty. This is only a problem because the device iden was empty, too.";
+            public const string EmptyEmailProperty = "The email property for the request is empty. This is only a problem because both the device iden and client iden were empty, too.";
         }
 
 

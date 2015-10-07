@@ -483,7 +483,7 @@ namespace PushbulletSharp
                     throw new ArgumentNullException("note request");
                 }
 
-                if (string.IsNullOrWhiteSpace(request.DeviceIden) && string.IsNullOrWhiteSpace(request.Email))
+                if (string.IsNullOrWhiteSpace(request.DeviceIden) && string.IsNullOrWhiteSpace(request.Email) && string.IsNullOrEmpty(request.ClientIden))
                 {
                     throw new Exception(PushbulletConstants.PushRequestErrorMessages.EmptyEmailProperty);
                 }
@@ -542,7 +542,7 @@ namespace PushbulletSharp
                     throw new ArgumentNullException("address request");
                 }
 
-                if (string.IsNullOrWhiteSpace(request.DeviceIden) && string.IsNullOrWhiteSpace(request.Email))
+                if (string.IsNullOrWhiteSpace(request.DeviceIden) && string.IsNullOrWhiteSpace(request.Email) && string.IsNullOrEmpty(request.ClientIden))
                 {
                     throw new Exception(PushbulletConstants.PushRequestErrorMessages.EmptyEmailProperty);
                 }
@@ -601,7 +601,7 @@ namespace PushbulletSharp
                     throw new ArgumentNullException("link request");
                 }
 
-                if (string.IsNullOrWhiteSpace(request.DeviceIden) && string.IsNullOrWhiteSpace(request.Email))
+                if (string.IsNullOrWhiteSpace(request.DeviceIden) && string.IsNullOrWhiteSpace(request.Email) && string.IsNullOrEmpty(request.ClientIden))
                 {
                     throw new Exception(PushbulletConstants.PushRequestErrorMessages.EmptyEmailProperty);
                 }
@@ -662,7 +662,7 @@ namespace PushbulletSharp
                     throw new ArgumentNullException("list request");
                 }
 
-                if (string.IsNullOrWhiteSpace(request.DeviceIden) && string.IsNullOrWhiteSpace(request.Email))
+                if (string.IsNullOrWhiteSpace(request.DeviceIden) && string.IsNullOrWhiteSpace(request.Email) && string.IsNullOrEmpty(request.ClientIden))
                 {
                     throw new Exception(PushbulletConstants.PushRequestErrorMessages.EmptyEmailProperty);
                 }
@@ -715,7 +715,7 @@ namespace PushbulletSharp
                     throw new ArgumentNullException("file request");
                 }
 
-                if (string.IsNullOrWhiteSpace(request.DeviceIden) && string.IsNullOrWhiteSpace(request.Email))
+                if (string.IsNullOrWhiteSpace(request.DeviceIden) && string.IsNullOrWhiteSpace(request.Email) && string.IsNullOrEmpty(request.ClientIden))
                 {
                     throw new Exception(PushbulletConstants.PushRequestErrorMessages.EmptyEmailProperty);
                 }
