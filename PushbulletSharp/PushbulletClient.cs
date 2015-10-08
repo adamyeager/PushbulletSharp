@@ -1084,11 +1084,17 @@ namespace PushbulletSharp
         {
             PushResponse response = new PushResponse();
             response.Active = basicResponse.Active;
-            response.Created = TimeZoneInfo.ConvertTime(basicResponse.Created.UnixTimeToDateTime(), TimeZoneInfo);
+            if(basicResponse.Created != null)
+            {
+                response.Created = TimeZoneInfo.ConvertTime(basicResponse.Created.UnixTimeToDateTime(), TimeZoneInfo);
+            }
             response.Dismissed = basicResponse.Dismissed;
             response.Direction = basicResponse.Direction;
             response.Iden = basicResponse.Iden;
-            response.Modified = TimeZoneInfo.ConvertTime(basicResponse.Modified.UnixTimeToDateTime(), TimeZoneInfo);
+            if(basicResponse.Modified != null)
+            {
+                response.Modified = TimeZoneInfo.ConvertTime(basicResponse.Modified.UnixTimeToDateTime(), TimeZoneInfo);
+            }
             response.ReceiverEmail = basicResponse.ReceiverEmail;
             response.ReceiverEmailNormalized = basicResponse.ReceiverEmailNormalized;
             response.ReceiverIden = basicResponse.ReceiverIden;

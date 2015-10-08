@@ -68,6 +68,7 @@
     <Compile Include="Models\Responses\User.cs" />
     <Compile Include="Models\Responses\UserContacts.cs" />
     <Compile Include="Models\Responses\UserDevices.cs" />
+    <Compile Include="Models\Responses\UserPreferences.cs" />
     <Compile Include="Models\Responses\UserSubscriptions.cs" />
     <Compile Include="Models\Responses\WebSocket\WebSocketResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -76,5 +76,23 @@ namespace PushbulletSharp.Models.Responses
         /// </value>
         [DataMember(Name = "google_userinfo")]
         public GoogleUserInfo GoogleUserInfo { get; set; }
+
+        /// <summary>
+        /// Gets or sets the preferences.
+        /// </summary>
+        /// <value>
+        /// The preferences.
+        /// </value>
+        [DataMember(Name = "preferences")]
+        public UserPreferences Preferences { get; set; }
+
+        /// <summary>
+        /// Gets or sets the maximum size of the upload.
+        /// </summary>
+        /// <value>
+        /// The maximum size of the upload.
+        /// </value>
+        [DataMember(Name = "max_upload_size")]
+        public int MaxUploadSize { get; set; }
     }
 }
