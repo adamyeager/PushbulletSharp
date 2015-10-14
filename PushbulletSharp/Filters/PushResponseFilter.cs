@@ -60,5 +60,13 @@ namespace PushbulletSharp.Filters
         /// The email.
         /// </value>
         public string Email { get; set; }
+
+        /// <summary>
+        /// Gets or sets the limit.
+        /// </summary>
+        /// <value>
+        /// The limit.
+        /// </value>
+        public int Limit { get; set; }
     }
 }

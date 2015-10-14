@@ -344,5 +344,23 @@ namespace PushbulletSharp.Tests
                 Assert.Fail(ex.Message);
             }
         }
+
+        [TestMethod]
+        public void GetPushesWithLimit()
+        {
+            try
+            {
+                var filter = new PushResponseFilter()
+                {
+                    Limit = 1
+                };
+
+                var results = Client.GetPushes(filter);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.Message);
+            }
+        }
     }
 }

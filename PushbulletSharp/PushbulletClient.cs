@@ -783,6 +783,12 @@ namespace PushbulletSharp
                         string activeQueryString = string.Format("active={0}", (bool)filter.Active);
                         queryStringList.Add(activeQueryString);
                     }
+
+                    if(filter.Limit > 0)
+                    {
+                        string limitQueryString = string.Format("limit={0}", filter.Limit);
+                        queryStringList.Add(limitQueryString);
+                    }
                 }
 
                 //Email filtering can be done on either cursor or regular queries
