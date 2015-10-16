@@ -262,7 +262,7 @@ namespace PushbulletSharp.Tests
             {
                 PushResponseFilter filter = new PushResponseFilter()
                 {
-                    ModifiedDate = new DateTime(2015, 8, 14),
+                    ModifiedDate = new DateTime(2015,10,15,20,10,40,32),
                     Active = true
                 };
                 var results = Client.GetPushes(filter);

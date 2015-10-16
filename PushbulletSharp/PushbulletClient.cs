@@ -774,7 +774,8 @@ namespace PushbulletSharp
                 {
                     if (filter.ModifiedDate != null)
                     {
-                        string modifiedDateQueryString = string.Format("modified_after={0}", filter.ModifiedDate.DateTimeToUnixTime());
+                        string modifiedDate = filter.ModifiedDate.DateTimeToUnixTime().ToString(System.Globalization.CultureInfo.InvariantCulture);
+                        string modifiedDateQueryString = string.Format("modified_after={0}", modifiedDate);
                         queryStringList.Add(modifiedDateQueryString);
                     }
 
