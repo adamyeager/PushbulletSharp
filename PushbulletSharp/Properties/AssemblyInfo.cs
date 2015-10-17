@@ -7,9 +7,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("PushbulletSharp")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyDescription("A simple C# wrapper to PushBullet's HTTP API.")]
+[assembly: AssemblyConfiguration("Release")]
+[assembly: AssemblyCompany("Adam Yeager")]
 [assembly: AssemblyProduct("PushbulletSharp")]
 [assembly: AssemblyCopyright("Copyright ©  2015 Adam Yeager")]
 [assembly: AssemblyTrademark("")]
@@ -26,5 +26,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.2.1.0")]
-[assembly: AssemblyFileVersion("2.2.1.0")]
+[assembly: AssemblyVersion("2.3.1.0")]
+[assembly: AssemblyFileVersion("2.3.1.0")]
