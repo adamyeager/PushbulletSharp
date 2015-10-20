@@ -56,17 +56,19 @@ namespace PushbulletSharp
         }
 
         /// <summary>
-        /// Dates the time to unix time.
+        /// Dates the time to unix time (at UTC timezone).
         /// </summary>
         /// <param name="dateTime">The date time.</param>
         /// <returns></returns>
         public static double DateTimeToUnixTime(this DateTime dateTime)
         {
-            return (dateTime - new DateTime(1970, 1, 1).ToLocalTime()).TotalSeconds;
+            var epochTime = new DateTime(1970, 1, 1);
+            var utcTime = TimeZoneInfo.ConvertTime(dateTime, TimeZoneInfo.Utc);
+            return (utcTime - epochTime).TotalSeconds;
         }
 
         /// <summary>
-        /// Dates the time to unix time.
+        /// Dates the time to unix time (at UTC timezone).
         /// </summary>
         /// <param name="dateTime">The date time.</param>
         /// <returns></returns>
@@ -75,11 +77,11 @@ namespace PushbulletSharp
             if(dateTime != null)
             {
                 DateTime nonNullDateTime = dateTime ?? DateTime.Now;
-                return (nonNullDateTime - new DateTime(1970, 1, 1).ToLocalTime()).TotalSeconds;
+                return nonNullDateTime.DateTimeToUnixTime();
             }
             else
             {
-                return (DateTime.Now - new DateTime(1970, 1, 1).ToLocalTime()).TotalSeconds;
+                return DateTime.Now.DateTimeToUnixTime();
             }
         }
 
