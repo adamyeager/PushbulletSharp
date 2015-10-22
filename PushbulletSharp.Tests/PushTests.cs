@@ -392,8 +392,8 @@ namespace PushbulletSharp.Tests
                 };
                 response = Client.PushNote(request);
 
-                // Get pushes since first one.
-                results = Client.GetPushes(new PushResponseFilter() { ModifiedDate = lastModified });
+                // Get pushes since first one, + one millisecond because otherwise we can get back our previous received push...s
+                results = Client.GetPushes(new PushResponseFilter() { ModifiedDate = lastModified.AddMilliseconds(1)});
                 //should have only the second push
                 Assert.AreEqual(1, results.Pushes.Count);
                 Assert.AreEqual(secondBody, results.Pushes[0].Body);
