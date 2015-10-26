@@ -6,6 +6,7 @@ using System;
 using System.IO;
 using System.Linq;
 using PushbulletSharp;
+using System.Threading;
 
 namespace PushbulletSharp.Tests
 {
@@ -356,6 +357,46 @@ namespace PushbulletSharp.Tests
                 };
 
                 var results = Client.GetPushes(filter);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.Message);
+            }
+        }
+
+        [TestMethod]
+        public void GetPushesSinceLastPush()
+        {
+            try
+            {
+                // Push a first note
+                PushNoteRequest request = new PushNoteRequest()
+                {
+                    Title = "Push one",
+                    Body = "This is the first message."
+                };
+                var response = Client.PushNote(request);
+
+                // Get modified date of last push
+                var results = Client.GetPushes(new PushResponseFilter() { Limit = 1 });
+                var lastModified = results.Pushes[0].Modified;
+
+                Thread.Sleep(1000);
+
+                // Push a second note
+                var secondBody = "This is the second message.";
+                request = new PushNoteRequest()
+                {
+                    Title = "Push two",
+                    Body = secondBody
+                };
+                response = Client.PushNote(request);
+
+                // Get pushes since first one, + one millisecond because otherwise we can get back our previous received push...
+                results = Client.GetPushes(new PushResponseFilter() { ModifiedDate = lastModified.AddMilliseconds(1)});
+                //should have only the second push
+                Assert.AreEqual(1, results.Pushes.Count);
+                Assert.AreEqual(secondBody, results.Pushes[0].Body);
             }
             catch (Exception ex)
             {
