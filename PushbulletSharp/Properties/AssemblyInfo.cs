@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("Release")]
 [assembly: AssemblyCompany("Adam Yeager")]
 [assembly: AssemblyProduct("PushbulletSharp")]
-[assembly: AssemblyCopyright("Copyright ©  2015 Adam Yeager")]
+[assembly: AssemblyCopyright("Copyright ©  2016 Adam Yeager")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: NeutralResourcesLanguage("en")]
