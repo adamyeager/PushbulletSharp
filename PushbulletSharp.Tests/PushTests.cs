@@ -403,5 +403,23 @@ namespace PushbulletSharp.Tests
                 Assert.Fail(ex.Message);
             }
         }
+
+        [TestMethod]
+        public void GetPushesActive()
+        {
+            try
+            {
+                var filter = new PushResponseFilter()
+                {
+                    Active = true
+                };
+
+                var results = Client.GetPushes(filter);
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.Message);
+            }
+        }
     }
 }

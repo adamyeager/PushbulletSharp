@@ -781,7 +781,7 @@ namespace PushbulletSharp
 
                     if (filter.Active != null)
                     {
-                        string activeQueryString = string.Format("active={0}", (bool)filter.Active);
+                        string activeQueryString = string.Format("active={0}", ((bool)filter.Active).ToString().ToLower());
                         queryStringList.Add(activeQueryString);
                     }
 
