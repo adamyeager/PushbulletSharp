@@ -1308,8 +1308,7 @@ namespace PushbulletSharp
                 throw new Exception("Could not retrieve the current user information to create an encryption key.");
             }
 
-            Encryption.KeyGenerationUtility keyGenUtlity = new Encryption.KeyGenerationUtility(currentUser.Iden, encryptionPassword);
-            _encryptionKey = keyGenUtlity.GenerateKey();
+            _encryptionKey = Encryption.EncryptionUtility.GenerateKey(currentUser.Iden, encryptionPassword);
         }
 
         #endregion private methods
