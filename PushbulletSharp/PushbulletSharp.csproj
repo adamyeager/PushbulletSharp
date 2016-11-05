@@ -38,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\PushbulletConstants.cs" />
+	<Compile Include="Encryption\KeyGenerationUtility.cs" />
     <Compile Include="Extensions\PushbulletSharpExtensions.cs" />
     <Compile Include="Filters\PushResponseFilter.cs" />
     <Compile Include="Models\Requests\ChannelSubscriptionRequest.cs" />
