@@ -37,6 +37,17 @@ namespace PushbulletSharp
             _accessToken = accessToken;
         }
 
+
+        public PushbulletClient(string accessToken, string encryptionPassword, TimeZoneInfo timeZoneInfo = null) : this(accessToken, timeZoneInfo)
+        {
+            if (string.IsNullOrWhiteSpace(encryptionPassword))
+            {
+                throw new ArgumentNullException("encryptionPassword");
+            }
+
+            SetEncryptionKey(encryptionPassword);
+        }
+
         #endregion
 
 
@@ -59,6 +70,20 @@ namespace PushbulletSharp
             set
             {
                 _accessToken = value;
+            }
+        }
+
+
+        private string _encryptionKey;
+        public string EncryptionKey
+        {
+            get
+            {
+                return _encryptionKey;
+            }
+            set
+            {
+                SetEncryptionKey(value);
             }
         }
 
@@ -1272,6 +1297,19 @@ namespace PushbulletSharp
                 Name = string.Format("\"{0}\"", name)
             };
             return content;
+        }
+
+
+        private void SetEncryptionKey(string encryptionPassword)
+        {
+            var currentUser = CurrentUsersInformation();
+            if (currentUser == null)
+            {
+                throw new Exception("Could not retrieve the current user information to create an encryption key.");
+            }
+
+            Encryption.KeyGenerationUtility keyGenUtlity = new Encryption.KeyGenerationUtility(currentUser.Iden, encryptionPassword);
+            _encryptionKey = keyGenUtlity.GenerateKey();
         }
 
         #endregion private methods
