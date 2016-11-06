@@ -935,6 +935,13 @@ namespace PushbulletSharp
 
         #region Ephemerals
 
+        /// <summary>
+        /// Pushes the ephemeral.
+        /// </summary>
+        /// <param name="ephemeral">The ephemeral.</param>
+        /// <param name="encrypt">if set to <c>true</c> [encrypt].</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentNullException">ephemeral</exception>
         public string PushEphemeral(IEphemeral ephemeral, bool encrypt = false)
         {
             try
@@ -966,10 +973,7 @@ namespace PushbulletSharp
                 {
                     var request = new EphemeralRequest()
                     {
-                        Push = new EphemeralDataRequest()
-                        {
-                            Data = ephemeral.ToJson()
-                        }
+                        Push = ephemeral
                     };
 
                     return PostEphemeralRequest(request);
@@ -983,6 +987,13 @@ namespace PushbulletSharp
             }
         }
 
+        /// <summary>
+        /// Pushes the ephemeral.
+        /// </summary>
+        /// <param name="jsonMessage">The json message.</param>
+        /// <param name="encrypt">if set to <c>true</c> [encrypt].</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentNullException">jsonMessage</exception>
         public string PushEphemeral(string jsonMessage, bool encrypt = false)
         {
             try
@@ -1012,12 +1023,9 @@ namespace PushbulletSharp
                 }
                 else
                 {
-                    var request = new EphemeralRequest()
+                    var request = new StringEphemeralRequest()
                     {
-                        Push = new EphemeralDataRequest()
-                        {
-                            Data = jsonMessage
-                        }
+                        Push = jsonMessage
                     };
 
                     return PostEphemeralRequest(request);

@@ -3,16 +3,43 @@
 namespace PushbulletSharp.Models.Requests.Ephemerals
 {
     [DataContract]
-    public class PushSMSRequest : PushBase
+    public class SMSEphemeral : IEphemeral
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PushSMSRequest"/> class.
         /// </summary>
-        public PushSMSRequest()
+        public SMSEphemeral()
         {
             Type = "messaging_extension_reply";
             PackageName = "com.pushbullet.android";
         }
+
+        /// <summary>
+        /// Gets or sets the type.
+        /// </summary>
+        /// <value>
+        /// The type.
+        /// </value>
+        [DataMember(Name = "type")]
+        public string Type { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the package.
+        /// </summary>
+        /// <value>
+        /// The name of the package.
+        /// </value>
+        [DataMember(Name = "package_name")]
+        public string PackageName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the source user iden.
+        /// </summary>
+        /// <value>
+        /// The source user iden.
+        /// </value>
+        [DataMember(Name = "source_user_iden")]
+        public string SourceUserIden { get; set; }
 
         /// <summary>
         /// Gets or sets the target device iden.

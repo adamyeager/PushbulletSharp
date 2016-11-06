@@ -3,12 +3,12 @@
 namespace PushbulletSharp.Models.Requests.Ephemerals
 {
     [DataContract]
-    public class PushUniversalCopyPasteRequest : IEphemeral
+    public class UniversalCopyPasteEphemeral : IEphemeral
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PushUniversalCopyPasteRequest"/> class.
+        /// Initializes a new instance of the <see cref="UniversalCopyPasteEphemeral"/> class.
         /// </summary>
-        public PushUniversalCopyPasteRequest()
+        public UniversalCopyPasteEphemeral()
         {
             Type = "clip";
         }
