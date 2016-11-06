@@ -1,5 +1,6 @@
 ﻿using PushbulletSharp.Filters;
 using PushbulletSharp.Models.Requests;
+using PushbulletSharp.Models.Requests.Ephemerals;
 using PushbulletSharp.Models.Responses;
 using System;
 using System.Collections.Generic;
@@ -934,15 +935,63 @@ namespace PushbulletSharp
 
         #region Ephemerals
 
-        public string PushEphemeral(string message, bool encrypt = false)
+        public string PushEphemeral(IEphemeral ephemeral, bool encrypt = false)
         {
             try
             {
                 #region pre-processing
 
-                if (string.IsNullOrWhiteSpace(message))
+                if (ephemeral == null)
                 {
-                    throw new ArgumentNullException("message");
+                    throw new ArgumentNullException("ephemeral");
+                }
+
+                #endregion pre-processing
+
+
+                #region processing
+
+                if (encrypt)
+                {
+                    var request = new EncryptedEphemeralRequest()
+                    {
+                        Push = new EncryptedEphemeralMessageRequest()
+                        {
+                            CipherText = Encryption.EncryptionUtility.EncryptMessage(ephemeral.ToJson(), EncryptionKey)
+                        }
+                    };
+                    return PostEphemeralRequest(request);
+                }
+                else
+                {
+                    var request = new EphemeralRequest()
+                    {
+                        Push = new EphemeralDataRequest()
+                        {
+                            Data = ephemeral.ToJson()
+                        }
+                    };
+
+                    return PostEphemeralRequest(request);
+                }
+
+                #endregion processing
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public string PushEphemeral(string jsonMessage, bool encrypt = false)
+        {
+            try
+            {
+                #region pre-processing
+
+                if (string.IsNullOrWhiteSpace(jsonMessage))
+                {
+                    throw new ArgumentNullException("jsonMessage");
                 }
 
                 #endregion pre-processing
@@ -956,7 +1005,7 @@ namespace PushbulletSharp
                     {
                         Push = new EncryptedEphemeralMessageRequest()
                         {
-                            CipherText = Encryption.EncryptionUtility.EncryptMessage(message, EncryptionKey)
+                            CipherText = Encryption.EncryptionUtility.EncryptMessage(jsonMessage, EncryptionKey)
                         }
                     };
                     return PostEphemeralRequest(request);
@@ -967,7 +1016,7 @@ namespace PushbulletSharp
                     {
                         Push = new EphemeralDataRequest()
                         {
-                            Data = message
+                            Data = jsonMessage
                         }
                     };
 
