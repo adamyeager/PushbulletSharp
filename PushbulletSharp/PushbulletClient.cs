@@ -931,6 +931,59 @@ namespace PushbulletSharp
 
         #endregion OAuth Methods
 
+
+        #region Ephemerals
+
+        public string PushEphemeral(string message, bool encrypt = false)
+        {
+            try
+            {
+                #region pre-processing
+
+                if (string.IsNullOrWhiteSpace(message))
+                {
+                    throw new ArgumentNullException("message");
+                }
+
+                #endregion pre-processing
+
+
+                #region processing
+
+                if(encrypt)
+                {
+                    var request = new EncryptedEphemeralRequest()
+                    {
+                        Push = new EncryptedEphemeralMessageRequest()
+                        {
+                            CipherText = Encryption.EncryptionUtility.EncryptMessage(message, EncryptionKey)
+                        }
+                    };
+                    return PostEphemeralRequest(request);
+                }
+                else
+                {
+                    var request = new EphemeralRequest()
+                    {
+                        Push = new EphemeralMessageRequest()
+                        {
+                            Data = message
+                        }
+                    };
+
+                    return PostEphemeralRequest(request);
+                }
+
+                #endregion processing
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        #endregion Ephemerals
+
         #endregion public methods
 
 
@@ -1090,6 +1143,18 @@ namespace PushbulletSharp
                 case (int)HttpStatusCode.HttpVersionNotSupported:
                     throw new HttpRequestException(string.Format(PushbulletConstants.StatusCodeExceptions.FiveHundredXX, (int)statusCode, statusCode));
             }
+        }
+
+
+        /// <summary>
+        /// Posts the ephemeral request.
+        /// </summary>
+        /// <param name="requestObject">The request object.</param>
+        /// <returns></returns>
+        private string PostEphemeralRequest(EphemeralRequestBase requestObject)
+        {
+            var response = PostRequest<string>(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.EphemeralsUrls.Ephemeral), requestObject);
+            return response;
         }
 
 

@@ -41,6 +41,11 @@
     <Compile Include="Models\Requests\ChannelSubscriptionRequest.cs" />
     <Compile Include="Models\Requests\CreateContactRequest.cs" />
     <Compile Include="Models\Requests\DeleteContactRequest.cs" />
+    <Compile Include="Models\Requests\EncryptedEphemeralMessageRequest.cs" />
+    <Compile Include="Models\Requests\EncryptedEphemeralRequest.cs" />
+    <Compile Include="Models\Requests\EphemeralMessageRequest.cs" />
+    <Compile Include="Models\Requests\EphemeralRequest.cs" />
+    <Compile Include="Models\Requests\EphemeralRequestBase.cs" />
     <Compile Include="Models\Requests\OAuthTokenRequest.cs" />
     <Compile Include="Models\Requests\PushAddressRequest.cs" />
     <Compile Include="Models\Requests\PushFileRequest.cs" />

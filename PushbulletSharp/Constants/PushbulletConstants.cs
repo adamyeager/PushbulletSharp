@@ -136,6 +136,12 @@
         }
 
 
+        public class EphemeralsUrls
+        {
+            public const string Ephemeral = "ephemerals";
+        }
+
+
         public class FileUrls
         {
             public const string UploadRequest = "upload-request";
