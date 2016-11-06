@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace PushbulletSharp.Models.Requests
+namespace PushbulletSharp.Models.Requests.Ephemerals
 {
     [DataContract]
     public class EphemeralRequest : EphemeralRequestBase
@@ -19,6 +19,6 @@ namespace PushbulletSharp.Models.Requests
         /// The push.
         /// </value>
         [DataMember(Name = "push")]
-        public EphemeralMessageRequest Push { get; set; }
+        public IEphemeral Push { get; set; }
     }
 }

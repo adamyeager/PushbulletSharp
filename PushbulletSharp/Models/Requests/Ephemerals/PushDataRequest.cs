@@ -1,9 +1,9 @@
 ﻿using System.Runtime.Serialization;
 
-namespace PushbulletSharp.Models.Requests
+namespace PushbulletSharp.Models.Requests.Ephemerals
 {
     [DataContract]
-    public class EphemeralMessageRequest
+    public class EphemeralDataRequest : IEphemeral
     {
         /// <summary>
         /// Gets or sets the data.

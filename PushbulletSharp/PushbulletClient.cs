@@ -965,7 +965,7 @@ namespace PushbulletSharp
                 {
                     var request = new EphemeralRequest()
                     {
-                        Push = new EphemeralMessageRequest()
+                        Push = new EphemeralDataRequest()
                         {
                             Data = message
                         }
