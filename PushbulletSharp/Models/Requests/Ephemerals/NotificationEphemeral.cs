@@ -13,6 +13,7 @@ namespace PushbulletSharp.Models.Requests.Ephemerals
             ApplicationName = "PushBulletSharp";
             ClientVersion = 3;
             Type = "mirror";
+            PackageName = "com.pushbullet.android";
         }
 
         /// <summary>

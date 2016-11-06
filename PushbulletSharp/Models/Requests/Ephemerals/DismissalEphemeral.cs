@@ -11,6 +11,7 @@ namespace PushbulletSharp.Models.Requests.Ephemerals
         public DismissalEphemeral()
         {
             Type = "dismissal";
+            PackageName = "com.pushbullet.android";
         }
 
         /// <summary>

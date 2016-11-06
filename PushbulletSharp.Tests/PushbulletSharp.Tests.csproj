@@ -61,6 +61,7 @@
     <Compile Include="SubscriptionTests.cs" />
     <Compile Include="OAuthTests.cs" />
     <Compile Include="EncryptionUtilityTests.cs" />
+    <Compile Include="EphemeralTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PushbulletSharp\PushbulletSharp.csproj">
