@@ -4,8 +4,30 @@ using System;
 namespace PushbulletSharp.Tests
 {
     [TestClass]
-    public class EncryptionTests : EncryptionTestBase
+    public class EncryptionUtilityTests : TestBase
     {
+        /// <summary>
+        /// Keys the generation test.
+        /// </summary>
+        [TestMethod]
+        public void KeyGenerationTest()
+        {
+            try
+            {
+                // The provided user_iden and password are from PushBullet's API doc
+                string user_iden = "up0snaKOsn";
+                string password = "hunter2";
+                string key = Encryption.EncryptionUtility.GenerateKey(user_iden, password);
+
+                Assert.IsTrue(key == "1sW28zp7CWv5TtGjlQpDHHG4Cbr9v36fG5o4f74LsKg=");
+            }
+            catch (Exception ex)
+            {
+                Assert.Fail(ex.Message);
+            }
+        }
+
+
         /// <summary>
         /// Encryptions the test.
         /// </summary>
