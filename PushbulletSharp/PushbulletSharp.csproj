@@ -64,6 +64,9 @@
     <Compile Include="Models\Responses\BasicSubscription.cs" />
     <Compile Include="Models\Responses\BasicUserSubscriptions.cs" />
     <Compile Include="Models\Responses\Channel.cs" />
+    <Compile Include="Models\Responses\Chat.cs" />
+    <Compile Include="Models\Responses\ChatContact.cs" />
+    <Compile Include="Models\Responses\UserChats.cs" />
     <Compile Include="Models\Responses\Contact.cs" />
     <Compile Include="Models\Responses\Device.cs" />
     <Compile Include="Models\Responses\FileUploadResponse.cs" />
