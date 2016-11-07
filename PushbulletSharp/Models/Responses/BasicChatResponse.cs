@@ -1,10 +1,9 @@
-﻿using System;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
 namespace PushbulletSharp.Models.Responses
 {
     [DataContract]
-    public class Chat
+    public class BasicChatResponse
     {
         /// <summary>
         /// Gets or sets a value indicating whether this <see cref="Chat"/> is active.
@@ -22,7 +21,7 @@ namespace PushbulletSharp.Models.Responses
         /// The created.
         /// </value>
         [DataMember(Name = "created")]
-        public DateTime Created { get; set; }
+        public string Created { get; set; }
 
         /// <summary>
         /// Gets or sets the iden.
@@ -40,7 +39,7 @@ namespace PushbulletSharp.Models.Responses
         /// The modified.
         /// </value>
         [DataMember(Name = "modified")]
-        public DateTime Modified { get; set; }
+        public string Modified { get; set; }
 
         /// <summary>
         /// Gets or sets the with.

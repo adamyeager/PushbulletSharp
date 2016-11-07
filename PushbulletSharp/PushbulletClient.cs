@@ -170,6 +170,111 @@ namespace PushbulletSharp
         #endregion User Information Methods
 
 
+        #region Chats
+
+        /// <summary>
+        /// Currents the users chats.
+        /// </summary>
+        /// <returns></returns>
+        public UserChats ListChats()
+        {
+            try
+            {
+                #region processing
+
+                UserChats result = GetRequest<UserChats>(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.ChatsUrls.Chats).Trim());
+                return result;
+
+                #endregion processing
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+        /// <summary>
+        /// Creates the chat.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentException">create chat request</exception>
+        public Chat CreateChat(CreateChatRequest request)
+        {
+            try
+            {
+                #region pre-processing
+
+                if(request == null)
+                {
+                    throw new ArgumentException("create chat request");
+                }
+
+                if(string.IsNullOrWhiteSpace(request.Email))
+                {
+                    throw new Exception(PushbulletConstants.CreateChatErrorMessages.ErrorEmailProperty);
+                }
+
+                #endregion pre-processing
+
+                #region processing
+
+                BasicChatResponse basicResponse = PostRequest<BasicChatResponse>(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.ChatsUrls.Chats), request);
+                Chat response = ConvertBasicChatResponse(basicResponse);
+                return response;
+
+                #endregion processing
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+        /// <summary>
+        /// Updates the chat.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentException">update chat request</exception>
+        /// <exception cref="System.Exception"></exception>
+        public Chat UpdateChat(UpdateChatRequest request)
+        {
+            try
+            {
+                #region pre-processing
+
+                if(request == null)
+                {
+                    throw new ArgumentException("update chat request");
+                }
+
+                if(string.IsNullOrWhiteSpace(request.Iden))
+                {
+                    throw new Exception(PushbulletConstants.UpdateChatErrorMessages.ErrorIdenProperty);
+                }
+
+                #endregion pre-processing
+
+                #region processing
+
+                BasicChatResponse basicResponse = PostRequest<BasicChatResponse>(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.ChatsUrls.Chats, "/", request.Iden), request);
+                Chat response = ConvertBasicChatResponse(basicResponse);
+                return response;
+
+                #endregion processing
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        #endregion Chats
+
+
         #region Contacts Methods
 
         /// <summary>
@@ -837,7 +942,7 @@ namespace PushbulletSharp
                 #region processing
 
                 PushResponseContainer results = new PushResponseContainer();
-                BasicPushResponseContainer basicPushContainer = GetRequest<BasicPushResponseContainer>(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.PushesUrls.Push, queryString).Trim());
+                BasicPushResponseContainer basicPushContainer = GetRequest<BasicPushResponseContainer>(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.PushesUrls.Pushes, queryString).Trim());
                 PushResponseContainer pushContainer = ConvertBasicPushResponseContainer(basicPushContainer);
 
                 if (filter.IncludeTypes != null && filter.IncludeTypes.Count() > 0)
@@ -1210,7 +1315,7 @@ namespace PushbulletSharp
         /// <returns></returns>
         private string PostEphemeralRequest(EphemeralRequestBase requestObject)
         {
-            var response = PostRequest<string>(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.EphemeralsUrls.Ephemeral), requestObject);
+            var response = PostRequest<string>(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.EphemeralsUrls.Ephemerals), requestObject);
             return response;
         }
 
@@ -1223,7 +1328,7 @@ namespace PushbulletSharp
         /// <returns></returns>
         private PushResponse PostPushRequest<T>(T requestObject)
         {
-            var basicResponse = PostRequest<BasicPushResponse>(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.PushesUrls.Push), requestObject);
+            var basicResponse = PostRequest<BasicPushResponse>(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.PushesUrls.Pushes), requestObject);
             PushResponse response = ConvertBasicPushResponse(basicResponse);
             return response;
         }
@@ -1273,6 +1378,29 @@ namespace PushbulletSharp
             {
                 response.Items = basicResponse.Items.Select(o => new ListItem() { Checked = o.Checked, Text = o.Text }).ToList();
             }
+            return response;
+        }
+
+
+        /// <summary>
+        /// Converts the basic chat response.
+        /// </summary>
+        /// <param name="basicResponse">The basic response.</param>
+        /// <returns></returns>
+        private Chat ConvertBasicChatResponse(BasicChatResponse basicResponse)
+        {
+            Chat response = new Chat();
+            response.Active = basicResponse.Active;
+            if (basicResponse.Created != null)
+            {
+                response.Created = TimeZoneInfo.ConvertTime(basicResponse.Created.UnixTimeToDateTime(), TimeZoneInfo);
+            }
+            if (basicResponse.Modified != null)
+            {
+                response.Modified = TimeZoneInfo.ConvertTime(basicResponse.Modified.UnixTimeToDateTime(), TimeZoneInfo);
+            }
+            response.Iden = basicResponse.Iden;
+            response.With = basicResponse.With;
             return response;
         }
 

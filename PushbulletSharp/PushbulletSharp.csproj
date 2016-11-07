@@ -38,7 +38,9 @@
     <Compile Include="Encryption\EncryptionUtility.cs" />
     <Compile Include="Extensions\PushbulletSharpExtensions.cs" />
     <Compile Include="Filters\PushResponseFilter.cs" />
+    <Compile Include="Models\Requests\BasicUpdateChatRequest.cs" />
     <Compile Include="Models\Requests\ChannelSubscriptionRequest.cs" />
+    <Compile Include="Models\Requests\CreateChatRequest.cs" />
     <Compile Include="Models\Requests\CreateContactRequest.cs" />
     <Compile Include="Models\Requests\DeleteContactRequest.cs" />
     <Compile Include="Models\Requests\Ephemerals\EncryptedEphemeralMessageRequest.cs" />
@@ -58,7 +60,9 @@
     <Compile Include="Models\Requests\PushListRequest.cs" />
     <Compile Include="Models\Requests\PushNoteRequest.cs" />
     <Compile Include="Models\Requests\PushRequestBase.cs" />
+    <Compile Include="Models\Requests\UpdateChatRequest.cs" />
     <Compile Include="Models\Requests\UpdateContactRequest.cs" />
+    <Compile Include="Models\Responses\BasicChatResponse.cs" />
     <Compile Include="Models\Responses\BasicPushResponse.cs" />
     <Compile Include="Models\Responses\BasicPushResponseContainer.cs" />
     <Compile Include="Models\Responses\BasicSubscription.cs" />

@@ -95,6 +95,24 @@
         }
 
 
+        public class CreateChatErrorMessages
+        {
+            public const string ErrorEmailProperty = "The email property for creating a new chat is empty. Please provide an email.";
+        }
+
+
+        public class UpdateChatErrorMessages
+        {
+            public const string ErrorIdenProperty = "The iden property for updating the chat is empty. Please provide a valid iden.";
+        }
+
+
+        public class DeleteChatErrorMessages
+        {
+            public const string ErrorIdenProperty = "The iden property for deleting the chat is empty. Please provide a valid iden.";
+        }
+
+
         public class OAuthErrorMessages
         {
             public const string WebExceptionFormat = "Status code: {0} while trying to request an OAuth token. {1}";
@@ -132,13 +150,19 @@
 
         public class PushesUrls
         {
-            public const string Push = "pushes";
+            public const string Pushes = "pushes";
         }
 
 
         public class EphemeralsUrls
         {
-            public const string Ephemeral = "ephemerals";
+            public const string Ephemerals = "ephemerals";
+        }
+
+
+        public class ChatsUrls
+        {
+            public const string Chats = "chats";
         }
 
 
