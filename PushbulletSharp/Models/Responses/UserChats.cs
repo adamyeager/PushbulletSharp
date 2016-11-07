@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace PushbulletSharp.Models.Responses
 {
@@ -6,13 +7,21 @@ namespace PushbulletSharp.Models.Responses
     public class UserChats
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="UserChats"/> class.
+        /// </summary>
+        public UserChats()
+        {
+            Chats = new List<Chat>();
+        }
+
+        /// <summary>
         /// Gets or sets the chats.
         /// </summary>
         /// <value>
         /// The chats.
         /// </value>
         [DataMember(Name = "chats")]
-        public Chat[] Chats { get; set; }
+        public List<Chat> Chats { get; set; }
 
         /// <summary>
         /// Gets or sets the cursor.

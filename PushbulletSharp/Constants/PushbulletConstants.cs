@@ -109,7 +109,7 @@
 
         public class DeleteChatErrorMessages
         {
-            public const string ErrorIdenProperty = "The iden property for deleting the chat is empty. Please provide a valid iden.";
+            public const string ErrorIdenProperty = "The chat iden property for deleting the chat is empty. Please provide a valid chat iden.";
         }
 
 

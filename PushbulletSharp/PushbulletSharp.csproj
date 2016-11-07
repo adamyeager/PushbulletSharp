@@ -42,6 +42,7 @@
     <Compile Include="Models\Requests\ChannelSubscriptionRequest.cs" />
     <Compile Include="Models\Requests\CreateChatRequest.cs" />
     <Compile Include="Models\Requests\CreateContactRequest.cs" />
+    <Compile Include="Models\Requests\DeleteChatRequest.cs" />
     <Compile Include="Models\Requests\DeleteContactRequest.cs" />
     <Compile Include="Models\Requests\Ephemerals\EncryptedEphemeralMessageRequest.cs" />
     <Compile Include="Models\Requests\Ephemerals\EncryptedEphemeralRequest.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Models\Requests\PushRequestBase.cs" />
     <Compile Include="Models\Requests\UpdateChatRequest.cs" />
     <Compile Include="Models\Requests\UpdateContactRequest.cs" />
+    <Compile Include="Models\Responses\BasicChat.cs" />
     <Compile Include="Models\Responses\BasicChatResponse.cs" />
     <Compile Include="Models\Responses\BasicPushResponse.cs" />
     <Compile Include="Models\Responses\BasicPushResponseContainer.cs" />

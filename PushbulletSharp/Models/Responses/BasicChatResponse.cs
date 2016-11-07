@@ -1,53 +1,35 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace PushbulletSharp.Models.Responses
 {
     [DataContract]
-    public class BasicChatResponse
+    public class BasicChatsResponse
     {
         /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="Chat"/> is active.
+        /// Initializes a new instance of the <see cref="BasicChatsResponse"/> class.
         /// </summary>
-        /// <value>
-        ///   <c>true</c> if active; otherwise, <c>false</c>.
-        /// </value>
-        [DataMember(Name = "active")]
-        public bool Active { get; set; }
+        public BasicChatsResponse()
+        {
+            Chats = new List<BasicChat>();
+        }
 
         /// <summary>
-        /// Gets or sets the created.
+        /// Gets or sets the chats.
         /// </summary>
         /// <value>
-        /// The created.
+        /// The chats.
         /// </value>
-        [DataMember(Name = "created")]
-        public string Created { get; set; }
+        [DataMember(Name = "chats")]
+        public List<BasicChat> Chats { get; set; }
 
         /// <summary>
-        /// Gets or sets the iden.
+        /// Gets or sets the cursor.
         /// </summary>
         /// <value>
-        /// The iden.
+        /// The cursor.
         /// </value>
-        [DataMember(Name = "iden")]
-        public string Iden { get; set; }
-
-        /// <summary>
-        /// Gets or sets the modified.
-        /// </summary>
-        /// <value>
-        /// The modified.
-        /// </value>
-        [DataMember(Name = "modified")]
-        public string Modified { get; set; }
-
-        /// <summary>
-        /// Gets or sets the with.
-        /// </summary>
-        /// <value>
-        /// The with.
-        /// </value>
-        [DataMember(Name = "with")]
-        public ChatContact With { get; set; }
+        [DataMember(Name = "cursor")]
+        public string Cursor { get; set; }
     }
 }
