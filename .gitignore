@@ -177,4 +177,4 @@ FakesAssemblies/
 
 # My local test project
 PushbulletSharp.PrivateTests/
-PushbulletSharp.PrivateWebSocketsConsole/
+PushbulletSharp.PrivateWebSocketConsole/

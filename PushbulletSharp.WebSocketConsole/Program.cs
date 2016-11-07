@@ -4,7 +4,7 @@ using System;
 using System.Web.Script.Serialization;
 using WebSocketSharp;
 
-namespace PushbulletSharp.WebSocketsConsole
+namespace PushbulletSharp.WebSocketConsole
 {
     class Program
     {

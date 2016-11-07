@@ -9,9 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushbulletSharp.PrivateTest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushbulletSharp", "PushbulletSharp\PushbulletSharp.csproj", "{459FDFF0-D68E-49AE-961F-0912916B78AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushbulletSharp.WebSocketsConsole", "PushbulletSharp.WebSocketsConsole\PushbulletSharp.WebSocketsConsole.csproj", "{F808238B-C8F9-4E56-B390-4C48AA3A979B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushbulletSharp.WebSocketConsole", "PushbulletSharp.WebSocketConsole\PushbulletSharp.WebSocketConsole.csproj", "{F808238B-C8F9-4E56-B390-4C48AA3A979B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushbulletSharp.PrivateWebSocketsConsole", "PushbulletSharp.PrivateWebSocketsConsole\PushbulletSharp.PrivateWebSocketsConsole.csproj", "{E7BA0CC0-C457-42EE-BA95-C8EAC409C320}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushbulletSharp.PrivateWebSocketConsole", "PushbulletSharp.PrivateWebSocketConsole\PushbulletSharp.PrivateWebSocketConsole.csproj", "{E7BA0CC0-C457-42EE-BA95-C8EAC409C320}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
