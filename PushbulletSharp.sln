@@ -5,13 +5,9 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushbulletSharp.Tests", "PushbulletSharp.Tests\PushbulletSharp.Tests.csproj", "{725F29C7-5DC7-426C-B37C-039A93CBCF68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushbulletSharp.PrivateTests", "PushbulletSharp.PrivateTests\PushbulletSharp.PrivateTests.csproj", "{0A31D65F-0B39-434F-9FF5-604F7D6F5A8D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushbulletSharp", "PushbulletSharp\PushbulletSharp.csproj", "{459FDFF0-D68E-49AE-961F-0912916B78AB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushbulletSharp.WebSocketConsole", "PushbulletSharp.WebSocketConsole\PushbulletSharp.WebSocketConsole.csproj", "{F808238B-C8F9-4E56-B390-4C48AA3A979B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PushbulletSharp.PrivateWebSocketConsole", "PushbulletSharp.PrivateWebSocketConsole\PushbulletSharp.PrivateWebSocketConsole.csproj", "{E7BA0CC0-C457-42EE-BA95-C8EAC409C320}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +19,6 @@ Global
 		{725F29C7-5DC7-426C-B37C-039A93CBCF68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{725F29C7-5DC7-426C-B37C-039A93CBCF68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{725F29C7-5DC7-426C-B37C-039A93CBCF68}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0A31D65F-0B39-434F-9FF5-604F7D6F5A8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0A31D65F-0B39-434F-9FF5-604F7D6F5A8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0A31D65F-0B39-434F-9FF5-604F7D6F5A8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0A31D65F-0B39-434F-9FF5-604F7D6F5A8D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{459FDFF0-D68E-49AE-961F-0912916B78AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{459FDFF0-D68E-49AE-961F-0912916B78AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{459FDFF0-D68E-49AE-961F-0912916B78AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -35,10 +27,6 @@ Global
 		{F808238B-C8F9-4E56-B390-4C48AA3A979B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F808238B-C8F9-4E56-B390-4C48AA3A979B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F808238B-C8F9-4E56-B390-4C48AA3A979B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E7BA0CC0-C457-42EE-BA95-C8EAC409C320}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E7BA0CC0-C457-42EE-BA95-C8EAC409C320}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E7BA0CC0-C457-42EE-BA95-C8EAC409C320}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E7BA0CC0-C457-42EE-BA95-C8EAC409C320}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

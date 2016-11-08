@@ -178,3 +178,4 @@ FakesAssemblies/
 # My local test project
 PushbulletSharp.PrivateTests/
 PushbulletSharp.PrivateWebSocketConsole/
+PushbulletSharpPrivate.sln
