@@ -105,6 +105,60 @@ namespace PushbulletSharp.Models.Responses
         public int AppVersion { get; set; }
 
         /// <summary>
+        /// Gets or sets the icon.
+        /// </summary>
+        /// <value>
+        /// The icon.
+        /// </value>
+        [DataMember(Name = "icon")]
+        public string Icon { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance has SMS.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance has SMS; otherwise, <c>false</c>.
+        /// </value>
+        [DataMember(Name = "has_sms")]
+        public bool HasSMS { get; set; }
+
+        /// <summary>
+        /// Gets or sets the kind.
+        /// </summary>
+        /// <value>
+        /// The kind.
+        /// </value>
+        [DataMember(Name = "kind")]
+        public string Kind { get; set; }
+
+        /// <summary>
+        /// Gets or sets the fingerprint.
+        /// </summary>
+        /// <value>
+        /// The fingerprint.
+        /// </value>
+        [DataMember(Name = "fingerprint")]
+        public string Fingerprint { get; set; }
+
+        /// <summary>
+        /// Gets or sets the key fingerprint.
+        /// </summary>
+        /// <value>
+        /// The key fingerprint.
+        /// </value>
+        [DataMember(Name = "key_fingerprint")]
+        public string KeyFingerprint { get; set; }
+
+        /// <summary>
+        /// Gets or sets the remote files.
+        /// </summary>
+        /// <value>
+        /// The remote files.
+        /// </value>
+        [DataMember(Name = "remote_files")]
+        public string RemoteFiles { get; set; }
+
+        /// <summary>
         /// Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
         /// <returns>

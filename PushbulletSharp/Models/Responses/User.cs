@@ -94,5 +94,23 @@ namespace PushbulletSharp.Models.Responses
         /// </value>
         [DataMember(Name = "max_upload_size")]
         public int MaxUploadSize { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="User"/> is pro.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if pro; otherwise, <c>false</c>.
+        /// </value>
+        [DataMember(Name = "pro")]
+        public bool Pro { get; set; }
+
+        /// <summary>
+        /// Gets or sets the plan identifier.
+        /// </summary>
+        /// <value>
+        /// The plan identifier.
+        /// </value>
+        [DataMember(Name = "plan_id")]
+        public string PlanId { get; set; }
     }
 }
