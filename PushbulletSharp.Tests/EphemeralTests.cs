@@ -34,7 +34,7 @@ namespace PushbulletSharp.Tests
             var userDevices = Client.CurrentUsersDevices(true);
             if (userDevices != null)
             {
-                FirstActiveDevice = userDevices.Devices.FirstOrDefault();
+                FirstActiveDevice = userDevices.Devices.Where(o => o.HasSMS).FirstOrDefault();
             }
         }
 
@@ -62,6 +62,11 @@ namespace PushbulletSharp.Tests
         {
             try
             {
+                if(FirstActiveDevice == null)
+                {
+                    Assert.Fail("Could not find a device that has SMS. The user must have a device in their devices list that can relay the ephemeral via SMS.");
+                }
+
                 SMSEphemeral smsRequest = new SMSEphemeral()
                 {
                     ConversationIden = "+1 999 555 1234 --PUT YOUR PHONE NUMBER HERE--",
