@@ -67,6 +67,10 @@ namespace PushbulletSharp.Tests
                     Assert.Fail("Could not find a device that has SMS. The user must have a device in their devices list that can relay the ephemeral via SMS.");
                 }
 
+                // TargetDeviceIden is the device that you wish to send the SMS text message from.
+                // If the user has two devices that can send txt messages, you will need to choose which device you would like to send your message from.
+                // This unit test just grabs the first device that HasSMS is set to true.
+
                 SMSEphemeral smsRequest = new SMSEphemeral()
                 {
                     ConversationIden = "+1 999 555 1234 --PUT YOUR PHONE NUMBER HERE--",
