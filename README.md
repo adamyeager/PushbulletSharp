@@ -5,6 +5,6 @@ This is a simple pushbullet wrapper written in C#. You can easily add this libra
 
 There are examples of how to use the library in the test project included. Remember to provide your api key when running the tests.
 
-For more documentation and examples, check out the [Wiki](https://github.com/adamyeager/PushbulletSharp/wiki) (updated as of 11/2/2014 for 1.4.0).
+For more documentation and examples, check out the [Wiki](https://github.com/adamyeager/PushbulletSharp/wiki) (updated as of 11/8/2016 for 3.0.1).
 
 Subscribe to the PushbulletSharp channel for updates on releases: https://www.pushbullet.com/channel?tag=pushbulletsharp
