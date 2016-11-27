@@ -1106,7 +1106,7 @@ namespace PushbulletSharp
                 {
                     var request = new EncryptedEphemeralRequest()
                     {
-                        Push = new EncryptedEphemeralMessageRequest()
+                        Push = new EncryptedEphemeralMessage()
                         {
                             CipherText = Encryption.EncryptionUtility.EncryptMessage(ephemeral.ToJson(), EncryptionKey)
                         }
@@ -1158,7 +1158,7 @@ namespace PushbulletSharp
                 {
                     var request = new EncryptedEphemeralRequest()
                     {
-                        Push = new EncryptedEphemeralMessageRequest()
+                        Push = new EncryptedEphemeralMessage()
                         {
                             CipherText = Encryption.EncryptionUtility.EncryptMessage(jsonMessage, EncryptionKey)
                         }

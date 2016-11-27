@@ -256,6 +256,15 @@ namespace PushbulletSharp.Models.Responses
         /// </value>
         [DataMember(Name = "items")]
         public Item[] Items { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="BasicPushResponse"/> is encrypted.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if encrypted; otherwise, <c>false</c>.
+        /// </value>
+        [DataMember(Name = "encrypted")]
+        public bool Encrypted { get; set; }
     }
 
     [DataContract]

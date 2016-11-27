@@ -19,6 +19,6 @@ namespace PushbulletSharp.Models.Requests.Ephemerals
         /// The push.
         /// </value>
         [DataMember(Name = "push")]
-        public EncryptedEphemeralMessageRequest Push { get; set; }
+        public EncryptedEphemeralMessage Push { get; set; }
     }
 }

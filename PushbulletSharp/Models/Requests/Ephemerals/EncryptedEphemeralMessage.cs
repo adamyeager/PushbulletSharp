@@ -3,12 +3,12 @@
 namespace PushbulletSharp.Models.Requests.Ephemerals
 {
     [DataContract]
-    public class EncryptedEphemeralMessageRequest
+    public class EncryptedEphemeralMessage
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EncryptedEphemeralMessageRequest"/> class.
+        /// Initializes a new instance of the <see cref="EncryptedEphemeralMessage"/> class.
         /// </summary>
-        public EncryptedEphemeralMessageRequest()
+        public EncryptedEphemeralMessage()
         {
             Encrypted = true;
         }
@@ -23,7 +23,7 @@ namespace PushbulletSharp.Models.Requests.Ephemerals
         public string CipherText { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="EncryptedEphemeralMessageRequest"/> is encrypted.
+        /// Gets or sets a value indicating whether this <see cref="EncryptedEphemeralMessage"/> is encrypted.
         /// </summary>
         /// <value>
         ///   <c>true</c> if encrypted; otherwise, <c>false</c>.
