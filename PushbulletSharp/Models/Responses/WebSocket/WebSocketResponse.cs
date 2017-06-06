@@ -30,6 +30,6 @@ namespace PushbulletSharp.Models.Responses.WebSocket
         /// The push.
         /// </value>
         [DataMember(Name = "push")]
-        public BasicPushResponse Push { get; set; }
+        public IEphemeral Push { get; set; }
     }
 }

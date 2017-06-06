@@ -45,7 +45,7 @@ namespace PushbulletSharp.WebSocketConsole
                             break;
                         case "push":
                             Console.WriteLine(string.Format("New push recieved on {0}.", DateTime.Now));
-                            Console.WriteLine("Push Type: {0}", response.Push.Type);
+                            //Console.WriteLine("Push Type: {0}", response.Push.Type);
                             Console.WriteLine("Response SubType: {0}", response.Subtype);
                             break;
                         default:

@@ -3,7 +3,7 @@
 namespace PushbulletSharp.Models.Requests.Ephemerals
 {
     [DataContract]
-    public class EncryptedEphemeralMessage
+    public class EncryptedEphemeralMessage : IEphemeral
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="EncryptedEphemeralMessage"/> class.

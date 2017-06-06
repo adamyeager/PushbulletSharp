@@ -1,4 +1,7 @@
-﻿using PushbulletSharp.Filters;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using PushbulletSharp.Filters;
+using PushbulletSharp.Models;
 using PushbulletSharp.Models.Requests;
 using PushbulletSharp.Models.Requests.Ephemerals;
 using PushbulletSharp.Models.Responses;
@@ -1184,6 +1187,73 @@ namespace PushbulletSharp
         }
 
         #endregion Ephemerals
+
+
+        #region Web Socket Streaming
+
+        /// <summary>
+        /// Processes the stream response.
+        /// </summary>
+        /// <param name="response">The response.</param>
+        /// <returns></returns>
+        /// <exception cref="System.Exception">Response data is null or empty!</exception>
+        public Models.Responses.WebSocket.WebSocketResponse ProcessStreamResponse(string response)
+        {
+            #region pre-processing
+
+            if(string.IsNullOrEmpty(response))
+            {
+                throw new Exception("Response data is null or empty!");
+            }
+
+            #endregion pre-processing
+
+
+            #region processing
+
+            Models.Responses.WebSocket.WebSocketResponse result = new Models.Responses.WebSocket.WebSocketResponse();
+
+            var parsed = JObject.Parse(response);
+
+            result.Subtype = parsed.SelectToken("subtype").Value<string>();
+            result.Type = parsed.SelectToken("type").Value<string>();
+
+            string push = parsed.SelectToken("push").ToString();
+
+            var basicResponse = JsonConvert.DeserializeObject<Models.Responses.WebSocket.WebSocketPushResponse>(push);
+
+            if(basicResponse.Encrypted)
+            {
+                EncryptedEphemeralMessage encryptedMessage = JsonConvert.DeserializeObject<EncryptedEphemeralMessage>(push);
+
+                if (string.IsNullOrWhiteSpace(EncryptionKey))
+                {
+                    result.Push = encryptedMessage;
+                }
+                else
+                {
+                    string decryptedMessage = Encryption.EncryptionUtility.DecryptMessage(encryptedMessage.CipherText, EncryptionKey);
+                    var genericType = JsonConvert.DeserializeObject<Models.Responses.WebSocket.GenericPushTypeResponse>(decryptedMessage);
+
+                    switch(genericType.Type)
+                    {
+                        
+                        default:
+                            break;
+                    }
+                }
+            }
+            else
+            {
+
+            }
+
+            return result;
+
+            #endregion processing
+        }
+
+        #endregion Web Socket Streaming
 
         #endregion public methods
 
