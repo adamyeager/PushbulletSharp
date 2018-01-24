@@ -38,23 +38,10 @@
         }
 
 
-        public class PushAddressErrorMessages
-        {
-            public const string EmptyNameProperty = "The name property for the address request is empty. Please provide a name.";
-            public const string EmptyAddressProperty = "The address property for the address request is empty. Please provide a name.";
-        }
-
-
         public class PushLinkErrorMessages
         {
             public const string EmptyTitleProperty = "The title property for the link request is empty. Please provide a title.";
             public const string EmptyUrlProperty = "The url property for the link request is empty. Please provide a url.";
-        }
-
-
-        public class PushListErrorMessages
-        {
-            public const string EmptyTitleProperty = "The title property for the list request is empty. Please provide a title.";
         }
 
 
@@ -130,8 +117,6 @@
         {
             public const string Note = "note";
             public const string Link = "link";
-            public const string Address = "address";
-            public const string List = "list";
             public const string File = "file";
         }
 

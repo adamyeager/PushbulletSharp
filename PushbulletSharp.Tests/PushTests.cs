@@ -5,7 +5,6 @@ using PushbulletSharp.Models.Responses;
 using System;
 using System.IO;
 using System.Linq;
-using PushbulletSharp;
 using System.Threading;
 
 namespace PushbulletSharp.Tests
@@ -118,71 +117,6 @@ namespace PushbulletSharp.Tests
                 };
 
                 var response = Client.PushNote(reqeust);
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail(ex.Message);
-            }
-        }
-
-
-        /// <summary>
-        /// Pushbullets the push list test.
-        /// </summary>
-        [TestMethod]
-        public void PushbulletPushListTest()
-        {
-            try
-            {
-                var devices = Client.CurrentUsersDevices();
-                Assert.IsNotNull(devices);
-
-                var device = devices.Devices.Where(o => o.Nickname == "aPhone6").FirstOrDefault();
-                Assert.IsNotNull(device, "Could not find the device specified.");
-
-                PushListRequest reqeust = new PushListRequest()
-                {
-                    DeviceIden = device.Iden,
-                    Title = "Shopping List"
-                };
-
-                reqeust.Items.Add("Milk");
-                reqeust.Items.Add("Bread");
-                reqeust.Items.Add("Chicken");
-
-                var response = Client.PushList(reqeust);
-
-                Assert.IsNotNull(response);
-            }
-            catch (Exception ex)
-            {
-                Assert.Fail(ex.Message);
-            }
-        }
-
-
-        /// <summary>
-        /// Pushbullets the push address test.
-        /// </summary>
-        [TestMethod]
-        public void PushbulletPushAddressTest()
-        {
-            try
-            {
-                var devices = Client.CurrentUsersDevices();
-                Assert.IsNotNull(devices);
-
-                var device = devices.Devices.Where(o => o.Nickname == "aPhone6").FirstOrDefault();
-                Assert.IsNotNull(device, "Could not find the device specified.");
-
-                PushAddressRequest reqeust = new PushAddressRequest()
-                {
-                    DeviceIden = device.Iden,
-                    Name = "Apple Incorporated",
-                    Address = "1 Infinite Loop, Cupertino, CA 95014"
-                };
-
-                var response = Client.PushAddress(reqeust);
             }
             catch (Exception ex)
             {

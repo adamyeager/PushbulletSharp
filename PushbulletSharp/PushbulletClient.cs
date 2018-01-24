@@ -691,60 +691,6 @@ namespace PushbulletSharp
 
 
         /// <summary>
-        /// Pushes the address.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        /// <param name="ignoreEmptyFields">if set to <c>true</c> [ignore empty fields].</param>
-        /// <returns></returns>
-        /// <exception cref="System.ArgumentNullException">address request</exception>
-        /// <exception cref="System.Exception">
-        /// </exception>
-        public PushResponse PushAddress(PushAddressRequest request, bool ignoreEmptyFields = false)
-        {
-            try
-            {
-                #region pre-processing
-
-                if (request == null)
-                {
-                    throw new ArgumentNullException("address request");
-                }
-
-                if (string.IsNullOrWhiteSpace(request.Type))
-                {
-                    throw new Exception(PushbulletConstants.PushRequestErrorMessages.EmptyTypeProperty);
-                }
-
-                if (!ignoreEmptyFields)
-                {
-                    if (string.IsNullOrWhiteSpace(request.Name))
-                    {
-                        throw new Exception(PushbulletConstants.PushAddressErrorMessages.EmptyNameProperty);
-                    }
-
-                    if (string.IsNullOrWhiteSpace(request.Address))
-                    {
-                        throw new Exception(PushbulletConstants.PushAddressErrorMessages.EmptyAddressProperty);
-                    }
-                }
-
-                #endregion pre-processing
-
-
-                #region processing
-
-                return PostPushRequest<PushAddressRequest>(request);
-
-                #endregion processing
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-
-        /// <summary>
         /// Pushes the link.
         /// </summary>
         /// <param name="request">The request.</param>
@@ -790,55 +736,6 @@ namespace PushbulletSharp
                 #region processing
 
                 return PostPushRequest<PushLinkRequest>(request);
-
-                #endregion processing
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-
-        /// <summary>
-        /// Pushes the list.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        /// <param name="ignoreEmptyFields">if set to <c>true</c> [ignore empty fields].</param>
-        /// <returns></returns>
-        /// <exception cref="System.ArgumentNullException">list request</exception>
-        /// <exception cref="System.Exception">
-        /// </exception>
-        public PushResponse PushList(PushListRequest request, bool ignoreEmptyFields = false)
-        {
-            try
-            {
-                #region pre-processing
-
-                if (request == null)
-                {
-                    throw new ArgumentNullException("list request");
-                }
-
-                if (string.IsNullOrWhiteSpace(request.Type))
-                {
-                    throw new Exception(PushbulletConstants.PushRequestErrorMessages.EmptyTypeProperty);
-                }
-
-                if (!ignoreEmptyFields)
-                {
-                    if (string.IsNullOrWhiteSpace(request.Title))
-                    {
-                        throw new Exception(PushbulletConstants.PushListErrorMessages.EmptyTitleProperty);
-                    }
-                }
-
-                #endregion pre-processing
-
-
-                #region processing
-
-                return PostPushRequest<PushListRequest>(request);
 
                 #endregion processing
             }
@@ -1482,11 +1379,6 @@ namespace PushbulletSharp
             response.FileUrl = basicResponse.FileUrl;
             response.ImageUrl = basicResponse.ImageUrl;
             response.Name = basicResponse.Name;
-            response.Address = basicResponse.Address;
-            if(basicResponse.Items != null)
-            {
-                response.Items = basicResponse.Items.Select(o => new ListItem() { Checked = o.Checked, Text = o.Text }).ToList();
-            }
             return response;
         }
 
@@ -1537,14 +1429,10 @@ namespace PushbulletSharp
         {
             switch(type)
             {
-                case PushbulletConstants.TypeConstants.Address:
-                    return PushResponseType.Address;
                 case PushbulletConstants.TypeConstants.File:
                     return PushResponseType.File;
                 case PushbulletConstants.TypeConstants.Link:
                     return PushResponseType.Link;
-                case PushbulletConstants.TypeConstants.List:
-                    return PushResponseType.List;
                 case PushbulletConstants.TypeConstants.Note:
                 default:
                     return PushResponseType.Note;

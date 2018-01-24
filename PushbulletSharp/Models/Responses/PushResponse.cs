@@ -212,33 +212,15 @@ namespace PushbulletSharp.Models.Responses
         /// The name.
         /// </value>
         public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or sets the address.
-        /// </summary>
-        /// <value>
-        /// The address.
-        /// </value>
-        public string Address { get; set; }
-
-        /// <summary>
-        /// Gets or sets the items.
-        /// </summary>
-        /// <value>
-        /// The items.
-        /// </value>
-        public List<ListItem> Items { get; set; }
     }
 
     /// <summary>
-    /// Push Response Types (Note, Link, Address, List, File, etc)
+    /// Push Response Types (Note, Link, Address, File, etc)
     /// </summary>
     public enum PushResponseType
     {
         Note,
         Link,
-        Address,
-        List,
         File
     }
 }

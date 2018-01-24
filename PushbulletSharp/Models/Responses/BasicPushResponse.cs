@@ -240,15 +240,6 @@ namespace PushbulletSharp.Models.Responses
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets the address.
-        /// </summary>
-        /// <value>
-        /// The address.
-        /// </value>
-        [DataMember(Name = "address")]
-        public string Address { get; set; }
-
-        /// <summary>
         /// Gets or sets the items.
         /// </summary>
         /// <value>

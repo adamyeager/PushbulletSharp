@@ -55,10 +55,8 @@
     <Compile Include="Models\Requests\Ephemerals\StringEphemeralRequest.cs" />
     <Compile Include="Models\Requests\Ephemerals\UniversalCopyPasteEphemeral.cs" />
     <Compile Include="Models\Requests\OAuthTokenRequest.cs" />
-    <Compile Include="Models\Requests\PushAddressRequest.cs" />
     <Compile Include="Models\Requests\PushFileRequest.cs" />
     <Compile Include="Models\Requests\PushLinkRequest.cs" />
-    <Compile Include="Models\Requests\PushListRequest.cs" />
     <Compile Include="Models\Requests\PushNoteRequest.cs" />
     <Compile Include="Models\Requests\PushRequestBase.cs" />
     <Compile Include="Models\Requests\UpdateChatRequest.cs" />
@@ -81,7 +79,6 @@
     <Compile Include="Models\Responses\Device.cs" />
     <Compile Include="Models\Responses\FileUploadResponse.cs" />
     <Compile Include="Models\Responses\GoogleUserInfo.cs" />
-    <Compile Include="Models\Responses\ListItem.cs" />
     <Compile Include="Models\Responses\OAuthTokenResponse.cs" />
     <Compile Include="Models\Responses\PushResponse.cs" />
     <Compile Include="Models\Responses\PushResponseContainer.cs" />

@@ -1,7 +1,5 @@
-﻿using System.Resources;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
+﻿using System.Reflection;
+using System.Resources;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -11,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("Release")]
 [assembly: AssemblyCompany("Adam Yeager")]
 [assembly: AssemblyProduct("PushbulletSharp")]
-[assembly: AssemblyCopyright("Copyright ©  2016 Adam Yeager")]
+[assembly: AssemblyCopyright("Copyright ©  2018 Adam Yeager")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: NeutralResourcesLanguage("en")]

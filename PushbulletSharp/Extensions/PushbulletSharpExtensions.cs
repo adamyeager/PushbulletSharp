@@ -2,7 +2,6 @@
 using System;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization.Json;
 using System.Text;
 
@@ -118,11 +117,6 @@ namespace PushbulletSharp
             response.FileUrl = basicResponse.FileUrl;
             response.ImageUrl = basicResponse.ImageUrl;
             response.Name = basicResponse.Name;
-            response.Address = basicResponse.Address;
-            if (basicResponse.Items != null)
-            {
-                response.Items = basicResponse.Items.Select(o => new ListItem() { Checked = o.Checked, Text = o.Text }).ToList();
-            }
             return response;
         }
 
@@ -136,14 +130,10 @@ namespace PushbulletSharp
         {
             switch (type)
             {
-                case PushbulletConstants.TypeConstants.Address:
-                    return PushResponseType.Address;
                 case PushbulletConstants.TypeConstants.File:
                     return PushResponseType.File;
                 case PushbulletConstants.TypeConstants.Link:
                     return PushResponseType.Link;
-                case PushbulletConstants.TypeConstants.List:
-                    return PushResponseType.List;
                 case PushbulletConstants.TypeConstants.Note:
                 default:
                     return PushResponseType.Note;
