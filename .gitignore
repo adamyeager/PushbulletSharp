@@ -179,3 +179,4 @@ FakesAssemblies/
 PushbulletSharp.PrivateTests/
 PushbulletSharp.PrivateWebSocketConsole/
 PushbulletSharpPrivate.sln
+.vs/PushbulletSharpPrivate/
