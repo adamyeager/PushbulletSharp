@@ -633,6 +633,27 @@ namespace PushbulletSharp
 
         #endregion Channels Methods
 
+        #region Devices
+
+        /// <summary>
+        /// Create a new device
+        /// </summary>
+        /// <param name="device"></param>
+        /// <returns>the device object after processing by Pushbullet</returns>
+        public Device CreateDevice(Device device)
+        {
+            try
+            {
+                var result = PostRequest<Device>(string.Concat(PushbulletConstants.BaseUrl, PushbulletConstants.DevicesUrls.Me), device);
+                return result;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        #endregion
 
         #region Push Methods
 
